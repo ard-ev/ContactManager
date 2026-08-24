@@ -14,7 +14,7 @@ namespace ContactManager.Models
         public string mobilNummer { get; set; } = string.Empty;
         public string geschäftsNummer { get; set; } = string.Empty;
         public string email { get; set; } = string.Empty;
-        public status Status { get; set; }
+        public Status Status { get; set; }
 
     }
 }
