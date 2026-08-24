@@ -35,16 +35,6 @@
             btnCustomer = new Button();
             btnDashboard = new Button();
             pnlContent = new Panel();
-            pnlEmployee = new Panel();
-            dgvEmployees = new DataGridView();
-            btnEmployeeDelete = new Button();
-            btnEmployeeEdit = new Button();
-            btnEmployeeAdd = new Button();
-            btnEmployeeSearch = new Button();
-            txtEmployeSearch = new TextBox();
-            lblEmployeeSearch = new Label();
-            lblEmployeeSubtitle = new Label();
-            lblEmployeeTitle = new Label();
             pnlCustomer = new Panel();
             dgvCustomers = new DataGridView();
             btnCustomerDelete = new Button();
@@ -55,6 +45,16 @@
             txtCustomerSearch = new TextBox();
             lblCustomerSubtitle = new Label();
             lblCustomerTitle = new Label();
+            pnlEmployee = new Panel();
+            dgvEmployees = new DataGridView();
+            btnEmployeeDelete = new Button();
+            btnEmployeeEdit = new Button();
+            btnEmployeeAdd = new Button();
+            btnEmployeeSearch = new Button();
+            txtEmployeSearch = new TextBox();
+            lblEmployeeSearch = new Label();
+            lblEmployeeSubtitle = new Label();
+            lblEmployeeTitle = new Label();
             pnlDashboard = new Panel();
             dgvRecentMutations = new DataGridView();
             lblRecentMutations = new Label();
@@ -73,10 +73,10 @@
             lblDashboardTitle = new Label();
             pnlHeader.SuspendLayout();
             pnlContent.SuspendLayout();
-            pnlEmployee.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvEmployees).BeginInit();
             pnlCustomer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
+            pnlEmployee.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEmployees).BeginInit();
             pnlDashboard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecentMutations).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvRecentContacts).BeginInit();
@@ -119,10 +119,9 @@
             // 
             // btnEmployee
             // 
-            btnEmployee.Location = new Point(865, 31);
-            btnEmployee.Margin = new Padding(3, 4, 3, 4);
+            btnEmployee.Location = new Point(747, 19);
             btnEmployee.Name = "btnEmployee";
-            btnEmployee.Size = new Size(198, 31);
+            btnEmployee.Size = new Size(173, 30);
             btnEmployee.TabIndex = 2;
             btnEmployee.Text = "Mitarbeiter";
             btnEmployee.UseVisualStyleBackColor = true;
@@ -130,10 +129,9 @@
             // 
             // btnCustomer
             // 
-            btnCustomer.Location = new Point(629, 31);
-            btnCustomer.Margin = new Padding(3, 4, 3, 4);
+            btnCustomer.Location = new Point(540, 19);
             btnCustomer.Name = "btnCustomer";
-            btnCustomer.Size = new Size(198, 31);
+            btnCustomer.Size = new Size(173, 30);
             btnCustomer.TabIndex = 1;
             btnCustomer.Text = "Kunden";
             btnCustomer.UseVisualStyleBackColor = true;
@@ -141,10 +139,9 @@
             // 
             // btnDashboard
             // 
-            btnDashboard.Location = new Point(392, 31);
-            btnDashboard.Margin = new Padding(3, 4, 3, 4);
+            btnDashboard.Location = new Point(333, 19);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Size = new Size(198, 31);
+            btnDashboard.Size = new Size(173, 30);
             btnDashboard.TabIndex = 0;
             btnDashboard.Text = "Übersicht";
             btnDashboard.UseVisualStyleBackColor = true;
@@ -158,6 +155,110 @@
             pnlContent.Name = "pnlContent";
             pnlContent.Size = new Size(1251, 827);
             pnlContent.TabIndex = 1;
+            // 
+            // pnlCustomer
+            // 
+            pnlCustomer.Controls.Add(dgvCustomers);
+            pnlCustomer.Controls.Add(btnCustomerDelete);
+            pnlCustomer.Controls.Add(btnCustomerEdit);
+            pnlCustomer.Controls.Add(btnCustomerAdd);
+            pnlCustomer.Controls.Add(btnCustomerSearch);
+            pnlCustomer.Controls.Add(lblCustomerSearch);
+            pnlCustomer.Controls.Add(txtCustomerSearch);
+            pnlCustomer.Controls.Add(lblCustomerSubtitle);
+            pnlCustomer.Controls.Add(lblCustomerTitle);
+            pnlCustomer.Dock = DockStyle.Fill;
+            pnlCustomer.Location = new Point(0, 0);
+            pnlCustomer.Name = "pnlCustomer";
+            pnlCustomer.Size = new Size(1095, 620);
+            pnlCustomer.TabIndex = 2;
+            // 
+            // dgvCustomers
+            // 
+            dgvCustomers.AllowUserToAddRows = false;
+            dgvCustomers.AllowUserToDeleteRows = false;
+            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCustomers.Location = new Point(12, 130);
+            dgvCustomers.MultiSelect = false;
+            dgvCustomers.Name = "dgvCustomers";
+            dgvCustomers.ReadOnly = true;
+            dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCustomers.Size = new Size(1072, 485);
+            dgvCustomers.TabIndex = 8;
+            // 
+            // btnCustomerDelete
+            // 
+            btnCustomerDelete.Location = new Point(756, 73);
+            btnCustomerDelete.Name = "btnCustomerDelete";
+            btnCustomerDelete.Size = new Size(111, 23);
+            btnCustomerDelete.TabIndex = 7;
+            btnCustomerDelete.Text = "Löschen";
+            btnCustomerDelete.UseVisualStyleBackColor = true;
+            // 
+            // btnCustomerEdit
+            // 
+            btnCustomerEdit.Location = new Point(642, 73);
+            btnCustomerEdit.Name = "btnCustomerEdit";
+            btnCustomerEdit.Size = new Size(111, 23);
+            btnCustomerEdit.TabIndex = 6;
+            btnCustomerEdit.Text = "Bearbeiten";
+            btnCustomerEdit.UseVisualStyleBackColor = true;
+            // 
+            // btnCustomerAdd
+            // 
+            btnCustomerAdd.Location = new Point(526, 73);
+            btnCustomerAdd.Name = "btnCustomerAdd";
+            btnCustomerAdd.Size = new Size(111, 23);
+            btnCustomerAdd.TabIndex = 5;
+            btnCustomerAdd.Text = "Neuer Kunde";
+            btnCustomerAdd.UseVisualStyleBackColor = true;
+            btnCustomerAdd.Click += btnCustomerAdd_Click;
+            // 
+            // btnCustomerSearch
+            // 
+            btnCustomerSearch.Location = new Point(378, 73);
+            btnCustomerSearch.Name = "btnCustomerSearch";
+            btnCustomerSearch.Size = new Size(75, 23);
+            btnCustomerSearch.TabIndex = 4;
+            btnCustomerSearch.Text = "Suchen";
+            btnCustomerSearch.UseVisualStyleBackColor = true;
+            // 
+            // lblCustomerSearch
+            // 
+            lblCustomerSearch.AutoSize = true;
+            lblCustomerSearch.Location = new Point(22, 77);
+            lblCustomerSearch.Name = "lblCustomerSearch";
+            lblCustomerSearch.Size = new Size(92, 15);
+            lblCustomerSearch.TabIndex = 3;
+            lblCustomerSearch.Text = "Kunden suchen:";
+            // 
+            // txtCustomerSearch
+            // 
+            txtCustomerSearch.Location = new Point(137, 73);
+            txtCustomerSearch.Name = "txtCustomerSearch";
+            txtCustomerSearch.Size = new Size(235, 23);
+            txtCustomerSearch.TabIndex = 2;
+            // 
+            // lblCustomerSubtitle
+            // 
+            lblCustomerSubtitle.AutoSize = true;
+            lblCustomerSubtitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCustomerSubtitle.Location = new Point(133, 27);
+            lblCustomerSubtitle.Name = "lblCustomerSubtitle";
+            lblCustomerSubtitle.Size = new Size(204, 17);
+            lblCustomerSubtitle.TabIndex = 1;
+            lblCustomerSubtitle.Text = "Kunden verwalten und bearbeiten";
+            // 
+            // lblCustomerTitle
+            // 
+            lblCustomerTitle.AutoSize = true;
+            lblCustomerTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblCustomerTitle.Location = new Point(12, 11);
+            lblCustomerTitle.Name = "lblCustomerTitle";
+            lblCustomerTitle.Size = new Size(115, 37);
+            lblCustomerTitle.TabIndex = 0;
+            lblCustomerTitle.Text = "Kunden";
             // 
             // pnlEmployee
             // 
@@ -262,110 +363,6 @@
             lblEmployeeTitle.Size = new Size(165, 37);
             lblEmployeeTitle.TabIndex = 0;
             lblEmployeeTitle.Text = "Mitarbeiter";
-            // 
-            // pnlCustomer
-            // 
-            pnlCustomer.Controls.Add(dgvCustomers);
-            pnlCustomer.Controls.Add(btnCustomerDelete);
-            pnlCustomer.Controls.Add(btnCustomerEdit);
-            pnlCustomer.Controls.Add(btnCustomerAdd);
-            pnlCustomer.Controls.Add(btnCustomerSearch);
-            pnlCustomer.Controls.Add(lblCustomerSearch);
-            pnlCustomer.Controls.Add(txtCustomerSearch);
-            pnlCustomer.Controls.Add(lblCustomerSubtitle);
-            pnlCustomer.Controls.Add(lblCustomerTitle);
-            pnlCustomer.Dock = DockStyle.Fill;
-            pnlCustomer.Location = new Point(0, 0);
-            pnlCustomer.Name = "pnlCustomer";
-            pnlCustomer.Size = new Size(1095, 620);
-            pnlCustomer.TabIndex = 2;
-            // 
-            // dgvCustomers
-            // 
-            dgvCustomers.AllowUserToAddRows = false;
-            dgvCustomers.AllowUserToDeleteRows = false;
-            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomers.Location = new Point(12, 130);
-            dgvCustomers.MultiSelect = false;
-            dgvCustomers.Name = "dgvCustomers";
-            dgvCustomers.ReadOnly = true;
-            dgvCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCustomers.Size = new Size(1072, 485);
-            dgvCustomers.TabIndex = 8;
-            // 
-            // btnCustomerDelete
-            // 
-            btnCustomerDelete.Location = new Point(756, 73);
-            btnCustomerDelete.Name = "btnCustomerDelete";
-            btnCustomerDelete.Size = new Size(111, 23);
-            btnCustomerDelete.TabIndex = 7;
-            btnCustomerDelete.Text = "Löschen";
-            btnCustomerDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnCustomerEdit
-            // 
-            btnCustomerEdit.Location = new Point(642, 73);
-            btnCustomerEdit.Name = "btnCustomerEdit";
-            btnCustomerEdit.Size = new Size(111, 23);
-            btnCustomerEdit.TabIndex = 6;
-            btnCustomerEdit.Text = "Bearbeiten";
-            btnCustomerEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnCustomerAdd
-            // 
-            btnCustomerAdd.Location = new Point(526, 73);
-            btnCustomerAdd.Name = "btnCustomerAdd";
-            btnCustomerAdd.Size = new Size(111, 23);
-            btnCustomerAdd.TabIndex = 5;
-            btnCustomerAdd.Text = "Neuer Kunde";
-            btnCustomerAdd.UseVisualStyleBackColor = true;
-            btnCustomerAdd.Click += btnCustomerAdd_Click;
-            // 
-            // btnCustomerSearch
-            // 
-            btnCustomerSearch.Location = new Point(378, 73);
-            btnCustomerSearch.Name = "btnCustomerSearch";
-            btnCustomerSearch.Size = new Size(111, 23);
-            btnCustomerSearch.TabIndex = 4;
-            btnCustomerSearch.Text = "Suchen";
-            btnCustomerSearch.UseVisualStyleBackColor = true;
-            // 
-            // lblCustomerSearch
-            // 
-            lblCustomerSearch.AutoSize = true;
-            lblCustomerSearch.Location = new Point(22, 77);
-            lblCustomerSearch.Name = "lblCustomerSearch";
-            lblCustomerSearch.Size = new Size(92, 15);
-            lblCustomerSearch.TabIndex = 3;
-            lblCustomerSearch.Text = "Kunden suchen:";
-            // 
-            // txtCustomerSearch
-            // 
-            txtCustomerSearch.Location = new Point(137, 73);
-            txtCustomerSearch.Name = "txtCustomerSearch";
-            txtCustomerSearch.Size = new Size(235, 23);
-            txtCustomerSearch.TabIndex = 2;
-            // 
-            // lblCustomerSubtitle
-            // 
-            lblCustomerSubtitle.AutoSize = true;
-            lblCustomerSubtitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCustomerSubtitle.Location = new Point(133, 27);
-            lblCustomerSubtitle.Name = "lblCustomerSubtitle";
-            lblCustomerSubtitle.Size = new Size(204, 17);
-            lblCustomerSubtitle.TabIndex = 1;
-            lblCustomerSubtitle.Text = "Kunden verwalten und bearbeiten";
-            // 
-            // lblCustomerTitle
-            // 
-            lblCustomerTitle.AutoSize = true;
-            lblCustomerTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblCustomerTitle.Location = new Point(12, 11);
-            lblCustomerTitle.Name = "lblCustomerTitle";
-            lblCustomerTitle.Size = new Size(115, 37);
-            lblCustomerTitle.TabIndex = 0;
-            lblCustomerTitle.Text = "Kunden";
             // 
             // pnlDashboard
             // 
@@ -578,12 +575,12 @@
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlContent.ResumeLayout(false);
-            pnlEmployee.ResumeLayout(false);
-            pnlEmployee.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvEmployees).EndInit();
             pnlCustomer.ResumeLayout(false);
             pnlCustomer.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
+            pnlEmployee.ResumeLayout(false);
+            pnlEmployee.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvEmployees).EndInit();
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecentMutations).EndInit();
