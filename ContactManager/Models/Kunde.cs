@@ -5,11 +5,22 @@ using ContactManager.Enums;
 
 namespace ContactManager.Models
 {
+
+    /// <summary>
+    /// Repräsentiert einen Kunden. Erbt die allgemeinen Personendaten von Person
+    /// und ergänzt kundenspezifische Felder sowie die Kontakthistorie.
+    /// </summary>
     public class Kunde : Person
     {
-        public Anrede anrede { get; set; }
+        public Anrede Anrede { get; set; }
         public string Titel { get; set; } = string.Empty;
 
-        public List<Kundenkontakt> Contacts { get; set; } = new();
+
+        /// <summary>
+        /// Chronologische Liste aller Kontaktaufnahmen mit diesem Kunden.
+        /// Wird nie überschrieben, nur ergänzt - so bleibt die Historie
+        /// vollständig nachvollziehbar (siehe Anforderung "Protokollierung inkl. Historie").
+        /// </summary>
+        public List<Kundenkontakt> Kontakte { get; set; } = new();
     }
 }

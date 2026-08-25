@@ -5,16 +5,29 @@ using ContactManager.Enums;
 
 namespace ContactManager.Models
 {
+    /// <summary>
+    /// Abstrakte Basisklasse für alle Personen im System (Kunden und Mitarbeiter).
+    /// Enthält alle Felder, die für beide Rollen gleich sind.
+    /// Kann nicht direkt instanziiert werden - nur über Kunde oder Mitarbeiter.
+    /// </summary>
     public abstract class Person
     {
-        public string vorname { get; set; } = string.Empty;
-        public string nachname { get; set; } = string.Empty;
-        public DateTime geburtsdatum { get; set; }
-        public Geschlecht geschlecht { get; set; }
-        public string mobilNummer { get; set; } = string.Empty;
-        public string geschäftsNummer { get; set; } = string.Empty;
-        public string email { get; set; } = string.Empty;
+        public string Vorname { get; set; } = string.Empty;
+        public string Nachname { get; set; } = string.Empty;
+        public DateTime Geburtsdatum { get; set; }
+        public Geschlecht Geschlecht { get; set; }
+        public string MobilNummer { get; set; } = string.Empty;
+        public string GeschäftsNummer { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Aktiv/Inaktiv-Status. Wird für "Deaktivieren statt Löschen verwendet,
+        /// damit historie und Referenzen erhalten bleiben.
+        /// </summary>
         public Status Status { get; set; }
+
+        //Praktisch, für spätere anzeige in Listboxen, Comboboxen etc.
+        public override string ToString() => $"{Vorname} {Nachname} ({Status})";
 
     }
 }
