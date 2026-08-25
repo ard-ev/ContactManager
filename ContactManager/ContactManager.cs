@@ -5,6 +5,8 @@ namespace ContactManager
         public ContactManager()
         {
             InitializeComponent();
+            pnlDashboard.BringToFront();
+            SetActiveNAvigationButton(btnDashboard);
         }
 
 
@@ -27,7 +29,7 @@ namespace ContactManager
         //Event für Panel Kunden aufzeigen
         private void btnCustomer_Click(object sender, EventArgs e)
         {
-            pnlCustomer.BringToFront();
+            pnlCustomers.BringToFront();
             SetActiveNAvigationButton(btnCustomer);
         }
 
@@ -49,7 +51,8 @@ namespace ContactManager
 
 
         //Event für Maske öffnen (Kunde erstellen)
-        private void btnCustomerAdd_Click(object sender, EventArgs e)
+
+        private void btnCustomerAdd_Click_1(object sender, EventArgs e)
         {
             KundenForm kundenForm = new KundenForm();
             kundenForm.ShowDialog();
