@@ -4,15 +4,15 @@ using ContactManager.Models;
 namespace ContactManager.Data
 {
     /// <summary>
-    /// Hält den gesamten Datenstamm der Anwendung im Speicher.
-    /// Wird als Ganzes serialisiert und wieder geladen.
+    /// Hier liegen alle unsere Daten drin, während das Programm läuft.
+    /// Genau dieses Objekt schreiben wir später in eine Datei und lesen es wieder ein.
     /// </summary>
     public class DataStore
     {
-        /// <summary>Alle erfassten Kunden.</summary>
+        /// <summary>Liste mit allen Kunden.</summary>
         public List<Kunde> Kunden { get; set; } = new();
 
-        /// <summary>Alle erfassten Mitarbeiter.</summary>
+        /// <summary>Liste mit allen Mitarbeitern.</summary>
         public List<Mitarbeiter> Mitarbeiter { get; set; } = new();
     }
 }
