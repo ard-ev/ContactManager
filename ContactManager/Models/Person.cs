@@ -7,7 +7,7 @@ namespace ContactManager.Models
 {
     public abstract class Person
     {
-        public string vorname { get; set; } = string.Empty;
+        public string Vorname { get; set; } = string.Empty;
         public string nachname { get; set; } = string.Empty;
         public DateTime geburtsdatum { get; set; }
         public Geschlecht geschlecht { get; set; }
