@@ -7,22 +7,22 @@ namespace ContactManager.Models
 {
     public class Mitarbeiter : Person
     {
-        public int mitarbeiterNummer { get; set; }
-        public string abteilung { get; set; } = string.Empty;
-        public string ahvNummer { get; set; } = string.Empty;
-        public string wohnort { get; set; } = string.Empty;
-        public string nationalität { get; set; } = string.Empty;
-        public string adresse { get; set; } = string.Empty;
-        public string plz { get; set; } = string.Empty;
-        public DateTime einstellungsDatum { get; set; }
+        public int MitarbeiterNummer { get; set; }
+        public string Abteilung { get; set; } = string.Empty;
+        public string AhvNummer { get; set; } = string.Empty;
+        public string Wohnort { get; set; } = string.Empty;
+        public string Nationalität { get; set; } = string.Empty;
+        public string Adresse { get; set; } = string.Empty;
+        public string Plz { get; set; } = string.Empty;
+        public DateTime EinstellungsDatum { get; set; }
         // Kündigungsdatum ist nicht immer bekannt, daher ist es nullable
-        public DateTime? kündigungsDatum { get; set; }
-        public decimal pensum { get; set; }
-        public string rolle { get; set; } = string.Empty;
-        public ManagementLevel managementLevel { get; set; }
-        public int lehrjahre { get; set; }
-        public int? aktuellesLehrjahr { get; set; }
-        public string buisnessAdresse { get; set; } = string.Empty;
+        public DateTime? KündigungsDatum { get; set; }
+        public decimal Pensum { get; set; }
+        public string Rolle { get; set; } = string.Empty;
+        public ManagementLevel ManagementLevel { get; set; }
+        public int Lehrjahre { get; set; }
+        public int? AktuellesLehrjahr { get; set; }
+        public string BusinessAdresse { get; set; } = string.Empty;
 
 
 
