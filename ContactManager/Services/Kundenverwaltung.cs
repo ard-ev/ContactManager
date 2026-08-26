@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
+using ContactManager.Data;
 using ContactManager.Models;
 
 namespace ContactManager.Services
 {
     /// <summary>
-    /// Verwaltet die Liste aller Kunden: Erfassen, Bearbeiten, Löschen,
+    /// Verwaltet Kunden: Erfassen, Bearbeiten, Löschen, (De)Aktivieren, Suchen.
     /// (De)Aktivieren, Suchen sowie Speichern/Laden auf Festplatte als JSON.
     /// Die GUI (KundenForm) ruft ausschliesslich diese Klasse auf und
     /// enthält selbst keine Geschäftslogik.
