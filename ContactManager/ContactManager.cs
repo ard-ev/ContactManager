@@ -5,11 +5,11 @@ namespace ContactManager
         public ContactManager()
         {
             InitializeComponent();
-            pnlDashboard.BringToFront();
-            SetActiveNAvigationButton(btnDashboard);
+            pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
+            SetActiveNAvigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
         }
 
-
+        // Methode zum Setzen des aktiven Navigationsbuttons
         private void SetActiveNAvigationButton(Button activeButton)
         {
             btnDashboard.BackColor = Color.White;

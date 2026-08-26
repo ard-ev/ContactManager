@@ -20,5 +20,40 @@
             base.Dispose(disposing);
         }
 
+        private Panel pnlKundenHeader;
+        private Label lblKundenHeaderTitle;
+        private TableLayoutPanel tpnlKundenContent;
+        private Label lblKundenContentTitle1;
+        private Label label3;
+        private Label lblKundeHeaderSubtitle;
+        private Label label4;
+        private Label label5;
+        private Label lblKundenContentGeburtsdatum;
+        private Label lblKundenContentGeschlecht;
+        private Label lblKundenContentTitleKD;
+        private Label lblKundenContentTel;
+        private Label lblKundenContentMobil;
+        private Label lblKundenContentMail;
+        private Panel pnlKundenFooter;
+        private Label lblKundenContentAnrede;
+        private Label lblKundenContentTitel;
+        private Label label13;
+        private Label lblKundenContentNachname;
+        private Label lblKundenContentStatus;
+        private TextBox txtKundeVorname;
+        private TextBox txtKundenNachname;
+        private TextBox textBox3;
+        private TextBox txtKundeMobil;
+        private TextBox txtKundeMail;
+        private Label lblKundenContentVorname;
+        private TextBox txtKundeTel;
+        private Button btnKundenFooterSpeichern;
+        private Button btnKundenFooterAbbrechen;
+        private RadioButton rdbKundenContentActive;
+        private RadioButton rdbKundenContentInactive;
+        private ComboBox cmbKundenContentAnrede;
+        private ComboBox cmbKundenContentTitel;
+        private ComboBox cmbKundenContentGeschlecht;
+        private DateTimePicker dtpKundenContentGeburtsdatum;
     }
 }
