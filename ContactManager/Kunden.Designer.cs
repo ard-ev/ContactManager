@@ -59,5 +59,6 @@
         private Label lblKundenRequiredNachname;
         private Label lblKundenRequiredMobil;
         private Label lblKundenRequiredMail;
+        private Label lblKundenRequiredStatus;
     }
 }

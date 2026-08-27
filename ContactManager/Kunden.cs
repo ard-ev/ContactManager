@@ -26,6 +26,10 @@ namespace ContactManager
             cmbKundenContentGeschlecht.DataSource = Enum.GetValues(typeof(Enums.Geschlecht));
         }
 
+        /// <summary>
+        /// Überprüft, ob alle erforderlichen Felder ausgefüllt sind.
+        /// </summary>
+        /// <returns></returns>
         private bool RequiredFieldsFilled()
         {
             bool valid = true;
@@ -41,6 +45,9 @@ namespace ContactManager
 
             lblKundenRequiredMail.Visible =
                 string.IsNullOrWhiteSpace(txtKundeMail.Text);
+            lblKundenRequiredStatus.Visible =
+                !rdbKundenContentActive.Checked && 
+                !rdbKundenContentInactive.Checked;
 
             if (lblKundenRequiredVorname.Visible ||
                 lblKundenRequiredNachname.Visible ||
@@ -88,10 +95,11 @@ namespace ContactManager
             btnKundenFooterSpeichern = new Button();
             btnKundenFooterAbbrechen = new Button();
             pnlKundenContent = new Panel();
-            lblKundenRequiredVorname = new Label();
-            lblKundenRequiredNachname = new Label();
-            lblKundenRequiredMobil = new Label();
             lblKundenRequiredMail = new Label();
+            lblKundenRequiredMobil = new Label();
+            lblKundenRequiredNachname = new Label();
+            lblKundenRequiredVorname = new Label();
+            this.lblKundenRequiredStatus = new Label();
             pnlKundenHeader.SuspendLayout();
             pnlKundenFooter.SuspendLayout();
             pnlKundenContent.SuspendLayout();
@@ -338,7 +346,7 @@ namespace ContactManager
             // 
             // btnKundenFooterSpeichern
             // 
-            btnKundenFooterSpeichern.Location = new Point(687, 17);
+            btnKundenFooterSpeichern.Location = new Point(479, 17);
             btnKundenFooterSpeichern.Name = "btnKundenFooterSpeichern";
             btnKundenFooterSpeichern.Size = new Size(90, 23);
             btnKundenFooterSpeichern.TabIndex = 1;
@@ -348,7 +356,7 @@ namespace ContactManager
             // 
             // btnKundenFooterAbbrechen
             // 
-            btnKundenFooterAbbrechen.Location = new Point(591, 17);
+            btnKundenFooterAbbrechen.Location = new Point(373, 17);
             btnKundenFooterAbbrechen.Name = "btnKundenFooterAbbrechen";
             btnKundenFooterAbbrechen.Size = new Size(90, 23);
             btnKundenFooterAbbrechen.TabIndex = 0;
@@ -358,6 +366,7 @@ namespace ContactManager
             // 
             // pnlKundenContent
             // 
+            pnlKundenContent.Controls.Add(this.lblKundenRequiredStatus);
             pnlKundenContent.Controls.Add(lblKundenRequiredMail);
             pnlKundenContent.Controls.Add(lblKundenRequiredMobil);
             pnlKundenContent.Controls.Add(lblKundenRequiredNachname);
@@ -387,38 +396,8 @@ namespace ContactManager
             pnlKundenContent.Controls.Add(dtpKundenContentGeburtsdatum);
             pnlKundenContent.Location = new Point(91, 57);
             pnlKundenContent.Name = "pnlKundenContent";
-            pnlKundenContent.Size = new Size(633, 462);
+            pnlKundenContent.Size = new Size(410, 462);
             pnlKundenContent.TabIndex = 3;
-            // 
-            // lblKundenRequiredVorname
-            // 
-            lblKundenRequiredVorname.AutoSize = true;
-            lblKundenRequiredVorname.ForeColor = Color.Red;
-            lblKundenRequiredVorname.Location = new Point(154, 99);
-            lblKundenRequiredVorname.Name = "lblKundenRequiredVorname";
-            lblKundenRequiredVorname.Size = new Size(12, 15);
-            lblKundenRequiredVorname.TabIndex = 29;
-            lblKundenRequiredVorname.Text = "*";
-            // 
-            // lblKundenRequiredNachname
-            // 
-            lblKundenRequiredNachname.AutoSize = true;
-            lblKundenRequiredNachname.ForeColor = Color.Red;
-            lblKundenRequiredNachname.Location = new Point(379, 99);
-            lblKundenRequiredNachname.Name = "lblKundenRequiredNachname";
-            lblKundenRequiredNachname.Size = new Size(12, 15);
-            lblKundenRequiredNachname.TabIndex = 30;
-            lblKundenRequiredNachname.Text = "*";
-            // 
-            // lblKundenRequiredMobil
-            // 
-            lblKundenRequiredMobil.AutoSize = true;
-            lblKundenRequiredMobil.ForeColor = Color.Red;
-            lblKundenRequiredMobil.Location = new Point(379, 269);
-            lblKundenRequiredMobil.Name = "lblKundenRequiredMobil";
-            lblKundenRequiredMobil.Size = new Size(12, 15);
-            lblKundenRequiredMobil.TabIndex = 31;
-            lblKundenRequiredMobil.Text = "*";
             // 
             // lblKundenRequiredMail
             // 
@@ -430,9 +409,49 @@ namespace ContactManager
             lblKundenRequiredMail.TabIndex = 32;
             lblKundenRequiredMail.Text = "*";
             // 
+            // lblKundenRequiredMobil
+            // 
+            lblKundenRequiredMobil.AutoSize = true;
+            lblKundenRequiredMobil.ForeColor = Color.Red;
+            lblKundenRequiredMobil.Location = new Point(379, 269);
+            lblKundenRequiredMobil.Name = "lblKundenRequiredMobil";
+            lblKundenRequiredMobil.Size = new Size(12, 15);
+            lblKundenRequiredMobil.TabIndex = 31;
+            lblKundenRequiredMobil.Text = "*";
+            // 
+            // lblKundenRequiredNachname
+            // 
+            lblKundenRequiredNachname.AutoSize = true;
+            lblKundenRequiredNachname.ForeColor = Color.Red;
+            lblKundenRequiredNachname.Location = new Point(379, 99);
+            lblKundenRequiredNachname.Name = "lblKundenRequiredNachname";
+            lblKundenRequiredNachname.Size = new Size(12, 15);
+            lblKundenRequiredNachname.TabIndex = 30;
+            lblKundenRequiredNachname.Text = "*";
+            // 
+            // lblKundenRequiredVorname
+            // 
+            lblKundenRequiredVorname.AutoSize = true;
+            lblKundenRequiredVorname.ForeColor = Color.Red;
+            lblKundenRequiredVorname.Location = new Point(154, 99);
+            lblKundenRequiredVorname.Name = "lblKundenRequiredVorname";
+            lblKundenRequiredVorname.Size = new Size(12, 15);
+            lblKundenRequiredVorname.TabIndex = 29;
+            lblKundenRequiredVorname.Text = "*";
+            // 
+            // lblKundenRequiredStatus
+            // 
+            this.lblKundenRequiredStatus.AutoSize = true;
+            this.lblKundenRequiredStatus.ForeColor = Color.Red;
+            this.lblKundenRequiredStatus.Location = new Point(48, 361);
+            this.lblKundenRequiredStatus.Name = "lblKundenRequiredStatus";
+            this.lblKundenRequiredStatus.Size = new Size(12, 15);
+            this.lblKundenRequiredStatus.TabIndex = 33;
+            this.lblKundenRequiredStatus.Text = "*";
+            // 
             // KundenForm
             // 
-            ClientSize = new Size(790, 577);
+            ClientSize = new Size(601, 577);
             Controls.Add(pnlKundenContent);
             Controls.Add(pnlKundenFooter);
             Controls.Add(pnlKundenHeader);
@@ -457,6 +476,11 @@ namespace ContactManager
             }
         }
 
+        /// <summary>
+        /// Validiert die Eingabe der Mobilnummer, sodass nur Ziffern, Steuerzeichen und das Pluszeichen erlaubt sind.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtKundeMobil_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) &&
@@ -467,7 +491,11 @@ namespace ContactManager
             }
         }
 
-        // Validierung der Telefonnummer (Methode)
+        /// <summary>
+        /// Validierung der Telefonnummer (Methode)
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
         private bool IsValidPhoneNumber(string phoneNumber)
         {
             phoneNumber = phoneNumber.Replace(" ", "");
@@ -478,10 +506,15 @@ namespace ContactManager
             );
         }
 
-        // Event-Handler für den Speichern-Button
+        /// <summary>
+        /// Event-Handler für den Speichern-Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnKundenFooterSpeichern_Click_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtKundeTel.Text))
+                
                 // Validierung der Telefonnummer
                 if (!IsValidPhoneNumber(txtKundeTel.Text))
                 {
@@ -507,6 +540,12 @@ namespace ContactManager
             // Weiterer Code zum Speichern:
         }
 
+
+        /// <summary>
+        /// Event-Handler für den Abbrechen-Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnKundenFooterAbbrechen_Click(object sender, EventArgs e)
         {
             this.Close();
