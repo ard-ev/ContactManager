@@ -22,7 +22,6 @@
 
         private Panel pnlKundenHeader;
         private Label lblKundenHeaderTitle;
-        private TableLayoutPanel tpnlKundenContent;
         private Label lblKundenContentTitle1;
         private Label label3;
         private Label lblKundeHeaderSubtitle;
@@ -55,5 +54,10 @@
         private ComboBox cmbKundenContentTitel;
         private ComboBox cmbKundenContentGeschlecht;
         private DateTimePicker dtpKundenContentGeburtsdatum;
+        private Panel pnlKundenContent;
+        private Label lblKundenRequiredVorname;
+        private Label lblKundenRequiredNachname;
+        private Label lblKundenRequiredMobil;
+        private Label lblKundenRequiredMail;
     }
 }
