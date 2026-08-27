@@ -24,7 +24,7 @@ namespace ContactManager.Models
         public DateTime? KündigungsDatum { get; set; }
         public decimal Pensum { get; set; }
         public string Rolle { get; set; } = string.Empty;
-        public Kaderstufe ManagementLevel { get; set; }
+        public Kaderstufe Kderstufe { get; set; }
         public int Lehrjahre { get; set; }
         public int? AktuellesLehrjahr { get; set; }
         public string BusinessAdresse { get; set; } = string.Empty;
