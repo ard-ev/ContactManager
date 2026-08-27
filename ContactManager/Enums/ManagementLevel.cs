@@ -4,13 +4,13 @@ using System.Text;
 
 namespace ContactManager.Enums
 {
-    public enum ManagementLevel
+    public enum Kaderstufe
     {
-        None = 0,
-        Level1 = 1,
-        Level2 = 2,
-        Level3 = 3,
-        Level4 = 4,
-        Level5 = 5
+        Keine = 0,
+        Stufe1 = 1,
+        Stufe2 = 2,
+        Stufe3 = 3,
+        Stufe4 = 4,
+        Stufe5 = 5
     }
 }

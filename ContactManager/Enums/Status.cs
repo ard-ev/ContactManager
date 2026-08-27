@@ -6,7 +6,7 @@ namespace ContactManager.Enums
 {
     public enum Status
     {
-        Active,
-        Inactive
+        Aktiv,
+        Inaktiv
     }
 }

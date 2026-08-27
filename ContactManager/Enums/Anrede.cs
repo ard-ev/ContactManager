@@ -6,7 +6,8 @@ namespace ContactManager.Enums
 {
     public enum Anrede
     {
-        Mr,
-        Mrs,
+       Herr,
+       Frau,
+       Divers
     }
 }

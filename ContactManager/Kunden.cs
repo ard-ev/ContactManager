@@ -13,6 +13,17 @@ namespace ContactManager
         public KundenForm()
         {
             InitializeComponent();
+            ComboBoxenBefuellen();
+        }
+
+        /// <summary>
+        /// Befüllt die Enum-basierten ComboBoxen dynamisch aus den Enum-Werten,
+        /// statt sie im Designer hart zu codieren.
+        /// </summary>
+        private void ComboBoxenBefuellen()
+        {
+            cmbKundenContentAnrede.DataSource = Enum.GetValues(typeof(Enums.Anrede));
+            cmbKundenContentGeschlecht.DataSource = Enum.GetValues(typeof(Enums.Geschlecht));
         }
 
         private void InitializeComponent()
@@ -303,7 +314,6 @@ namespace ContactManager
             // cmbKundenContentAnrede
             // 
             cmbKundenContentAnrede.FormattingEnabled = true;
-            cmbKundenContentAnrede.Items.AddRange(new object[] { "Herr", "Frau", "Divers" });
             cmbKundenContentAnrede.Location = new Point(3, 44);
             cmbKundenContentAnrede.Name = "cmbKundenContentAnrede";
             cmbKundenContentAnrede.Size = new Size(145, 23);
@@ -321,7 +331,6 @@ namespace ContactManager
             // cmbKundenContentGeschlecht
             // 
             cmbKundenContentGeschlecht.FormattingEnabled = true;
-            cmbKundenContentGeschlecht.Items.AddRange(new object[] { "Männlich", "Weiblich", "Divers" });
             cmbKundenContentGeschlecht.Location = new Point(206, 160);
             cmbKundenContentGeschlecht.Name = "cmbKundenContentGeschlecht";
             cmbKundenContentGeschlecht.Size = new Size(145, 23);

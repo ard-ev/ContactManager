@@ -50,12 +50,12 @@ namespace ContactManager.Services
         /// <summary>Setzt den Kunden auf inaktiv statt ihn zu löschen (Historie bleibt erhalten).</summary>
         public void Deaktivieren(Kunde kunde)
         {
-            kunde.Status = Enums.Status.Inactive;
+            kunde.Status = Enums.Status.Inaktiv;
         }
 
         public void Aktivieren(Kunde kunde)
         {
-            kunde.Status = Enums.Status.Active;
+            kunde.Status = Enums.Status.Aktiv;
         }
 
         /// <summary>Sucht Kunden anhand von Vorname, Nachname oder Geburtsdatum.</summary>

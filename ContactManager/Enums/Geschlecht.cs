@@ -6,8 +6,8 @@ namespace ContactManager.Enums
 {
     public enum Geschlecht
     {
-        Male,
-        Female,
-        Diverse
+        Männlich,
+        Weiblich,
+        Divers
     }
 }
