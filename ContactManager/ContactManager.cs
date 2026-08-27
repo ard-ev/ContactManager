@@ -1,3 +1,8 @@
+using ContactManager.Data;
+using ContactManager.Services;
+
+
+
 namespace ContactManager
 {
     public partial class ContactManager : Form
