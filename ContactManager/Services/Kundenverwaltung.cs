@@ -101,7 +101,8 @@ namespace ContactManager.Services
             return repository.Data.Kunden.Where(k =>
                 k.Vorname.Contains(suchtext, System.StringComparison.OrdinalIgnoreCase) ||
                 k.Nachname.Contains(suchtext, System.StringComparison.OrdinalIgnoreCase) ||
-                k.Geburtsdatum.ToString("dd.MM.yyyy").Contains(suchtext)
+                k.Geburtsdatum.ToString("dd.MM.yyyy").Contains(suchtext) ||
+                k.KundenNummer.ToString().Contains(suchtext)
             ).ToList();
         }
     }

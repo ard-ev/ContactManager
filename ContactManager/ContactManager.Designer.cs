@@ -237,6 +237,7 @@
             btnCustomerSearch.TabIndex = 4;
             btnCustomerSearch.Text = "Suchen";
             btnCustomerSearch.UseVisualStyleBackColor = true;
+            btnCustomerSearch.Click += btnCustomerSearch_Click;
             // 
             // txtCustomerSearch
             // 
