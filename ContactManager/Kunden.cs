@@ -232,7 +232,7 @@ namespace ContactManager
             // 
             txtKundeMobil.Location = new Point(228, 327);
             txtKundeMobil.Name = "txtKundeMobil";
-            txtKundeMobil.PlaceholderText = "079 123 45 67";
+            txtKundeMobil.PlaceholderText = "0791234567";
             txtKundeMobil.Size = new Size(145, 31);
             txtKundeMobil.TabIndex = 19;
             txtKundeMobil.KeyPress += txtKundeMobil_KeyPress;
@@ -272,7 +272,7 @@ namespace ContactManager
             // 
             txtKundeTel.Location = new Point(5, 327);
             txtKundeTel.Name = "txtKundeTel";
-            txtKundeTel.PlaceholderText = "079 123 45 67";
+            txtKundeTel.PlaceholderText = "0791234567";
             txtKundeTel.Size = new Size(145, 31);
             txtKundeTel.TabIndex = 22;
             txtKundeTel.KeyPress += txtKundeTel_KeyPress;
@@ -566,7 +566,7 @@ namespace ContactManager
 
             if (!RequiredFieldsFilled())
             {
-                MessageBox.Show("Fülle alle Felder aus, die mit * markiert sind.");
+                
                 return;
             }
 
