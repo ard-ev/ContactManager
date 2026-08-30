@@ -99,11 +99,11 @@ namespace ContactManager
             btnKundenFooterAbbrechen = new Button();
             pnlKundenContent = new Panel();
             lblKundenRequiredStatus = new Label();
+            lblKundenPK = new Label();
             lblKundenRequiredMail = new Label();
             lblKundenRequiredMobil = new Label();
             lblKundenRequiredNachname = new Label();
             lblKundenRequiredVorname = new Label();
-            lblKundenPK = new Label();
             pnlKundenHeader.SuspendLayout();
             pnlKundenFooter.SuspendLayout();
             pnlKundenContent.SuspendLayout();
@@ -259,6 +259,7 @@ namespace ContactManager
             // 
             txtKundeVorname.Location = new Point(3, 186);
             txtKundeVorname.Name = "txtKundeVorname";
+            txtKundeVorname.PlaceholderText = "Vorname";
             txtKundeVorname.Size = new Size(145, 23);
             txtKundeVorname.TabIndex = 2;
             // 
@@ -266,6 +267,7 @@ namespace ContactManager
             // 
             txtKundenNachname.Location = new Point(228, 186);
             txtKundenNachname.Name = "txtKundenNachname";
+            txtKundenNachname.PlaceholderText = "Nachname";
             txtKundenNachname.Size = new Size(145, 23);
             txtKundenNachname.TabIndex = 3;
             // 
@@ -421,6 +423,15 @@ namespace ContactManager
             lblKundenRequiredStatus.TabIndex = 33;
             lblKundenRequiredStatus.Text = "*";
             // 
+            // lblKundenPK
+            // 
+            lblKundenPK.AutoSize = true;
+            lblKundenPK.Location = new Point(3, 41);
+            lblKundenPK.Name = "lblKundenPK";
+            lblKundenPK.Size = new Size(97, 15);
+            lblKundenPK.TabIndex = 34;
+            lblKundenPK.Text = "Kundennummer:";
+            // 
             // lblKundenRequiredMail
             // 
             lblKundenRequiredMail.AutoSize = true;
@@ -460,15 +471,6 @@ namespace ContactManager
             lblKundenRequiredVorname.Size = new Size(12, 15);
             lblKundenRequiredVorname.TabIndex = 29;
             lblKundenRequiredVorname.Text = "*";
-            // 
-            // lblKundenPK
-            // 
-            lblKundenPK.AutoSize = true;
-            lblKundenPK.Location = new Point(3, 41);
-            lblKundenPK.Name = "lblKundenPK";
-            lblKundenPK.Size = new Size(97, 15);
-            lblKundenPK.TabIndex = 34;
-            lblKundenPK.Text = "Kundennummer:";
             // 
             // KundenForm
             // 

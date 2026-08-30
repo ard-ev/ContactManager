@@ -57,5 +57,9 @@
         private CheckBox ckbBefristet;
         private NumericUpDown numMitarbeiterPensum;
         private Label lblMitarbeiterPensum;
+        private CheckBox ckbMitarbeiterBefristet;
+        private ComboBox cmbMitarbeiterNationalität;
+        private TextBox txtMitarbeiterRolle;
+        private TextBox txtMitarbeiterOrt;
     }
 }
