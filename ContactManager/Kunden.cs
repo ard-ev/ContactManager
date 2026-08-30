@@ -7,15 +7,85 @@ namespace ContactManager
     {
         // Draht zur Kundenverwaltung, damit das Formular den Kunden speichern kann
         private readonly KundenVerwaltung _kundenVerwaltung;
-        public KundenForm(KundenVerwaltung kundenVerwaltung)
+        private readonly Kunde? _bearbeiteterKunde; // null = neuer Kunde, sonst Bearbeiten-Modus
+        private Kunde? _originalZustand; // Schnappschuss der Werte beim Öffnen, für die Änderungserkennung
+
+        /// <summary>Konstruktor zum Anlegen eines neuen Kunden.</summary>
+        public KundenForm(KundenVerwaltung kundenVerwaltung) : this(kundenVerwaltung, null)
+        {
+        }
+
+        /// <summary>
+        /// Konstruktor zum Bearbeiten eines bestehenden Kunden. Ist kunde null,
+        /// verhält sich das Formular wie beim Neuanlegen.
+        /// </summary>
+        public KundenForm(KundenVerwaltung kundenVerwaltung, Kunde? kunde)
         {
             InitializeComponent();
             _kundenVerwaltung = kundenVerwaltung;
+            _bearbeiteterKunde = kunde;
             ComboBoxenBefuellen();
 
-            // Zeigt schon vor dem Speicher an, welche Nummer der Kunde erhalten wird.
+            if (_bearbeiteterKunde != null)
+                FelderAusKundeVorbefuellen(_bearbeiteterKunde);
+            else
+                lblKundenPK.Text = "Kundennummer: " + _kundenVerwaltung.NaechsteFreieNummer();
+        }
 
-            lblKundenPK.Text = "Kundennummer: " + _kundenVerwaltung.NaechsteFreieNummer();
+        /// <summary>Füllt die Eingabefelder mit den Werten eines bestehenden Kunden.</summary>
+        private void FelderAusKundeVorbefuellen(Kunde kunde)
+        {
+            lblKundenPK.Text = "Kundennummer: " + kunde.KundenNummer;
+            txtKundeVorname.Text = kunde.Vorname;
+            txtKundenNachname.Text = kunde.Nachname;
+            txtKundeTel.Text = kunde.GeschäftsNummer;
+            txtKundeMobil.Text = kunde.MobilNummer;
+            txtKundeMail.Text = kunde.Email;
+            dtpKundenContentGeburtsdatum.Value = kunde.Geburtsdatum;
+            cmbKundenContentTitel.Text = kunde.Titel;
+            cmbKundenContentAnrede.SelectedItem = kunde.Anrede;
+            cmbKundenContentGeschlecht.SelectedItem = kunde.Geschlecht;
+            rdbKundenContentActive.Checked = kunde.Status == Enums.Status.Aktiv;
+            rdbKundenContentInactive.Checked = kunde.Status == Enums.Status.Inaktiv;
+
+            // Schnappschuss der Ausgangswerte für die spätere Änderungserkennung.
+            // Eigenes Objekt, nicht dieselbe Referenz wie "kunde" - sonst würde sich
+            // der Schnappschuss mitverändern, sobald der Nutzer etwas eintippt.
+            _originalZustand = new Kunde
+            {
+                Anrede = kunde.Anrede,
+                Titel = kunde.Titel,
+                Vorname = kunde.Vorname,
+                Nachname = kunde.Nachname,
+                Geburtsdatum = kunde.Geburtsdatum,
+                Geschlecht = kunde.Geschlecht,
+                GeschäftsNummer = kunde.GeschäftsNummer,
+                MobilNummer = kunde.MobilNummer,
+                Email = kunde.Email,
+                Status = kunde.Status
+            };
+        }
+
+        /// <summary>
+        /// Prüft, ob sich mindestens ein Feld gegenüber dem Ausgangszustand geändert hat.
+        /// Wird nur im Bearbeiten-Modus benötigt.
+        /// </summary>
+        private bool HatSichEtwasGeaendert()
+        {
+            if (_originalZustand == null)
+                return true;
+
+            return
+                _originalZustand.Anrede != (Enums.Anrede)cmbKundenContentAnrede.SelectedItem ||
+                _originalZustand.Titel != cmbKundenContentTitel.Text ||
+                _originalZustand.Vorname != txtKundeVorname.Text ||
+                _originalZustand.Nachname != txtKundenNachname.Text ||
+                _originalZustand.Geburtsdatum != dtpKundenContentGeburtsdatum.Value ||
+                _originalZustand.Geschlecht != (Enums.Geschlecht)cmbKundenContentGeschlecht.SelectedItem ||
+                _originalZustand.GeschäftsNummer != txtKundeTel.Text ||
+                _originalZustand.MobilNummer != txtKundeMobil.Text ||
+                _originalZustand.Email != txtKundeMail.Text ||
+                _originalZustand.Status != (rdbKundenContentActive.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv);
         }
 
         /// <summary>
@@ -590,27 +660,54 @@ namespace ContactManager
                 return;
             }
 
-            // Kunde aus den Eingabefeldern zusammenbauen
-            Kunde kunde = new Kunde
+            if (_bearbeiteterKunde != null)
             {
-                Anrede = (Enums.Anrede)cmbKundenContentAnrede.SelectedItem,
-                Titel = cmbKundenContentTitel.Text,
-                Vorname = txtKundeVorname.Text,
-                Nachname = txtKundenNachname.Text,
-                Geburtsdatum = dtpKundenContentGeburtsdatum.Value,
-                Geschlecht = (Enums.Geschlecht)cmbKundenContentGeschlecht.SelectedItem,
-                GeschäftsNummer = txtKundeTel.Text,
-                MobilNummer = txtKundeMobil.Text,
-                Email = txtKundeMail.Text,
-                Status = rdbKundenContentActive.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
-            };
+                if (!HatSichEtwasGeaendert())
+                {
+                    MessageBox.Show("Es wurden keine Änderungen vorgenommen.");
+                    Close();
+                    return;
+                }
 
-            // An die Verwaltung übergeben und auf die Festplatte speichern
-            _kundenVerwaltung.Hinzufuegen(kunde);
-            _kundenVerwaltung.Speichern();
+                _bearbeiteterKunde.Anrede = (Enums.Anrede)cmbKundenContentAnrede.SelectedItem;
+                _bearbeiteterKunde.Titel = cmbKundenContentTitel.Text;
+                _bearbeiteterKunde.Vorname = txtKundeVorname.Text;
+                _bearbeiteterKunde.Nachname = txtKundenNachname.Text;
+                _bearbeiteterKunde.Geburtsdatum = dtpKundenContentGeburtsdatum.Value;
+                _bearbeiteterKunde.Geschlecht = (Enums.Geschlecht)cmbKundenContentGeschlecht.SelectedItem;
+                _bearbeiteterKunde.GeschäftsNummer = txtKundeTel.Text;
+                _bearbeiteterKunde.MobilNummer = txtKundeMobil.Text;
+                _bearbeiteterKunde.Email = txtKundeMail.Text;
+                _bearbeiteterKunde.Status = rdbKundenContentActive.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
 
-            MessageBox.Show("Kunde erfolgreich gespeichert.");
-            FelderZuruecksetzen();
+                _kundenVerwaltung.Bearbeiten(_bearbeiteterKunde);
+                _kundenVerwaltung.Speichern();
+
+                MessageBox.Show("Kunde aktualisiert.");
+                Close();
+            }
+            else
+            {
+                Kunde kunde = new Kunde
+                {
+                    Anrede = (Enums.Anrede)cmbKundenContentAnrede.SelectedItem,
+                    Titel = cmbKundenContentTitel.Text,
+                    Vorname = txtKundeVorname.Text,
+                    Nachname = txtKundenNachname.Text,
+                    Geburtsdatum = dtpKundenContentGeburtsdatum.Value,
+                    Geschlecht = (Enums.Geschlecht)cmbKundenContentGeschlecht.SelectedItem,
+                    GeschäftsNummer = txtKundeTel.Text,
+                    MobilNummer = txtKundeMobil.Text,
+                    Email = txtKundeMail.Text,
+                    Status = rdbKundenContentActive.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
+                };
+
+                _kundenVerwaltung.Hinzufuegen(kunde);
+                _kundenVerwaltung.Speichern();
+
+                MessageBox.Show("Kunde erfolgreich gespeichert.");
+                FelderZuruecksetzen();
+            }
         }
 
         /// <summary>
