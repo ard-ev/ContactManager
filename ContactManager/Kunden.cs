@@ -139,7 +139,7 @@ namespace ContactManager
             lblKundenContentTitle1.Location = new Point(3, 0);
             lblKundenContentTitle1.Name = "lblKundenContentTitle1";
             lblKundenContentTitle1.Size = new Size(165, 25);
-            lblKundenContentTitle1.TabIndex = 0;
+            lblKundenContentTitle1.TabIndex = 3;
             lblKundenContentTitle1.Text = "Persönliche Daten";
             // 
             // lblKundenContentGeburtsdatum
@@ -239,7 +239,7 @@ namespace ContactManager
             txtKundeMobil.Name = "txtKundeMobil";
             txtKundeMobil.PlaceholderText = "0791234567";
             txtKundeMobil.Size = new Size(145, 31);
-            txtKundeMobil.TabIndex = 19;
+            txtKundeMobil.TabIndex = 7;
             txtKundeMobil.KeyPress += txtKundeMobil_KeyPress;
             // 
             // txtKundeMail
@@ -248,21 +248,21 @@ namespace ContactManager
             txtKundeMail.Name = "txtKundeMail";
             txtKundeMail.PlaceholderText = "beispiel@mail.ch";
             txtKundeMail.Size = new Size(196, 31);
-            txtKundeMail.TabIndex = 20;
+            txtKundeMail.TabIndex = 8;
             // 
             // txtKundeVorname
             // 
             txtKundeVorname.Location = new Point(3, 148);
             txtKundeVorname.Name = "txtKundeVorname";
             txtKundeVorname.Size = new Size(145, 31);
-            txtKundeVorname.TabIndex = 16;
+            txtKundeVorname.TabIndex = 2;
             // 
             // txtKundenNachname
             // 
             txtKundenNachname.Location = new Point(228, 148);
             txtKundenNachname.Name = "txtKundenNachname";
             txtKundenNachname.Size = new Size(145, 31);
-            txtKundenNachname.TabIndex = 17;
+            txtKundenNachname.TabIndex = 3;
             // 
             // lblKundenContentVorname
             // 
@@ -279,7 +279,7 @@ namespace ContactManager
             txtKundeTel.Name = "txtKundeTel";
             txtKundeTel.PlaceholderText = "0791234567";
             txtKundeTel.Size = new Size(145, 31);
-            txtKundeTel.TabIndex = 22;
+            txtKundeTel.TabIndex = 6;
             txtKundeTel.KeyPress += txtKundeTel_KeyPress;
             // 
             // rdbKundenContentActive
@@ -288,7 +288,7 @@ namespace ContactManager
             rdbKundenContentActive.Location = new Point(5, 468);
             rdbKundenContentActive.Name = "rdbKundenContentActive";
             rdbKundenContentActive.Size = new Size(77, 29);
-            rdbKundenContentActive.TabIndex = 23;
+            rdbKundenContentActive.TabIndex = 9;
             rdbKundenContentActive.TabStop = true;
             rdbKundenContentActive.Text = "Aktiv";
             rdbKundenContentActive.UseVisualStyleBackColor = true;
@@ -299,7 +299,7 @@ namespace ContactManager
             rdbKundenContentInactive.Location = new Point(81, 468);
             rdbKundenContentInactive.Name = "rdbKundenContentInactive";
             rdbKundenContentInactive.Size = new Size(89, 29);
-            rdbKundenContentInactive.TabIndex = 24;
+            rdbKundenContentInactive.TabIndex = 10;
             rdbKundenContentInactive.TabStop = true;
             rdbKundenContentInactive.Text = "Inaktiv";
             rdbKundenContentInactive.UseVisualStyleBackColor = true;
@@ -311,7 +311,7 @@ namespace ContactManager
             cmbKundenContentAnrede.Location = new Point(3, 64);
             cmbKundenContentAnrede.Name = "cmbKundenContentAnrede";
             cmbKundenContentAnrede.Size = new Size(145, 33);
-            cmbKundenContentAnrede.TabIndex = 25;
+            cmbKundenContentAnrede.TabIndex = 0;
             // 
             // cmbKundenContentTitel
             // 
@@ -321,7 +321,7 @@ namespace ContactManager
             cmbKundenContentTitel.Location = new Point(228, 64);
             cmbKundenContentTitel.Name = "cmbKundenContentTitel";
             cmbKundenContentTitel.Size = new Size(145, 33);
-            cmbKundenContentTitel.TabIndex = 26;
+            cmbKundenContentTitel.TabIndex = 1;
             // 
             // cmbKundenContentGeschlecht
             // 
@@ -329,16 +329,16 @@ namespace ContactManager
             cmbKundenContentGeschlecht.Location = new Point(228, 225);
             cmbKundenContentGeschlecht.Name = "cmbKundenContentGeschlecht";
             cmbKundenContentGeschlecht.Size = new Size(145, 33);
-            cmbKundenContentGeschlecht.TabIndex = 27;
+            cmbKundenContentGeschlecht.TabIndex = 5;
             // 
             // dtpKundenContentGeburtsdatum
             // 
             dtpKundenContentGeburtsdatum.Format = DateTimePickerFormat.Short;
             dtpKundenContentGeburtsdatum.Location = new Point(3, 225);
-            dtpKundenContentGeburtsdatum.MaxDate = new DateTime(2025, 1, 1, 0, 0, 0, 0);
+            dtpKundenContentGeburtsdatum.MaxDate = new DateTime(2026, 8, 30, 0, 0, 0, 0);
             dtpKundenContentGeburtsdatum.Name = "dtpKundenContentGeburtsdatum";
             dtpKundenContentGeburtsdatum.Size = new Size(145, 31);
-            dtpKundenContentGeburtsdatum.TabIndex = 28;
+            dtpKundenContentGeburtsdatum.TabIndex = 4;
             dtpKundenContentGeburtsdatum.Value = new DateTime(2025, 1, 1, 0, 0, 0, 0);
             // 
             // pnlKundenFooter
@@ -355,7 +355,7 @@ namespace ContactManager
             btnKundenFooterSpeichern.Location = new Point(445, 6);
             btnKundenFooterSpeichern.Name = "btnKundenFooterSpeichern";
             btnKundenFooterSpeichern.Size = new Size(121, 34);
-            btnKundenFooterSpeichern.TabIndex = 1;
+            btnKundenFooterSpeichern.TabIndex = 12;
             btnKundenFooterSpeichern.Text = "Speichern";
             btnKundenFooterSpeichern.UseVisualStyleBackColor = true;
             btnKundenFooterSpeichern.Click += btnKundenFooterSpeichern_Click_1;
@@ -365,7 +365,7 @@ namespace ContactManager
             btnKundenFooterAbbrechen.Location = new Point(318, 6);
             btnKundenFooterAbbrechen.Name = "btnKundenFooterAbbrechen";
             btnKundenFooterAbbrechen.Size = new Size(121, 34);
-            btnKundenFooterAbbrechen.TabIndex = 0;
+            btnKundenFooterAbbrechen.TabIndex = 11;
             btnKundenFooterAbbrechen.Text = "Abbrechen";
             btnKundenFooterAbbrechen.UseVisualStyleBackColor = true;
             btnKundenFooterAbbrechen.Click += btnKundenFooterAbbrechen_Click;
@@ -461,6 +461,7 @@ namespace ContactManager
             Controls.Add(pnlKundenContent);
             Controls.Add(pnlKundenFooter);
             Controls.Add(pnlKundenHeader);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "KundenForm";
             Text = "Kunden";
             pnlKundenHeader.ResumeLayout(false);
@@ -516,7 +517,7 @@ namespace ContactManager
 
             return System.Text.RegularExpressions.Regex.IsMatch(
                 phoneNumber,
-                @"^(0\d{9}|\+41\d{9})$"
+                @"^(0\d{9}$"
             );
         }
 
