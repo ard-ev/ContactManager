@@ -312,7 +312,7 @@ namespace ContactManager
             // 
             cmbKundenContentTitel.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbKundenContentTitel.FormattingEnabled = true;
-            cmbKundenContentTitel.Items.AddRange(new object[] { "Dr.", "Prof.", "Dr. med.", "Ing.", "MSc.", "BSc." });
+            cmbKundenContentTitel.Items.AddRange(new object[] { "Dr.", "Prof.", "Dr. med.", "Ing.", "MSc.", "BSc.", " " });
             cmbKundenContentTitel.Location = new Point(228, 64);
             cmbKundenContentTitel.Name = "cmbKundenContentTitel";
             cmbKundenContentTitel.Size = new Size(145, 33);
