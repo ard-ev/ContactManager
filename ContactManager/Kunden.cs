@@ -634,6 +634,10 @@ namespace ContactManager
             rdbKundenContentInactive.Checked = false;
             // Fokus zurück auf das erste Feld, damit man gleich lostippen kann
             txtKundeVorname.Focus();
+
+            //Neu: Label mit der Nummer für den NàCHSTEN Kunden aktualisieren,
+            //sonst zeigt es nach dem Speicher weiterhin die alte (bereits vergebene) Nummer an.
+            lblKundenPK.Text = "Kundennummer: " + _kundenVerwaltung.NaechsteFreieNummer();
         }
 
         /// <summary>
