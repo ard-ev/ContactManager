@@ -12,6 +12,11 @@ namespace ContactManager.Models
     /// </summary>
     public class Kunde : Person
     {
+
+        /// <summary>
+        /// Wird automatisch von KundenVerwaltung vergeben, nicht manuell erfasst.
+        /// </summary>
+        public int KundenNummer { get; set; }
         public Anrede Anrede { get; set; }
         public string Titel { get; set; } = string.Empty;
 

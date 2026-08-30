@@ -30,16 +30,21 @@ namespace ContactManager.Services
 
         public void Hinzufuegen(Kunde kunde)
         {
+            kunde.KundenNummer = NaechsteKundenNummer();
             repository.Data.Kunden.Add(kunde);
         }
 
         /// <summary>
-        /// Schreibt den aktuellen Stand auf die Festplatte.
-        /// Gibt die Aufgabe einfach ans Repository weiter.
+        /// Ermittelt die nächste freie Kundennummer basierend auf der höchsten
+        /// bereits vergebenen Nummer. Bewusst NICHT als Zähler im Kunde-Objekt
+        /// selbst gelöst, weil beim Laden aus der JSON-Datei sonst der Zähler
+        /// wieder bei 0 anfangen würde und Nummern doppelt vergeben könnte
         /// </summary>
-        public void Speichern()
-        {
-            repository.Save();
+
+        private int NaechsteKundenNummer(){
+            if (!repository.Data.Kunden.Any())
+                return 1;
+            return repository.Data.Kunden.Max(k => k.KundenNummer) + 1;
         }
 
         /// <summary>
