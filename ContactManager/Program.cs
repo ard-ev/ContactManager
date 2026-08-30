@@ -1,3 +1,9 @@
+using System.Linq;
+using ContactManager.Data;
+using ContactManager.Models;
+using ContactManager.Services;
+using ContactManager.Enums;
+
 namespace ContactManager
 {
     internal static class Program

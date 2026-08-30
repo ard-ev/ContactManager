@@ -27,7 +27,13 @@ namespace ContactManager.Data
         /// </summary>
         public Repository(string? pfad = null)
         {
-            _pfad = pfad ?? Path.Combine(AppContext.BaseDirectory, "contactmanager.json");
+            _pfad = pfad ?? Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "ContactManager",
+                "contactmanager_json");
+
+            Directory.CreateDirectory(Path.GetDirectoryName(_pfad)!);
+
             _optionen = new JsonSerializerOptions
             {
                 WriteIndented = true,
@@ -43,6 +49,18 @@ namespace ContactManager.Data
         {
             if (!File.Exists(_pfad))
             {
+                // Noch keine eigene Datei vorhanden (z.B. beim allerersten Start
+                // auf diesem Rechner). Startet dann mit den mitgelieferten
+                // Testdaten aus der Seed-Datei, damit alle im Team mit
+                // denselben Ausgangsdaten arbeiten.
+                string seedPfad = Path.Combine(AppContext.BaseDirectory, "SeedData", "contactmanager.seed.json");
+                if (File.Exists(seedPfad))
+                {
+                    string seedJson = File.ReadAllText(seedPfad);
+                    Data = JsonSerializer.Deserialize<DataStore>(seedJson, _optionen) ?? new DataStore();
+                    return;
+                }
+
                 Data = new DataStore();
                 return;
             }
