@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using ContactManager.Models;
+using ContactManager.Services;
 
 namespace ContactManager
 {
@@ -560,14 +562,6 @@ namespace ContactManager
                 txtKundeMail.Focus();
                 return;
             }
-
-
-
-
-
-
-
-
 
 
             if (!RequiredFieldsFilled())
