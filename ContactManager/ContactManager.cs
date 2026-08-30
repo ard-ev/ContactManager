@@ -1,5 +1,6 @@
 using ContactManager.Data;
 using ContactManager.Services;
+using ContactManager.Models;
 
 
 
@@ -97,6 +98,28 @@ namespace ContactManager
         {
             dgvCustomers.DataSource = null;
             dgvCustomers.DataSource = _kundenVerwaltung.Suchen(txtCustomerSearch.Text);
+        }
+
+        private void btnCustomerDel_Click(object sender, EventArgs e)
+        {
+            if (dgvCustomers.CurrentRow?.DataBoundItem is not Kunde ausgewaehlterKunde) 
+            {
+                MessageBox.Show("Bitte wählen Sie zuerst einen Kunden in der Liste aus");
+                return;
+            }
+
+            var ergebnis = MessageBox.Show(
+                $"Soll {ausgewaehlterKunde.Vorname} {ausgewaehlterKunde.Nachname} wirklich gelöscht werden?",
+                "Kunde löschen",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (ergebnis != DialogResult.Yes)
+                return;
+
+            _kundenVerwaltung.Loeschen(ausgewaehlterKunde);
+            _kundenVerwaltung.Speichern();
+            KundenAnzeigen();
         }
 
         private void dgvEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
