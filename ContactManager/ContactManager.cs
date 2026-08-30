@@ -7,9 +7,23 @@ namespace ContactManager
 {
     public partial class ContactManager : Form
     {
+
+        //Das gemeinsame Repository für die ganze Anwendung (kümmert sich ums Speichern/Laden)
+        private readonly Repository _repository = new();
+
+        // Die Kundenverwaltung arbeitet auf demselben Repository
+        private readonly KundenVerwaltung _kundenVerwaltung;
         public ContactManager()
         {
             InitializeComponent();
+
+            //Daten beim Start von der Festplatte lesen
+            _repository.Load();
+
+            //Verwaltung mit dem geladenen Repository verbinden
+            _kundenVerwaltung = new KundenVerwaltung(_repository);
+
+
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
             SetActiveNAvigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
         }
@@ -59,7 +73,8 @@ namespace ContactManager
 
         private void btnCustomerAdd_Click_1(object sender, EventArgs e)
         {
-            KundenForm kundenForm = new KundenForm();
+            // Formular öffnen und ihm die gemeinsame Kundenverwaltung mitgeben
+            KundenForm kundenForm = new KundenForm(_kundenVerwaltung);
             kundenForm.ShowDialog();
         }
     }

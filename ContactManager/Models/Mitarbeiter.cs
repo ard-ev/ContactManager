@@ -4,12 +4,13 @@ using System.Text;
 using ContactManager.Enums;
 
 namespace ContactManager.Models
+{
+
 
     /// <summary>
     /// Repräsentiert einen Mitarbeiter. Erbt die allgemeinen Personendaten von Person
     /// und ergänzt mitarbeiterspezifische Felder wie Anstellung und Kaderstufe.
     /// </summary>
-{
     public class Mitarbeiter : Person
     {
         public int MitarbeiterNummer { get; set; }
@@ -24,7 +25,7 @@ namespace ContactManager.Models
         public DateTime? KündigungsDatum { get; set; }
         public decimal Pensum { get; set; }
         public string Rolle { get; set; } = string.Empty;
-        public Kaderstufe Kderstufe { get; set; }
+        public Kaderstufe Kaderstufe { get; set; }
         public int Lehrjahre { get; set; }
         public int? AktuellesLehrjahr { get; set; }
         public string BusinessAdresse { get; set; } = string.Empty;

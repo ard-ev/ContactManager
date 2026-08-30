@@ -12,9 +12,12 @@ namespace ContactManager
 {
     public partial class KundenForm : Form
     {
-        public KundenForm()
+        // Draht zur Kundenverwaltung, damit das Formular den Kunden speichern kann
+        private readonly KundenVerwaltung _kundenVerwaltung;
+        public KundenForm(KundenVerwaltung kundenVerwaltung)
         {
             InitializeComponent();
+            _kundenVerwaltung = kundenVerwaltung;
             ComboBoxenBefuellen();
         }
 
