@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.Net.Mail;
-using System.Text.RegularExpressions;
-using ContactManager.Models;
+﻿using ContactManager.Models;
 using ContactManager.Services;
 
 namespace ContactManager
@@ -41,7 +32,21 @@ namespace ContactManager
         {
             bool valid = true;
 
-            
+            lblKundenRequiredVorname.Visible =
+                string.IsNullOrWhiteSpace(txtKundeVorname.Text);
+
+            lblKundenRequiredNachname.Visible =
+                string.IsNullOrWhiteSpace(txtKundenNachname.Text);
+
+            lblKundenRequiredMobil.Visible =
+                string.IsNullOrWhiteSpace(txtKundeMobil.Text);
+
+            lblKundenRequiredMail.Visible =
+                string.IsNullOrWhiteSpace(txtKundeMail.Text);
+
+            lblKundenRequiredStatus.Visible =
+                !rdbKundenContentActive.Checked &&
+                !rdbKundenContentInactive.Checked;
 
             if (lblKundenRequiredVorname.Visible ||
                 lblKundenRequiredNachname.Visible ||
@@ -522,11 +527,6 @@ namespace ContactManager
         /// <param name="e"></param>
         private void btnKundenFooterSpeichern_Click_1(object sender, EventArgs e)
         {
-            
-
-
-            
-
 
             if (!string.IsNullOrWhiteSpace(txtKundeTel.Text))
 
@@ -547,9 +547,9 @@ namespace ContactManager
                 return;
             }
 
-            
 
-            
+
+
 
             // Validierung der E-Mail-Adresse
             if (!IsValidEmail(txtKundeMail.Text))
@@ -562,15 +562,55 @@ namespace ContactManager
 
             if (!RequiredFieldsFilled())
             {
-                
+
                 return;
             }
 
+                       // Kunde aus den Eingabefeldern zusammenbauen
+            Kunde kunde = new Kunde
+            {
+                Anrede = (Enums.Anrede)cmbKundenContentAnrede.SelectedItem,
+                Titel = cmbKundenContentTitel.Text,
+                Vorname = txtKundeVorname.Text,
+                Nachname = txtKundenNachname.Text,
+                Geburtsdatum = dtpKundenContentGeburtsdatum.Value,
+                Geschlecht = (Enums.Geschlecht)cmbKundenContentGeschlecht.SelectedItem,
+                GeschäftsNummer = txtKundeTel.Text,
+                MobilNummer = txtKundeMobil.Text,
+                Email = txtKundeMail.Text,
+                Status = rdbKundenContentActive.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
+            };
 
+            // An die Verwaltung übergeben und auf die Festplatte speichern
+            _kundenVerwaltung.Hinzufuegen(kunde);
+            _kundenVerwaltung.Speichern();
 
-            // Weiterer Code zum Speichern:
+            // Rückmeldung geben und Formular für den nächsten Kunden zurücksetzen
+            MessageBox.Show("Kunde erfolgreich gespeichert.");
+            FelderZuruecksetzen();
         }
 
+        /// <summary>
+        /// Setzt alle Eingabefelder auf den Ausgangszustand zurück,
+        /// damit direkt der nächste Kunde erfasst werden kann.
+        /// </summary>
+        private void FelderZuruecksetzen()
+        {
+            txtKundeVorname.Clear();
+            txtKundenNachname.Clear();
+            txtKundeTel.Clear();
+            txtKundeMobil.Clear();
+            txtKundeMail.Clear();
+            cmbKundenContentTitel.SelectedIndex = -1;
+            cmbKundenContentAnrede.SelectedIndex = 0;
+            cmbKundenContentGeschlecht.SelectedIndex = 0;
+            // MaxDate statt DateTime.Now, weil das Feld nur Daten bis 2025 zulässt
+            dtpKundenContentGeburtsdatum.Value = dtpKundenContentGeburtsdatum.MaxDate;
+            rdbKundenContentActive.Checked = false;
+            rdbKundenContentInactive.Checked = false;
+            // Fokus zurück auf das erste Feld, damit man gleich lostippen kann
+            txtKundeVorname.Focus();
+        }
 
         /// <summary>
         /// Event-Handler für den Abbrechen-Button
@@ -583,7 +623,7 @@ namespace ContactManager
         }
 
 
-        
 
-}
+
+    }
 }
