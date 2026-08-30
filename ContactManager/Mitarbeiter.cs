@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ContactManager.Models;
+using ContactManager.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +29,8 @@ namespace ContactManager
             btnMitarbeiterFooterSpeichern = new Button();
             btnMitarbeiterCancel = new Button();
             pnlMitarbeiterContent = new Panel();
+            lblMitarbeiterStatus = new Label();
+            cmbMitarbeiterAbteilung = new ComboBox();
             ckbMitarbeiterBefristet = new CheckBox();
             cmbMitarbeiterNationalität = new ComboBox();
             txtMitarbeiterRolle = new TextBox();
@@ -50,13 +54,14 @@ namespace ContactManager
             lblMitarbeiterAHV = new Label();
             lblMitarbeiterKaderstufe = new Label();
             txtMitarbeiterNachname = new TextBox();
-            txtMitarbeiterAbteilung = new TextBox();
             lblMitarbeiterRolle = new Label();
             lblMitarbeiterAbteilung = new Label();
             txtMitarbeiterVorname = new TextBox();
             lblMitarbeiterNachname = new Label();
             lblMitarbeiterVorname = new Label();
             lblMitarbeiterPK = new Label();
+            this.rdbMitarbeiterAktiv = new RadioButton();
+            this.rdbMitarbeiterInaktiv = new RadioButton();
             panel1.SuspendLayout();
             pnlMitarbeiterFooter.SuspendLayout();
             pnlMitarbeiterContent.SuspendLayout();
@@ -108,6 +113,7 @@ namespace ContactManager
             btnMitarbeiterFooterSpeichern.TabIndex = 1;
             btnMitarbeiterFooterSpeichern.Text = "Speichern";
             btnMitarbeiterFooterSpeichern.UseVisualStyleBackColor = true;
+            btnMitarbeiterFooterSpeichern.Click += btnMitarbeiterFooterSpeichern_Click;
             // 
             // btnMitarbeiterCancel
             // 
@@ -122,6 +128,10 @@ namespace ContactManager
             // pnlMitarbeiterContent
             // 
             pnlMitarbeiterContent.AutoScroll = true;
+            pnlMitarbeiterContent.Controls.Add(this.rdbMitarbeiterInaktiv);
+            pnlMitarbeiterContent.Controls.Add(this.rdbMitarbeiterAktiv);
+            pnlMitarbeiterContent.Controls.Add(lblMitarbeiterStatus);
+            pnlMitarbeiterContent.Controls.Add(cmbMitarbeiterAbteilung);
             pnlMitarbeiterContent.Controls.Add(ckbMitarbeiterBefristet);
             pnlMitarbeiterContent.Controls.Add(cmbMitarbeiterNationalität);
             pnlMitarbeiterContent.Controls.Add(txtMitarbeiterRolle);
@@ -145,7 +155,6 @@ namespace ContactManager
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterAHV);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterKaderstufe);
             pnlMitarbeiterContent.Controls.Add(txtMitarbeiterNachname);
-            pnlMitarbeiterContent.Controls.Add(txtMitarbeiterAbteilung);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterRolle);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterAbteilung);
             pnlMitarbeiterContent.Controls.Add(txtMitarbeiterVorname);
@@ -156,6 +165,23 @@ namespace ContactManager
             pnlMitarbeiterContent.Name = "pnlMitarbeiterContent";
             pnlMitarbeiterContent.Size = new Size(449, 502);
             pnlMitarbeiterContent.TabIndex = 2;
+            // 
+            // lblMitarbeiterStatus
+            // 
+            lblMitarbeiterStatus.AutoSize = true;
+            lblMitarbeiterStatus.Location = new Point(247, 438);
+            lblMitarbeiterStatus.Name = "lblMitarbeiterStatus";
+            lblMitarbeiterStatus.Size = new Size(42, 15);
+            lblMitarbeiterStatus.TabIndex = 31;
+            lblMitarbeiterStatus.Text = "Status:";
+            // 
+            // cmbMitarbeiterAbteilung
+            // 
+            cmbMitarbeiterAbteilung.FormattingEnabled = true;
+            cmbMitarbeiterAbteilung.Location = new Point(7, 159);
+            cmbMitarbeiterAbteilung.Name = "cmbMitarbeiterAbteilung";
+            cmbMitarbeiterAbteilung.Size = new Size(182, 23);
+            cmbMitarbeiterAbteilung.TabIndex = 30;
             // 
             // ckbMitarbeiterBefristet
             // 
@@ -170,11 +196,14 @@ namespace ContactManager
             // 
             // cmbMitarbeiterNationalität
             // 
+            cmbMitarbeiterNationalität.Font = new Font("Segoe UI Light", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             cmbMitarbeiterNationalität.FormattingEnabled = true;
+            cmbMitarbeiterNationalität.Items.AddRange(new object[] { "Afghanistan", "Ägypten", "Albanien", "Algerien", "Andorra", "Angola", "Antigua und Barbuda", "Äquatorialguinea", "Argentinien", "Armenien", "Aserbaidschan", "Äthiopien", "Australien", "Bahamas", "Bahrain", "Bangladesch", "Barbados", "Belarus", "Belgien", "Belize", "Benin", "Bhutan", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Brasilien", "Brunei", "Bulgarien", "Burkina Faso", "Burundi", "Chile", "China", "Costa Rica", "Dänemark", "Deutschland", "Dominica", "Dominikanische Republik", "Dschibuti", "Ecuador", "El Salvador", "Elfenbeinküste", "Eritrea", "Estland", "Eswatini", "Fidschi", "Finnland", "Frankreich", "Gabun", "Gambia", "Georgien", "Ghana", "Grenada", "Griechenland", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Indien", "Indonesien", "Irak", "Iran", "Irland", "Island", "Israel", "Italien", "Jamaika", "Japan", "Jemen", "Jordanien", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Katar", "Kenia", "Kirgisistan", "Kiribati", "Kolumbien", "Komoren", "Kongo, Demokratische Republik", "Kongo, Republik", "Kroatien", "Kuba", "Kuwait", "Laos", "Lesotho", "Lettland", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Litauen", "Luxemburg", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Malta", "Marokko", "Marshallinseln", "Mauretanien", "Mauritius", "Mexiko", "Mikronesien", "Moldau", "Monaco", "Mongolei", "Montenegro", "Mosambik", "Myanmar", "Namibia", "Nauru", "Nepal", "Neuseeland", "Nicaragua", "Niederlande", "Niger", "Nigeria", "Nordkorea", "Nordmazedonien", "Norwegen", "Oman", "Österreich", "Pakistan", "Palästina", "Palau", "Panama", "Papua-Neuguinea", "Paraguay", "Peru", "Philippinen", "Polen", "Portugal", "Ruanda", "Rumänien", "Russland", "Salomonen", "Sambia", "Samoa", "San Marino", "São Tomé und Príncipe", "Saudi-Arabien", "Schweden", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Simbabwe", "Singapur", "Slowakei", "Slowenien", "Somalia", "Spanien", "Sri Lanka", "St. Kitts und Nevis", "St. Lucia", "St. Vincent und die Grenadinen", "Südafrika", "Sudan", "Südkorea", "Südsudan", "Suriname", "Syrien", "Tadschikistan", "Tansania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad und Tobago", "Tschad", "Tschechien", "Tunesien", "Türkei", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "Ungarn", "Uruguay", "Usbekistan", "Vanuatu", "Vatikanstadt", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten", "Vereinigtes Königreich", "Vietnam", "Zentralafrikanische Republik", "Zypern" });
             cmbMitarbeiterNationalität.Location = new Point(247, 381);
             cmbMitarbeiterNationalität.Name = "cmbMitarbeiterNationalität";
             cmbMitarbeiterNationalität.Size = new Size(182, 23);
             cmbMitarbeiterNationalität.TabIndex = 9;
+            cmbMitarbeiterNationalität.Text = "Nationalität";
             // 
             // txtMitarbeiterRolle
             // 
@@ -187,6 +216,7 @@ namespace ContactManager
             // 
             txtMitarbeiterOrt.Location = new Point(7, 381);
             txtMitarbeiterOrt.Name = "txtMitarbeiterOrt";
+            txtMitarbeiterOrt.PlaceholderText = "Wohnort";
             txtMitarbeiterOrt.Size = new Size(182, 23);
             txtMitarbeiterOrt.TabIndex = 8;
             // 
@@ -247,6 +277,7 @@ namespace ContactManager
             // 
             txtMitarbeiterMobil.Location = new Point(7, 456);
             txtMitarbeiterMobil.Name = "txtMitarbeiterMobil";
+            txtMitarbeiterMobil.PlaceholderText = "0791234567";
             txtMitarbeiterMobil.Size = new Size(178, 23);
             txtMitarbeiterMobil.TabIndex = 10;
             // 
@@ -281,6 +312,7 @@ namespace ContactManager
             // 
             txtMitarbeiterPLZ.Location = new Point(247, 307);
             txtMitarbeiterPLZ.Name = "txtMitarbeiterPLZ";
+            txtMitarbeiterPLZ.PlaceholderText = "9001";
             txtMitarbeiterPLZ.Size = new Size(182, 23);
             txtMitarbeiterPLZ.TabIndex = 7;
             // 
@@ -288,6 +320,7 @@ namespace ContactManager
             // 
             txtMitarbeiterAdresse.Location = new Point(7, 307);
             txtMitarbeiterAdresse.Name = "txtMitarbeiterAdresse";
+            txtMitarbeiterAdresse.PlaceholderText = "Musterstrasse 1";
             txtMitarbeiterAdresse.Size = new Size(182, 23);
             txtMitarbeiterAdresse.TabIndex = 6;
             // 
@@ -325,6 +358,7 @@ namespace ContactManager
             cmbMitarbeiterKadder.Name = "cmbMitarbeiterKadder";
             cmbMitarbeiterKadder.Size = new Size(182, 23);
             cmbMitarbeiterKadder.TabIndex = 4;
+            cmbMitarbeiterKadder.Text = "0";
             // 
             // lblMitarbeiterAHV
             // 
@@ -348,15 +382,9 @@ namespace ContactManager
             // 
             txtMitarbeiterNachname.Location = new Point(247, 91);
             txtMitarbeiterNachname.Name = "txtMitarbeiterNachname";
+            txtMitarbeiterNachname.PlaceholderText = "Nachname";
             txtMitarbeiterNachname.Size = new Size(182, 23);
             txtMitarbeiterNachname.TabIndex = 1;
-            // 
-            // txtMitarbeiterAbteilung
-            // 
-            txtMitarbeiterAbteilung.Location = new Point(7, 159);
-            txtMitarbeiterAbteilung.Name = "txtMitarbeiterAbteilung";
-            txtMitarbeiterAbteilung.Size = new Size(182, 23);
-            txtMitarbeiterAbteilung.TabIndex = 2;
             // 
             // lblMitarbeiterRolle
             // 
@@ -380,6 +408,7 @@ namespace ContactManager
             // 
             txtMitarbeiterVorname.Location = new Point(7, 91);
             txtMitarbeiterVorname.Name = "txtMitarbeiterVorname";
+            txtMitarbeiterVorname.PlaceholderText = "Vorname";
             txtMitarbeiterVorname.Size = new Size(182, 23);
             txtMitarbeiterVorname.TabIndex = 0;
             // 
@@ -404,15 +433,37 @@ namespace ContactManager
             // lblMitarbeiterPK
             // 
             lblMitarbeiterPK.AutoSize = true;
-            lblMitarbeiterPK.Location = new Point(18, 17);
+            lblMitarbeiterPK.Location = new Point(7, 17);
             lblMitarbeiterPK.Name = "lblMitarbeiterPK";
             lblMitarbeiterPK.Size = new Size(114, 15);
             lblMitarbeiterPK.TabIndex = 0;
             lblMitarbeiterPK.Text = "Mitarbeiternummer:";
             // 
+            // rdbMitarbeiterAktiv
+            // 
+            this.rdbMitarbeiterAktiv.AutoSize = true;
+            this.rdbMitarbeiterAktiv.Location = new Point(247, 460);
+            this.rdbMitarbeiterAktiv.Name = "rdbMitarbeiterAktiv";
+            this.rdbMitarbeiterAktiv.Size = new Size(52, 19);
+            this.rdbMitarbeiterAktiv.TabIndex = 32;
+            this.rdbMitarbeiterAktiv.TabStop = true;
+            this.rdbMitarbeiterAktiv.Text = "Aktiv";
+            this.rdbMitarbeiterAktiv.UseVisualStyleBackColor = true;
+            // 
+            // rdbMitarbeiterInaktiv
+            // 
+            this.rdbMitarbeiterInaktiv.AutoSize = true;
+            this.rdbMitarbeiterInaktiv.Location = new Point(317, 460);
+            this.rdbMitarbeiterInaktiv.Name = "rdbMitarbeiterInaktiv";
+            this.rdbMitarbeiterInaktiv.Size = new Size(60, 19);
+            this.rdbMitarbeiterInaktiv.TabIndex = 33;
+            this.rdbMitarbeiterInaktiv.TabStop = true;
+            this.rdbMitarbeiterInaktiv.Text = "Inaktiv";
+            this.rdbMitarbeiterInaktiv.UseVisualStyleBackColor = true;
+            // 
             // MitarbeiterForm
             // 
-            ClientSize = new Size(601, 632);
+            ClientSize = new Size(601, 631);
             Controls.Add(panel1);
             Controls.Add(pnlMitarbeiterContent);
             Controls.Add(pnlMitarbeiterFooter);
@@ -439,10 +490,89 @@ namespace ContactManager
             this.Close();
         }
 
-        
-
-        
 
 
+        /// <summary>
+        /// Validiert die Eingabe der Mobilnummer, sodass nur Ziffern, Steuerzeichen und das Pluszeichen erlaubt sind.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtMitarbeiterMobil_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsDigit(e.KeyChar) &&
+                e.KeyChar != '+')
+            {
+                e.Handled = true;
+            }
+        }
+
+        /// <summary>
+        /// Validierung der Telefonnummer (Methode)
+        /// </summary>
+        /// <param name="phoneNumber"></param>
+        /// <returns></returns>
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            phoneNumber = phoneNumber.Replace(" ", "");
+
+            return System.Text.RegularExpressions.Regex.IsMatch(
+                phoneNumber,
+                @"^(0\d{9}$"
+            );
+        }
+
+        private void btnMitarbeiterFooterSpeichern_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtMitarbeiterMobil.Text))
+
+                // Validierung der Mobilnummer
+                if (!IsValidPhoneNumber(txtMitarbeiterMobil.Text))
+                {
+                    MessageBox.Show("Bitte geben Sie eine gültige Telefonnummer ein.");
+                    txtMitarbeiterMobil.Focus();
+                    return;
+                }
+
+            // Kunde aus den Eingabefeldern zusammenbauen
+            Mitarbeiter mitarbeiter = new Mitarbeiter
+            {
+                Vorname = txtMitarbeiterVorname.Text,
+                Nachname = txtMitarbeiterNachname.Text,
+                Geburtsdatum = dtpMitarbeiterGeburtsdatum.Value,
+                MobilNummer = txtMitarbeiterMobil.Text,
+                Status = ckbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
+            };
+
+            // An die Verwaltung übergeben und auf die Festplatte speichern
+            _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
+            _mitarbeiterVerwaltung.Speichern();
+
+            // Rückmeldung geben und Formular für den nächsten Mitarbeiter zurücksetzen
+            MessageBox.Show("Mitarbeiter     erfolgreich gespeichert.");
+            FelderZuruecksetzen();
+        }
+
+        /// <summary>
+        /// Setzt alle Eingabefelder auf den Ausgangszustand zurück,
+        /// damit direkt der nächste Kunde erfasst werden kann.
+        /// </summary>
+        private void FelderZuruecksetzen()
+        {
+            txtMitarbeiterVorname.Clear();
+            txtMitarbeiterNachname.Clear();
+            txtMitarbeiterMobil.Clear();
+            txtMitarbeiterMail.Clear();
+            // MaxDate statt DateTime.Now, weil das Feld nur Daten bis 2025 zulässt
+            dtpMitarbeiterGeburtsdatum.Value = dtpMitarbeiterGeburtsdatum.MaxDate;
+            rdbMitarbeiterActive.Checked = false;
+            rdbMitarbeiterInactive.Checked = false;
+            // Fokus zurück auf das erste Feld, damit man gleich lostippen kann
+            txtMitarbeiterVorname.Focus();
+        }
+
+
+
+    }
     }
 }

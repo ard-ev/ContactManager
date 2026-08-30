@@ -33,7 +33,6 @@
         private Label lblMitarbeiterNachname;
         private TextBox textBox1;
         private TextBox txtMitarbeiterNachname;
-        private TextBox txtMitarbeiterAbteilung;
         private Label lblMitarbeiterRolle;
         private Label lblMitarbeiterAbteilung;
         private Label lblMitarbeiterPLZ;
@@ -61,5 +60,9 @@
         private ComboBox cmbMitarbeiterNationalität;
         private TextBox txtMitarbeiterRolle;
         private TextBox txtMitarbeiterOrt;
+        private ComboBox cmbMitarbeiterAbteilung;
+        private Label lblMitarbeiterStatus;
+        private RadioButton rdbMitarbeiterInaktiv;
+        private RadioButton rdbMitarbeiterAktiv;
     }
 }

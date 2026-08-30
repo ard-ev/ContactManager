@@ -36,22 +36,6 @@ namespace ContactManager
         {
             bool valid = true;
 
-            lblKundenRequiredVorname.Visible =
-                string.IsNullOrWhiteSpace(txtKundeVorname.Text);
-
-            lblKundenRequiredNachname.Visible =
-                string.IsNullOrWhiteSpace(txtKundenNachname.Text);
-
-            lblKundenRequiredMobil.Visible =
-                string.IsNullOrWhiteSpace(txtKundeMobil.Text);
-
-            lblKundenRequiredMail.Visible =
-                string.IsNullOrWhiteSpace(txtKundeMail.Text);
-
-            lblKundenRequiredStatus.Visible =
-                !rdbKundenContentActive.Checked &&
-                !rdbKundenContentInactive.Checked;
-
             if (lblKundenRequiredVorname.Visible ||
                 lblKundenRequiredNachname.Visible ||
                 lblKundenRequiredMobil.Visible ||
