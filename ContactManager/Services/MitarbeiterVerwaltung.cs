@@ -47,7 +47,7 @@ namespace ContactManager.Services
 
         public void Bearbeiten(Mitarbeiter mitarbeiter)
         {
-            // Bewusst leer: Mitarbeiter ist ein REferenztyp, Änderungen an den
+            // Bewusst leer: Mitarbeiter ist ein Referenztyp, Änderungen an den
             // Properties des Objekts wirken sich direkt auf das Objekt in der Liste aus.
         }
 
