@@ -502,7 +502,7 @@ namespace ContactManager
 
             return System.Text.RegularExpressions.Regex.IsMatch(
                 phoneNumber,
-                @"^(0\d{9}|\+41\d{9})$"
+                @"^(0\d{9}||\+41\d{9})$"
             );
         }
 
