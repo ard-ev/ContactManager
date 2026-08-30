@@ -35,17 +35,27 @@ namespace ContactManager.Services
         }
 
         /// <summary>
+        /// Gibt die Nummer zurück, die der nächste neu erfasste Kunde erhalten würde.
+        /// Wird genutzt, um sie dem Nutzer schon im Erfassungsformular anzuzeigen,
+        /// bevor gespeichert wird.
+        /// </summary>
+        public int NaechsteFreieNummer()
+        {
+            return NaechsteKundenNummer();
+        }
+
+        /// <summary>
         /// Ermittelt die nächste freie Kundennummer basierend auf der höchsten
         /// bereits vergebenen Nummer. Bewusst NICHT als Zähler im Kunde-Objekt
         /// selbst gelöst, weil beim Laden aus der JSON-Datei sonst der Zähler
         /// wieder bei 0 anfangen würde und Nummern doppelt vergeben könnte
         /// </summary>
 
-        private int NaechsteKundenNummer(){
-            return Nummernvergabe.NaechsteKundenNummer(
+        public int NaechsteKundenNummer(){
+            return Nummernvergabe.NaechsteNummer(
                 repository.Data.Kunden.Select(k => k.KundenNummer),
                 startPraefix: 1,
-                maxpraefix: 4);
+                maxPraefix: 4);
         }
 
         /// <summary>
