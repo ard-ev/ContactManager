@@ -206,6 +206,7 @@
             btnCustomerDel.TabIndex = 7;
             btnCustomerDel.Text = "Löschen";
             btnCustomerDel.UseVisualStyleBackColor = true;
+            btnCustomerDel.Click += btnCustomerDel_Click;
             // 
             // btnCustomerEdit
             // 
