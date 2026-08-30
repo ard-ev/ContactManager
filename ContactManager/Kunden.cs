@@ -12,6 +12,10 @@ namespace ContactManager
             InitializeComponent();
             _kundenVerwaltung = kundenVerwaltung;
             ComboBoxenBefuellen();
+
+            // Zeigt schon vor dem Speicher an, welche Nummer der Kunde erhalten wird.
+
+            lblKundenPK.Text = "Kundennummer: " + _kundenVerwaltung.NaechsteFreieNummer();
         }
 
         /// <summary>

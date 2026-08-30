@@ -38,12 +38,12 @@ namespace ContactManager.Services
         /// wieder bei 0 anfangen würde und Nummern doppelt vergeben könnte
         /// </summary>
 
-        private int NaechsteMitarbeiterNummer()
+        public int NaechsteMitarbeiterNummer()
         {
-            return Nummernvergabe.NaechsteMitarbeiterNummer(
+            return Nummernvergabe.NaechsteNummer(
                 repository.Data.Mitarbeiter.Select(m => m.MitarbeiterNummer),
                 startPraefix: 6,
-                maxpraefix: 9);
+                maxPraefix: 9);
         }
 
         public void Bearbeiten(Mitarbeiter mitarbeiter)

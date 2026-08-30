@@ -24,9 +24,9 @@ namespace ContactManager.Services
         ///maxPraefix begrenzt, wie viele Blöcke maximal genutzt werden dürfen.
         /// </summary>
         
-        public static int NachsteNummer(IEnumerable<int> bestehendeNummern, int startPraefix, int maxPraefix)
+        public static int NaechsteNummer(IEnumerable<int> bestehendeNummern, int startPraefix, int maxPraefix)
         {
-            var nummern = bestendeNummern.Where(n => n >= startPraefix * Blockgroesse).ToList();
+            var nummern = bestehendeNummern.Where(n => n >= startPraefix * Blockgroesse).ToList();
 
             if (!nummern.Any())
                 return startPraefix * Blockgroesse + 1;
