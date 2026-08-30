@@ -609,7 +609,6 @@ namespace ContactManager
             _kundenVerwaltung.Hinzufuegen(kunde);
             _kundenVerwaltung.Speichern();
 
-            // Rückmeldung geben und Formular für den nächsten Kunden zurücksetzen
             MessageBox.Show("Kunde erfolgreich gespeichert.");
             FelderZuruecksetzen();
         }
