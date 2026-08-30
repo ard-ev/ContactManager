@@ -48,6 +48,15 @@ namespace ContactManager.Services
         }
 
         /// <summary>
+        /// Schreibt den aktuellen Stand auf die Festplatte.
+        /// Gibt die Aufgabe einfach ans Repository weiter.
+        /// </summary>
+        public void Speichern()
+        {
+            repository.Save();
+        }
+
+        /// <summary>
         /// Bewusst leer: Kunde ist ein Referenztyp, Änderungen an den Properties
         /// wirken sich direkt aus. Existiert als klarer Ansprechpunkt für später,
         /// falls noch Validierung ergänzt wird.
