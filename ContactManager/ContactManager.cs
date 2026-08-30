@@ -93,6 +93,12 @@ namespace ContactManager
             KundenAnzeigen();
         }
 
+        private void btnCustomerSearch_Click(object sender, EventArgs e)
+        {
+            dgvCustomers.DataSource = null;
+            dgvCustomers.DataSource = _kundenVerwaltung.Suchen(txtCustomerSearch.Text);
+        }
+
         private void dgvEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 

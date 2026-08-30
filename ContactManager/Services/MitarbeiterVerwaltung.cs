@@ -77,7 +77,8 @@ namespace ContactManager.Services
             return repository.Data.Mitarbeiter.Where(m =>
                m.Vorname.Contains(suchtext, System.StringComparison.OrdinalIgnoreCase) ||
                 m.Nachname.Contains(suchtext, System.StringComparison.OrdinalIgnoreCase) ||
-                m.Geburtsdatum.ToString("dd.MM.yyyy").Contains(suchtext)
+                m.Geburtsdatum.ToString("dd.MM.yyyy").Contains(suchtext) ||
+                m.MitarbeiterNummer.ToString().Contains(suchtext)
             ).ToList();
         }
     }
