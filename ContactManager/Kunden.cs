@@ -525,11 +525,7 @@ namespace ContactManager
             
 
 
-            if (!RequiredFieldsFilled())
-            {
-                MessageBox.Show("Fülle alle Felder aus, die mit * markiert sind.");
-                return;
-            }
+            
 
 
             if (!string.IsNullOrWhiteSpace(txtKundeTel.Text))
