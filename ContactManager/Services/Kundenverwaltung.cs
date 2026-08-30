@@ -42,9 +42,10 @@ namespace ContactManager.Services
         /// </summary>
 
         private int NaechsteKundenNummer(){
-            if (!repository.Data.Kunden.Any())
-                return 1;
-            return repository.Data.Kunden.Max(k => k.KundenNummer) + 1;
+            return Nummernvergabe.NaechsteKundenNummer(
+                repository.Data.Kunden.Select(k => k.KundenNummer),
+                startPraefix: 1,
+                maxpraefix: 4);
         }
 
         /// <summary>

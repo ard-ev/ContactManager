@@ -1,19 +1,4 @@
 {
-  "Kunden": [
-    {
-      "KundenNummer": 1,
-      "Anrede": "Herr",
-      "Titel": "",
-      "Vorname": "Max",
-      "Nachname": "Muster",
-      "Geburtsdatum": "1990-05-14T00:00:00",
-      "Geschlecht": "Männlich",
-      "MobilNummer": "0791234567",
-      "GeschäftsNummer": "0441234567",
-      "Email": "max.muster@beispiel.ch",
-      "Status": "Aktiv",
-      "Kontakte": []
-    }
-  ],
+  "Kontakte": [],
   "Mitarbeiter": []
 }
