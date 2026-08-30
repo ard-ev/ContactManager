@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using ContactManager.Models;
+using ContactManager.Services;
 
 namespace ContactManager
 {
     public partial class KundenForm : Form
     {
-        public KundenForm()
+        // Draht zur Kundenverwaltung, damit das Formular den Kunden speichern kann
+        private readonly KundenVerwaltung _kundenVerwaltung;
+        public KundenForm(KundenVerwaltung kundenVerwaltung)
         {
             InitializeComponent();
+            _kundenVerwaltung = kundenVerwaltung;
             ComboBoxenBefuellen();
         }
 
@@ -46,7 +44,7 @@ namespace ContactManager
             lblKundenRequiredMail.Visible =
                 string.IsNullOrWhiteSpace(txtKundeMail.Text);
             lblKundenRequiredStatus.Visible =
-                !rdbKundenContentActive.Checked && 
+                !rdbKundenContentActive.Checked &&
                 !rdbKundenContentInactive.Checked;
 
             if (lblKundenRequiredVorname.Visible ||
@@ -514,7 +512,7 @@ namespace ContactManager
         private void btnKundenFooterSpeichern_Click_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtKundeTel.Text))
-                
+
                 // Validierung der Telefonnummer
                 if (!IsValidPhoneNumber(txtKundeTel.Text))
                 {
@@ -537,7 +535,48 @@ namespace ContactManager
                 return;
             }
 
-            // Weiterer Code zum Speichern:
+            // Kunde aus den Eingabefeldern zusammenbauen
+            Kunde kunde = new Kunde
+            {
+                Anrede = (Enums.Anrede)cmbKundenContentAnrede.SelectedItem,
+                Titel = cmbKundenContentTitel.Text,
+                Vorname = txtKundeVorname.Text,
+                Nachname = txtKundenNachname.Text,
+                Geburtsdatum = dtpKundenContentGeburtsdatum.Value,
+                Geschlecht = (Enums.Geschlecht)cmbKundenContentGeschlecht.SelectedItem,
+                GeschäftsNummer = txtKundeTel.Text,
+                MobilNummer = txtKundeMobil.Text,
+                Email = txtKundeMail.Text,
+                Status = rdbKundenContentActive.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
+            };
+
+            // An die Verwaltung übergeben und auf die Festplatte speichern
+            _kundenVerwaltung.Hinzufuegen(kunde);
+            _kundenVerwaltung.Speichern();
+
+            // Rückmeldung geben und Formular schliessen
+            MessageBox.Show("Kunde erfolgreich gespeichert.");
+            FelderZuruecksetzen();
+        }
+        /// <summary>
+        /// Setzt alle Eingabefelder auf den Ausgangszustand zurück,
+        /// damit direkt der nächste Kunde erfasst werden kann.
+        /// </summary>
+        private void FelderZuruecksetzen()
+        {
+            txtKundeVorname.Clear();
+            txtKundenNachname.Clear();
+            txtKundeTel.Clear();
+            txtKundeMobil.Clear();
+            txtKundeMail.Clear();
+            cmbKundenContentTitel.SelectedIndex = -1;
+            cmbKundenContentAnrede.SelectedIndex = 0;
+            cmbKundenContentGeschlecht.SelectedIndex = 0;
+            dtpKundenContentGeburtsdatum.Value = DateTime.Now;
+            rdbKundenContentActive.Checked = false;
+            rdbKundenContentInactive.Checked = false;
+            // Fokus zurück auf das erste Feld, damit man gleich lostippen kann
+            txtKundeVorname.Focus();
         }
 
 
