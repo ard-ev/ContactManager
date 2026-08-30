@@ -37,12 +37,13 @@ namespace ContactManager.Services
         /// selbst gelöst, weil beim Laden aus der JSON-Datei sonst der Zähler
         /// wieder bei 0 anfangen würde und Nummern doppelt vergeben könnte
         /// </summary>
-        
+
         private int NaechsteMitarbeiterNummer()
         {
-            if (!repository.Data.Mitarbeiter.Any())
-                return 1;
-            return repository.Data.Mitarbeiter.Max(m => m.MitarbeiterNummer) + 1;
+            return Nummernvergabe.NaechsteMitarbeiterNummer(
+                repository.Data.Mitarbeiter.Select(m => m.MitarbeiterNummer),
+                startPraefix: 6,
+                maxpraefix: 9);
         }
 
         public void Bearbeiten(Mitarbeiter mitarbeiter)
