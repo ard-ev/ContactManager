@@ -22,10 +22,22 @@ namespace ContactManager
 
             //Verwaltung mit dem geladenen Repository verbinden
             _kundenVerwaltung = new KundenVerwaltung(_repository);
+            // Gespeicherte Kunden beim Start anzeigen
+            KundenAnzeigen();
 
 
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
             SetActiveNAvigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
+        }
+
+        /// <summary>
+        /// Lädt alle gespeicherten Kunden ins Kunden-Grid.
+        /// </summary>
+        private void KundenAnzeigen()
+        {
+            // Erst leeren, dann neu setzen, damit das Grid sicher aktualisiert
+            dgvCustomers.DataSource = null;
+            dgvCustomers.DataSource = _kundenVerwaltung.Alle.ToList();
         }
 
         // Methode zum Setzen des aktiven Navigationsbuttons
@@ -76,6 +88,14 @@ namespace ContactManager
             // Formular öffnen und ihm die gemeinsame Kundenverwaltung mitgeben
             KundenForm kundenForm = new KundenForm(_kundenVerwaltung);
             kundenForm.ShowDialog();
+
+            // Nach dem Schliessen die Liste aktualisieren, damit neue Kunden erscheinen
+            KundenAnzeigen();
+        }
+
+        private void dgvEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
