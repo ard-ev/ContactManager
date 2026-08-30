@@ -29,5 +29,34 @@
         private Panel pnlMitarbeiterContent;
         private TextBox txtMitarbeiterPK;
         private Label lblMitarbeiterPK;
+        private Label lblMitarbeiterVorname;
+        private TextBox txtMitarbeiterVorname;
+        private Label lblMitarbeiterNachname;
+        private TextBox textBox1;
+        private TextBox txtMitarbeiterNachname;
+        private TextBox txtMitarbeiterAbteilung;
+        private Label lblMitarbeiterRolle;
+        private Label lblMitarbeiterAbteilung;
+        private Label lblMitarbeiterPLZ;
+        private Label lblMitarbeiterAdresse;
+        private TextBox textBox2;
+        private ComboBox comboBox1;
+        private Label lblMitarbeiterAHV;
+        private Label lblMitarbeiterKaderstufe;
+        private Label label1;
+        private Label lblMitarbeiterWohnort;
+        private TextBox txtMitarbeiterPLZ;
+        private TextBox txtMitarbeiterAdresse;
+        private Label lblMitarbeiterAustritt;
+        private Label lblMitarbeiterEintritt;
+        private TextBox txtMitarbeiterMobil;
+        private Label lblMitarbeiterMobilnummer;
+        private ComboBox comboBox2;
+        private TextBox textBox3;
+        private DateTimePicker dtpMitarbeiterAustritt;
+        private DateTimePicker dtpMitarbeiterEintritt;
+        private CheckBox ckbBefristet;
+        private NumericUpDown numMitarbeiterPensum;
+        private Label lblMitarbeiterPensum;
     }
 }
