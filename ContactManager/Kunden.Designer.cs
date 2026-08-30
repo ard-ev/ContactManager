@@ -60,5 +60,7 @@
         private Label lblKundenRequiredMobil;
         private Label lblKundenRequiredMail;
         private Label lblKundenRequiredStatus;
+        private TextBox txtKundenPK;
+        private Label lblKundenPK;
     }
 }
