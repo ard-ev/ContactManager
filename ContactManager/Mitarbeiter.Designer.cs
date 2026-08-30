@@ -27,7 +27,6 @@
         private Button btnMitarbeiterFooterSpeichern;
         private Button btnMitarbeiterCancel;
         private Panel pnlMitarbeiterContent;
-        private TextBox txtMitarbeiterPK;
         private Label lblMitarbeiterPK;
         private Label lblMitarbeiterVorname;
         private TextBox txtMitarbeiterVorname;
@@ -39,8 +38,8 @@
         private Label lblMitarbeiterAbteilung;
         private Label lblMitarbeiterPLZ;
         private Label lblMitarbeiterAdresse;
-        private TextBox textBox2;
-        private ComboBox comboBox1;
+        private TextBox txtMitarbeiterAHV;
+        private ComboBox cmbMitarbeiterKadder;
         private Label lblMitarbeiterAHV;
         private Label lblMitarbeiterKaderstufe;
         private Label label1;

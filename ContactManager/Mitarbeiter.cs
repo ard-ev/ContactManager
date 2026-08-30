@@ -15,6 +15,7 @@ namespace ContactManager
             InitializeComponent();
             lblMitarbeiterAustritt.Visible = false;
             dtpMitarbeiterAustritt.Visible = false;
+            txtMitarbeiterAHV.Text = "756.";
         }
 
         private void InitializeComponent()
@@ -43,8 +44,8 @@ namespace ContactManager
             txtMitarbeiterAdresse = new TextBox();
             lblMitarbeiterPLZ = new Label();
             lblMitarbeiterAdresse = new Label();
-            textBox2 = new TextBox();
-            comboBox1 = new ComboBox();
+            txtMitarbeiterAHV = new TextBox();
+            cmbMitarbeiterKadder = new ComboBox();
             lblMitarbeiterAHV = new Label();
             lblMitarbeiterKaderstufe = new Label();
             textBox1 = new TextBox();
@@ -55,7 +56,6 @@ namespace ContactManager
             txtMitarbeiterVorname = new TextBox();
             lblMitarbeiterNachname = new Label();
             lblMitarbeiterVorname = new Label();
-            txtMitarbeiterPK = new TextBox();
             lblMitarbeiterPK = new Label();
             panel1.SuspendLayout();
             pnlMitarbeiterFooter.SuspendLayout();
@@ -139,8 +139,8 @@ namespace ContactManager
             pnlMitarbeiterContent.Controls.Add(txtMitarbeiterAdresse);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterPLZ);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterAdresse);
-            pnlMitarbeiterContent.Controls.Add(textBox2);
-            pnlMitarbeiterContent.Controls.Add(comboBox1);
+            pnlMitarbeiterContent.Controls.Add(txtMitarbeiterAHV);
+            pnlMitarbeiterContent.Controls.Add(cmbMitarbeiterKadder);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterAHV);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterKaderstufe);
             pnlMitarbeiterContent.Controls.Add(textBox1);
@@ -151,11 +151,10 @@ namespace ContactManager
             pnlMitarbeiterContent.Controls.Add(txtMitarbeiterVorname);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterNachname);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterVorname);
-            pnlMitarbeiterContent.Controls.Add(txtMitarbeiterPK);
             pnlMitarbeiterContent.Controls.Add(lblMitarbeiterPK);
             pnlMitarbeiterContent.Location = new Point(75, 77);
             pnlMitarbeiterContent.Name = "pnlMitarbeiterContent";
-            pnlMitarbeiterContent.Size = new Size(449, 727);
+            pnlMitarbeiterContent.Size = new Size(449, 502);
             pnlMitarbeiterContent.TabIndex = 2;
             // 
             // numMitarbeiterPensum
@@ -304,21 +303,22 @@ namespace ContactManager
             lblMitarbeiterAdresse.TabIndex = 14;
             lblMitarbeiterAdresse.Text = "Adresse:";
             // 
-            // textBox2
+            // txtMitarbeiterAHV
             // 
-            textBox2.Location = new Point(247, 232);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(182, 23);
-            textBox2.TabIndex = 13;
+            txtMitarbeiterAHV.Location = new Point(247, 232);
+            txtMitarbeiterAHV.Name = "txtMitarbeiterAHV";
+            txtMitarbeiterAHV.PlaceholderText = "756.1234.1234.12";
+            txtMitarbeiterAHV.Size = new Size(182, 23);
+            txtMitarbeiterAHV.TabIndex = 13;
             // 
-            // comboBox1
+            // cmbMitarbeiterKadder
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "0", "1", "2", "3", "4", "5" });
-            comboBox1.Location = new Point(7, 231);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(182, 23);
-            comboBox1.TabIndex = 12;
+            cmbMitarbeiterKadder.FormattingEnabled = true;
+            cmbMitarbeiterKadder.Items.AddRange(new object[] { "0", "1", "2", "3", "4", "5" });
+            cmbMitarbeiterKadder.Location = new Point(7, 231);
+            cmbMitarbeiterKadder.Name = "cmbMitarbeiterKadder";
+            cmbMitarbeiterKadder.Size = new Size(182, 23);
+            cmbMitarbeiterKadder.TabIndex = 12;
             // 
             // lblMitarbeiterAHV
             // 
@@ -342,14 +342,14 @@ namespace ContactManager
             // 
             textBox1.Location = new Point(247, 159);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(185, 23);
+            textBox1.Size = new Size(182, 23);
             textBox1.TabIndex = 9;
             // 
             // txtMitarbeiterNachname
             // 
             txtMitarbeiterNachname.Location = new Point(247, 91);
             txtMitarbeiterNachname.Name = "txtMitarbeiterNachname";
-            txtMitarbeiterNachname.Size = new Size(185, 23);
+            txtMitarbeiterNachname.Size = new Size(182, 23);
             txtMitarbeiterNachname.TabIndex = 8;
             // 
             // txtMitarbeiterAbteilung
@@ -402,14 +402,6 @@ namespace ContactManager
             lblMitarbeiterVorname.TabIndex = 2;
             lblMitarbeiterVorname.Text = "Vorname:";
             // 
-            // txtMitarbeiterPK
-            // 
-            txtMitarbeiterPK.Location = new Point(179, 14);
-            txtMitarbeiterPK.Name = "txtMitarbeiterPK";
-            txtMitarbeiterPK.ReadOnly = true;
-            txtMitarbeiterPK.Size = new Size(238, 23);
-            txtMitarbeiterPK.TabIndex = 1;
-            // 
             // lblMitarbeiterPK
             // 
             lblMitarbeiterPK.AutoSize = true;
@@ -421,7 +413,7 @@ namespace ContactManager
             // 
             // MitarbeiterForm
             // 
-            ClientSize = new Size(601, 902);
+            ClientSize = new Size(601, 630);
             Controls.Add(pnlMitarbeiterContent);
             Controls.Add(pnlMitarbeiterFooter);
             Controls.Add(panel1);
@@ -447,5 +439,7 @@ namespace ContactManager
             lblMitarbeiterAustritt.Visible = ckbBefristet.Checked;
             dtpMitarbeiterAustritt.Visible = ckbBefristet.Checked;
         }
+
+       
     }
 }

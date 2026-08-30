@@ -100,7 +100,6 @@ namespace ContactManager
             lblKundenRequiredNachname = new Label();
             lblKundenRequiredVorname = new Label();
             lblKundenPK = new Label();
-            this.txtKundenPK = new TextBox();
             pnlKundenHeader.SuspendLayout();
             pnlKundenFooter.SuspendLayout();
             pnlKundenContent.SuspendLayout();
@@ -147,7 +146,7 @@ namespace ContactManager
             // lblKundenContentGeburtsdatum
             // 
             lblKundenContentGeburtsdatum.AutoSize = true;
-            lblKundenContentGeburtsdatum.Location = new Point(3, 194);
+            lblKundenContentGeburtsdatum.Location = new Point(3, 235);
             lblKundenContentGeburtsdatum.Name = "lblKundenContentGeburtsdatum";
             lblKundenContentGeburtsdatum.Size = new Size(86, 15);
             lblKundenContentGeburtsdatum.TabIndex = 5;
@@ -156,7 +155,7 @@ namespace ContactManager
             // lblKundenContentGeschlecht
             // 
             lblKundenContentGeschlecht.AutoSize = true;
-            lblKundenContentGeschlecht.Location = new Point(228, 194);
+            lblKundenContentGeschlecht.Location = new Point(228, 235);
             lblKundenContentGeschlecht.Name = "lblKundenContentGeschlecht";
             lblKundenContentGeschlecht.Size = new Size(68, 15);
             lblKundenContentGeschlecht.TabIndex = 6;
@@ -166,7 +165,7 @@ namespace ContactManager
             // 
             lblKundenContentTitleKD.AutoSize = true;
             lblKundenContentTitleKD.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblKundenContentTitleKD.Location = new Point(5, 269);
+            lblKundenContentTitleKD.Location = new Point(3, 317);
             lblKundenContentTitleKD.Name = "lblKundenContentTitleKD";
             lblKundenContentTitleKD.Size = new Size(84, 15);
             lblKundenContentTitleKD.TabIndex = 7;
@@ -175,7 +174,7 @@ namespace ContactManager
             // lblKundenContentTel
             // 
             lblKundenContentTel.AutoSize = true;
-            lblKundenContentTel.Location = new Point(5, 299);
+            lblKundenContentTel.Location = new Point(3, 347);
             lblKundenContentTel.Name = "lblKundenContentTel";
             lblKundenContentTel.Size = new Size(98, 15);
             lblKundenContentTel.TabIndex = 8;
@@ -184,7 +183,7 @@ namespace ContactManager
             // lblKundenContentMobil
             // 
             lblKundenContentMobil.AutoSize = true;
-            lblKundenContentMobil.Location = new Point(228, 299);
+            lblKundenContentMobil.Location = new Point(228, 347);
             lblKundenContentMobil.Name = "lblKundenContentMobil";
             lblKundenContentMobil.Size = new Size(41, 15);
             lblKundenContentMobil.TabIndex = 9;
@@ -193,7 +192,7 @@ namespace ContactManager
             // lblKundenContentMail
             // 
             lblKundenContentMail.AutoSize = true;
-            lblKundenContentMail.Location = new Point(5, 371);
+            lblKundenContentMail.Location = new Point(228, 409);
             lblKundenContentMail.Name = "lblKundenContentMail";
             lblKundenContentMail.Size = new Size(44, 15);
             lblKundenContentMail.TabIndex = 10;
@@ -202,7 +201,7 @@ namespace ContactManager
             // lblKundenContentAnrede
             // 
             lblKundenContentAnrede.AutoSize = true;
-            lblKundenContentAnrede.Location = new Point(3, 36);
+            lblKundenContentAnrede.Location = new Point(3, 79);
             lblKundenContentAnrede.Name = "lblKundenContentAnrede";
             lblKundenContentAnrede.Size = new Size(48, 15);
             lblKundenContentAnrede.TabIndex = 11;
@@ -211,7 +210,7 @@ namespace ContactManager
             // lblKundenContentTitel
             // 
             lblKundenContentTitel.AutoSize = true;
-            lblKundenContentTitel.Location = new Point(228, 36);
+            lblKundenContentTitel.Location = new Point(228, 79);
             lblKundenContentTitel.Name = "lblKundenContentTitel";
             lblKundenContentTitel.Size = new Size(33, 15);
             lblKundenContentTitel.TabIndex = 12;
@@ -220,7 +219,7 @@ namespace ContactManager
             // lblKundenContentNachname
             // 
             lblKundenContentNachname.AutoSize = true;
-            lblKundenContentNachname.Location = new Point(228, 120);
+            lblKundenContentNachname.Location = new Point(228, 159);
             lblKundenContentNachname.Name = "lblKundenContentNachname";
             lblKundenContentNachname.Size = new Size(68, 15);
             lblKundenContentNachname.TabIndex = 14;
@@ -229,7 +228,7 @@ namespace ContactManager
             // lblKundenContentStatus
             // 
             lblKundenContentStatus.AutoSize = true;
-            lblKundenContentStatus.Location = new Point(3, 437);
+            lblKundenContentStatus.Location = new Point(3, 409);
             lblKundenContentStatus.Name = "lblKundenContentStatus";
             lblKundenContentStatus.Size = new Size(42, 15);
             lblKundenContentStatus.TabIndex = 15;
@@ -237,7 +236,7 @@ namespace ContactManager
             // 
             // txtKundeMobil
             // 
-            txtKundeMobil.Location = new Point(228, 327);
+            txtKundeMobil.Location = new Point(228, 374);
             txtKundeMobil.Name = "txtKundeMobil";
             txtKundeMobil.PlaceholderText = "0791234567";
             txtKundeMobil.Size = new Size(145, 23);
@@ -246,22 +245,22 @@ namespace ContactManager
             // 
             // txtKundeMail
             // 
-            txtKundeMail.Location = new Point(5, 399);
+            txtKundeMail.Location = new Point(228, 436);
             txtKundeMail.Name = "txtKundeMail";
             txtKundeMail.PlaceholderText = "beispiel@mail.ch";
-            txtKundeMail.Size = new Size(196, 23);
+            txtKundeMail.Size = new Size(145, 23);
             txtKundeMail.TabIndex = 8;
             // 
             // txtKundeVorname
             // 
-            txtKundeVorname.Location = new Point(3, 148);
+            txtKundeVorname.Location = new Point(3, 186);
             txtKundeVorname.Name = "txtKundeVorname";
             txtKundeVorname.Size = new Size(145, 23);
             txtKundeVorname.TabIndex = 2;
             // 
             // txtKundenNachname
             // 
-            txtKundenNachname.Location = new Point(228, 148);
+            txtKundenNachname.Location = new Point(228, 186);
             txtKundenNachname.Name = "txtKundenNachname";
             txtKundenNachname.Size = new Size(145, 23);
             txtKundenNachname.TabIndex = 3;
@@ -269,7 +268,7 @@ namespace ContactManager
             // lblKundenContentVorname
             // 
             lblKundenContentVorname.AutoSize = true;
-            lblKundenContentVorname.Location = new Point(3, 120);
+            lblKundenContentVorname.Location = new Point(3, 159);
             lblKundenContentVorname.Name = "lblKundenContentVorname";
             lblKundenContentVorname.Size = new Size(57, 15);
             lblKundenContentVorname.TabIndex = 21;
@@ -277,7 +276,7 @@ namespace ContactManager
             // 
             // txtKundeTel
             // 
-            txtKundeTel.Location = new Point(5, 327);
+            txtKundeTel.Location = new Point(3, 374);
             txtKundeTel.Name = "txtKundeTel";
             txtKundeTel.PlaceholderText = "0791234567";
             txtKundeTel.Size = new Size(145, 23);
@@ -287,7 +286,7 @@ namespace ContactManager
             // rdbKundenContentActive
             // 
             rdbKundenContentActive.AutoSize = true;
-            rdbKundenContentActive.Location = new Point(5, 468);
+            rdbKundenContentActive.Location = new Point(3, 438);
             rdbKundenContentActive.Name = "rdbKundenContentActive";
             rdbKundenContentActive.Size = new Size(52, 19);
             rdbKundenContentActive.TabIndex = 9;
@@ -298,7 +297,7 @@ namespace ContactManager
             // rdbKundenContentInactive
             // 
             rdbKundenContentInactive.AutoSize = true;
-            rdbKundenContentInactive.Location = new Point(81, 468);
+            rdbKundenContentInactive.Location = new Point(83, 438);
             rdbKundenContentInactive.Name = "rdbKundenContentInactive";
             rdbKundenContentInactive.Size = new Size(60, 19);
             rdbKundenContentInactive.TabIndex = 10;
@@ -310,7 +309,7 @@ namespace ContactManager
             // 
             cmbKundenContentAnrede.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbKundenContentAnrede.FormattingEnabled = true;
-            cmbKundenContentAnrede.Location = new Point(3, 64);
+            cmbKundenContentAnrede.Location = new Point(3, 107);
             cmbKundenContentAnrede.Name = "cmbKundenContentAnrede";
             cmbKundenContentAnrede.Size = new Size(145, 23);
             cmbKundenContentAnrede.TabIndex = 0;
@@ -320,7 +319,7 @@ namespace ContactManager
             cmbKundenContentTitel.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbKundenContentTitel.FormattingEnabled = true;
             cmbKundenContentTitel.Items.AddRange(new object[] { "Dr.", "Prof.", "Dr. med.", "Ing.", "MSc.", "BSc.", " " });
-            cmbKundenContentTitel.Location = new Point(228, 64);
+            cmbKundenContentTitel.Location = new Point(228, 107);
             cmbKundenContentTitel.Name = "cmbKundenContentTitel";
             cmbKundenContentTitel.Size = new Size(145, 23);
             cmbKundenContentTitel.TabIndex = 1;
@@ -328,7 +327,7 @@ namespace ContactManager
             // cmbKundenContentGeschlecht
             // 
             cmbKundenContentGeschlecht.FormattingEnabled = true;
-            cmbKundenContentGeschlecht.Location = new Point(228, 225);
+            cmbKundenContentGeschlecht.Location = new Point(228, 266);
             cmbKundenContentGeschlecht.Name = "cmbKundenContentGeschlecht";
             cmbKundenContentGeschlecht.Size = new Size(145, 23);
             cmbKundenContentGeschlecht.TabIndex = 5;
@@ -336,7 +335,7 @@ namespace ContactManager
             // dtpKundenContentGeburtsdatum
             // 
             dtpKundenContentGeburtsdatum.Format = DateTimePickerFormat.Short;
-            dtpKundenContentGeburtsdatum.Location = new Point(3, 225);
+            dtpKundenContentGeburtsdatum.Location = new Point(3, 266);
             dtpKundenContentGeburtsdatum.MaxDate = new DateTime(2026, 8, 30, 0, 0, 0, 0);
             dtpKundenContentGeburtsdatum.Name = "dtpKundenContentGeburtsdatum";
             dtpKundenContentGeburtsdatum.Size = new Size(145, 23);
@@ -374,9 +373,8 @@ namespace ContactManager
             // 
             // pnlKundenContent
             // 
-            pnlKundenContent.Controls.Add(this.txtKundenPK);
-            pnlKundenContent.Controls.Add(lblKundenPK);
             pnlKundenContent.Controls.Add(lblKundenRequiredStatus);
+            pnlKundenContent.Controls.Add(lblKundenPK);
             pnlKundenContent.Controls.Add(lblKundenRequiredMail);
             pnlKundenContent.Controls.Add(lblKundenRequiredMobil);
             pnlKundenContent.Controls.Add(lblKundenRequiredNachname);
@@ -413,7 +411,7 @@ namespace ContactManager
             // 
             lblKundenRequiredStatus.AutoSize = true;
             lblKundenRequiredStatus.ForeColor = Color.Red;
-            lblKundenRequiredStatus.Location = new Point(57, 437);
+            lblKundenRequiredStatus.Location = new Point(43, 409);
             lblKundenRequiredStatus.Name = "lblKundenRequiredStatus";
             lblKundenRequiredStatus.Size = new Size(12, 15);
             lblKundenRequiredStatus.TabIndex = 33;
@@ -423,7 +421,7 @@ namespace ContactManager
             // 
             lblKundenRequiredMail.AutoSize = true;
             lblKundenRequiredMail.ForeColor = Color.Red;
-            lblKundenRequiredMail.Location = new Point(207, 402);
+            lblKundenRequiredMail.Location = new Point(377, 440);
             lblKundenRequiredMail.Name = "lblKundenRequiredMail";
             lblKundenRequiredMail.Size = new Size(12, 15);
             lblKundenRequiredMail.TabIndex = 32;
@@ -433,7 +431,7 @@ namespace ContactManager
             // 
             lblKundenRequiredMobil.AutoSize = true;
             lblKundenRequiredMobil.ForeColor = Color.Red;
-            lblKundenRequiredMobil.Location = new Point(379, 330);
+            lblKundenRequiredMobil.Location = new Point(379, 378);
             lblKundenRequiredMobil.Name = "lblKundenRequiredMobil";
             lblKundenRequiredMobil.Size = new Size(12, 15);
             lblKundenRequiredMobil.TabIndex = 31;
@@ -443,7 +441,7 @@ namespace ContactManager
             // 
             lblKundenRequiredNachname.AutoSize = true;
             lblKundenRequiredNachname.ForeColor = Color.Red;
-            lblKundenRequiredNachname.Location = new Point(379, 151);
+            lblKundenRequiredNachname.Location = new Point(379, 190);
             lblKundenRequiredNachname.Name = "lblKundenRequiredNachname";
             lblKundenRequiredNachname.Size = new Size(12, 15);
             lblKundenRequiredNachname.TabIndex = 30;
@@ -453,7 +451,7 @@ namespace ContactManager
             // 
             lblKundenRequiredVorname.AutoSize = true;
             lblKundenRequiredVorname.ForeColor = Color.Red;
-            lblKundenRequiredVorname.Location = new Point(154, 151);
+            lblKundenRequiredVorname.Location = new Point(154, 190);
             lblKundenRequiredVorname.Name = "lblKundenRequiredVorname";
             lblKundenRequiredVorname.Size = new Size(12, 15);
             lblKundenRequiredVorname.TabIndex = 29;
@@ -462,19 +460,11 @@ namespace ContactManager
             // lblKundenPK
             // 
             lblKundenPK.AutoSize = true;
-            lblKundenPK.Location = new Point(228, 402);
+            lblKundenPK.Location = new Point(3, 41);
             lblKundenPK.Name = "lblKundenPK";
             lblKundenPK.Size = new Size(97, 15);
             lblKundenPK.TabIndex = 34;
             lblKundenPK.Text = "Kundennummer:";
-            // 
-            // txtKundenPK
-            // 
-            this.txtKundenPK.Location = new Point(228, 423);
-            this.txtKundenPK.Name = "txtKundenPK";
-            this.txtKundenPK.ReadOnly = true;
-            this.txtKundenPK.Size = new Size(145, 23);
-            this.txtKundenPK.TabIndex = 35;
             // 
             // KundenForm
             // 
