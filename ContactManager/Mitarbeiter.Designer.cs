@@ -20,5 +20,14 @@
             base.Dispose(disposing);
         }
 
+        private Panel panel1;
+        private Label lblMitarbeiterHeaderTitel;
+        private Label lblMitarbeiterHeaderSubtitle;
+        private Panel pnlMitarbeiterFooter;
+        private Button btnMitarbeiterFooterSpeichern;
+        private Button btnMitarbeiterCancel;
+        private Panel pnlMitarbeiterContent;
+        private TextBox txtMitarbeiterPK;
+        private Label lblMitarbeiterPK;
     }
 }

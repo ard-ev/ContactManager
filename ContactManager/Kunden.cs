@@ -473,6 +473,11 @@ namespace ContactManager
 
         }
 
+        /// <summary>
+        /// Validates the email address format.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         private bool IsValidEmail(string email)
         {
             return System.Text.RegularExpressions.Regex.IsMatch(
@@ -481,6 +486,7 @@ namespace ContactManager
             );
         }
 
+        // Validiert die Eingabe der Telefonnummer, sodass nur Ziffern, Steuerzeichen und das Pluszeichen erlaubt sind.
         private void txtKundeTel_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) &&
@@ -567,7 +573,7 @@ namespace ContactManager
                 return;
             }
 
-                       // Kunde aus den Eingabefeldern zusammenbauen
+            // Kunde aus den Eingabefeldern zusammenbauen
             Kunde kunde = new Kunde
             {
                 Anrede = (Enums.Anrede)cmbKundenContentAnrede.SelectedItem,
