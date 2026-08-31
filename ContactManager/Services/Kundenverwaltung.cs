@@ -68,6 +68,47 @@ namespace ContactManager.Services
         }
 
         /// <summary>
+        /// Protokolliert eine neue Notiz zu einem Kunden. Der Eintrag bekommt
+        /// automatisch den aktuellen Zeitpunkt und wird der Historie angehängt.
+        /// Bestehende Einträge werden nie verändert, nur ergänzt.
+        /// </summary>
+        public void NotizHinzufuegen(Kunde kunde, string notiz)
+        {
+            if (string.IsNullOrWhiteSpace(notiz))
+                return;
+
+            Kundenkontakt kontakt = new Kundenkontakt
+            {
+                Id = NaechsteKontaktId(kunde),
+                KontaktDatum = System.DateTime.Now,
+                Notizen = notiz.Trim()
+            };
+
+            kunde.Kontakte.Add(kontakt);
+            repository.Save();
+        }
+
+        /// <summary>
+        /// Gibt die Kontakthistorie eines Kunden zurück, neueste Notiz zuerst.
+        /// </summary>
+        public IReadOnlyList<Kundenkontakt> Kontakthistorie(Kunde kunde)
+        {
+            return kunde.Kontakte
+                .OrderByDescending(k => k.KontaktDatum)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Ermittelt die nächste freie Id innerhalb der Kontakte eines Kunden.
+        /// </summary>
+        private int NaechsteKontaktId(Kunde kunde)
+        {
+            if (!kunde.Kontakte.Any())
+                return 1;
+            return kunde.Kontakte.Max(k => k.Id) + 1;
+        }
+
+        /// <summary>
         /// Bewusst leer: Kunde ist ein Referenztyp, Änderungen an den Properties
         /// wirken sich direkt aus. Existiert als klarer Ansprechpunkt für später,
         /// falls noch Validierung ergänzt wird.
