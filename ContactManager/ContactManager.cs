@@ -126,5 +126,15 @@ namespace ContactManager
         {
 
         }
+
+        private void dgvCustomers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvCustomers.CurrentRow?.DataBoundItem is not Kunde ausgewaehlterKunde)
+                return;
+
+            KundenForm kundenForm = new KundenForm(_kundenVerwaltung, ausgewaehlterKunde);
+            kundenForm.ShowDialog();
+            KundenAnzeigen();
+        }
     }
 }
