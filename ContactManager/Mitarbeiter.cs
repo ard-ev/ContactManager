@@ -534,45 +534,11 @@ namespace ContactManager
                     return;
                 }
 
-            // Kunde aus den Eingabefeldern zusammenbauen
-            Mitarbeiter mitarbeiter = new Mitarbeiter
-            {
-                Vorname = txtMitarbeiterVorname.Text,
-                Nachname = txtMitarbeiterNachname.Text,
-                Geburtsdatum = dtpMitarbeiterGeburtsdatum.Value,
-                MobilNummer = txtMitarbeiterMobil.Text,
-                Status = ckbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
-            };
 
-            // An die Verwaltung übergeben und auf die Festplatte speichern
-            _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
-            _mitarbeiterVerwaltung.Speichern();
 
-            // Rückmeldung geben und Formular für den nächsten Mitarbeiter zurücksetzen
-            MessageBox.Show("Mitarbeiter     erfolgreich gespeichert.");
-            FelderZuruecksetzen();
+
+
         }
 
-        /// <summary>
-        /// Setzt alle Eingabefelder auf den Ausgangszustand zurück,
-        /// damit direkt der nächste Kunde erfasst werden kann.
-        /// </summary>
-        private void FelderZuruecksetzen()
-        {
-            txtMitarbeiterVorname.Clear();
-            txtMitarbeiterNachname.Clear();
-            txtMitarbeiterMobil.Clear();
-            txtMitarbeiterMail.Clear();
-            // MaxDate statt DateTime.Now, weil das Feld nur Daten bis 2025 zulässt
-            dtpMitarbeiterGeburtsdatum.Value = dtpMitarbeiterGeburtsdatum.MaxDate;
-            rdbMitarbeiterActive.Checked = false;
-            rdbMitarbeiterInactive.Checked = false;
-            // Fokus zurück auf das erste Feld, damit man gleich lostippen kann
-            txtMitarbeiterVorname.Focus();
-        }
-
-
-
-    }
     }
 }
