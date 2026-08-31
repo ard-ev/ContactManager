@@ -26,6 +26,9 @@ namespace ContactManager
             // Gespeicherte Kunden beim Start anzeigen
             KundenAnzeigen();
 
+            // Enter im Suchfeld löst die Suche aus
+            txtCustomerSearch.KeyDown += TxtCustomerSearch_KeyDown;
+
 
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
             SetActiveNAvigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
@@ -96,8 +99,28 @@ namespace ContactManager
 
         private void btnCustomerSearch_Click(object sender, EventArgs e)
         {
+            KundenSuchen();
+        }
+
+        /// <summary>
+        /// Führt die Kundensuche aus und zeigt das Ergebnis im Grid an.
+        /// Wird vom Suchen-Button und von der Enter-Taste im Suchfeld genutzt.
+        /// </summary>
+        private void KundenSuchen()
+        {
             dgvCustomers.DataSource = null;
             dgvCustomers.DataSource = _kundenVerwaltung.Suchen(txtCustomerSearch.Text);
+        }
+        /// <summary>
+        /// Löst die Suche aus, wenn im Suchfeld die Enter-Taste gedrückt wird.
+        /// </summary>
+        private void TxtCustomerSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                KundenSuchen();
+                e.SuppressKeyPress = true; // verhindert das "Ding"-Geräusch von Windows
+            }
         }
 
         private void btnCustomerDel_Click(object sender, EventArgs e)
