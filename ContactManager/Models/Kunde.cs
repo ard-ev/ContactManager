@@ -27,5 +27,11 @@ namespace ContactManager.Models
         /// vollständig nachvollziehbar (siehe Anforderung "Protokollierung inkl. Historie").
         /// </summary>
         public List<Kundenkontakt> Kontakte { get; set; } = new();
+
+        /// <summary>
+        /// Chronologische Liste aller Änderungen an den Stammdaten dieses Kunden
+        /// (Mutationshistorie). Wird beim Bearbeiten in KundenForm automatisch befüllt.
+        /// </summary>
+        public List<KundenMutation> Mutationen { get; set; } = new();
     }
 }

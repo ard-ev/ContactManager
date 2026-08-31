@@ -125,7 +125,7 @@ namespace ContactManager
 
         private void btnCustomerDel_Click(object sender, EventArgs e)
         {
-            if (dgvCustomers.CurrentRow?.DataBoundItem is not Kunde ausgewaehlterKunde) 
+            if (dgvCustomers.CurrentRow?.DataBoundItem is not Kunde ausgewaehlterKunde)
             {
                 MessageBox.Show("Bitte wählen Sie zuerst einen Kunden in der Liste aus");
                 return;

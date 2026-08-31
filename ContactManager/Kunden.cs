@@ -89,6 +89,42 @@ namespace ContactManager
         }
 
         /// <summary>
+        /// Ermittelt, welche Felder sich gegenüber dem Ausgangszustand geändert haben,
+        /// inkl. altem und neuem Wert. Wird beim Speichern im Bearbeiten-Modus genutzt,
+        /// um die Mutationshistorie des Kunden zu befüllen.
+        /// </summary>
+        private List<(string Feld, string AlterWert, string NeuerWert)> AenderungenErmitteln()
+        {
+            var aenderungen = new List<(string Feld, string AlterWert, string NeuerWert)>();
+
+            if (_originalZustand == null)
+                return aenderungen;
+
+            void Vergleichen(string feld, string alterWert, string neuerWert)
+            {
+                if (alterWert != neuerWert)
+                    aenderungen.Add((feld, alterWert, neuerWert));
+            }
+
+            var neueAnrede = (Enums.Anrede)cmbKundenContentAnrede.SelectedItem;
+            var neuesGeschlecht = (Enums.Geschlecht)cmbKundenContentGeschlecht.SelectedItem;
+            var neuerStatus = rdbKundenContentActive.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
+
+            Vergleichen("Anrede", _originalZustand.Anrede.ToString(), neueAnrede.ToString());
+            Vergleichen("Titel", _originalZustand.Titel, cmbKundenContentTitel.Text);
+            Vergleichen("Vorname", _originalZustand.Vorname, txtKundeVorname.Text);
+            Vergleichen("Nachname", _originalZustand.Nachname, txtKundenNachname.Text);
+            Vergleichen("Geburtsdatum", _originalZustand.Geburtsdatum.ToString("dd.MM.yyyy"), dtpKundenContentGeburtsdatum.Value.ToString("dd.MM.yyyy"));
+            Vergleichen("Geschlecht", _originalZustand.Geschlecht.ToString(), neuesGeschlecht.ToString());
+            Vergleichen("Telefon Geschäft", _originalZustand.GeschäftsNummer, txtKundeTel.Text);
+            Vergleichen("Mobil", _originalZustand.MobilNummer, txtKundeMobil.Text);
+            Vergleichen("E-Mail", _originalZustand.Email, txtKundeMail.Text);
+            Vergleichen("Status", _originalZustand.Status.ToString(), neuerStatus.ToString());
+
+            return aenderungen;
+        }
+
+        /// <summary>
         /// Befüllt die Enum-basierten ComboBoxen dynamisch aus den Enum-Werten,
         /// statt sie im Designer hart zu codieren.
         /// </summary>
@@ -169,7 +205,7 @@ namespace ContactManager
             lblKundenRequiredMobil = new Label();
             lblKundenRequiredNachname = new Label();
             lblKundenRequiredVorname = new Label();
-            this.btnKundenVerwaltung = new Button();
+            btnKundenVerwaltung = new Button();
             pnlKundenHeader.SuspendLayout();
             pnlKundenFooter.SuspendLayout();
             pnlKundenContent.SuspendLayout();
@@ -416,7 +452,7 @@ namespace ContactManager
             // 
             // pnlKundenFooter
             // 
-            pnlKundenFooter.Controls.Add(this.btnKundenVerwaltung);
+            pnlKundenFooter.Controls.Add(btnKundenVerwaltung);
             pnlKundenFooter.Controls.Add(btnKundenFooterSpeichern);
             pnlKundenFooter.Controls.Add(btnKundenFooterAbbrechen);
             pnlKundenFooter.Location = new Point(0, 581);
@@ -541,13 +577,13 @@ namespace ContactManager
             // 
             // btnKundenVerwaltung
             // 
-            this.btnKundenVerwaltung.Location = new Point(23, 6);
-            this.btnKundenVerwaltung.Name = "btnKundenVerwaltung";
-            this.btnKundenVerwaltung.Size = new Size(112, 34);
-            this.btnKundenVerwaltung.TabIndex = 13;
-            this.btnKundenVerwaltung.Text = "History";
-            this.btnKundenVerwaltung.UseVisualStyleBackColor = true;
-            this.btnKundenVerwaltung.Click += this.btnKundenVerwaltung_Click;
+            btnKundenVerwaltung.Location = new Point(23, 6);
+            btnKundenVerwaltung.Name = "btnKundenVerwaltung";
+            btnKundenVerwaltung.Size = new Size(112, 34);
+            btnKundenVerwaltung.TabIndex = 13;
+            btnKundenVerwaltung.Text = "Verlauf";
+            btnKundenVerwaltung.UseVisualStyleBackColor = true;
+            btnKundenVerwaltung.Click += btnKundenVerwaltung_Click;
             // 
             // KundenForm
             // 
@@ -673,6 +709,10 @@ namespace ContactManager
                     return;
                 }
 
+                // Änderungen VOR dem Überschreiben der Felder ermitteln, damit
+                // der alte Wert aus dem Schnappschuss noch zur Verfügung steht.
+                var aenderungen = AenderungenErmitteln();
+
                 _bearbeiteterKunde.Anrede = (Enums.Anrede)cmbKundenContentAnrede.SelectedItem;
                 _bearbeiteterKunde.Titel = cmbKundenContentTitel.Text;
                 _bearbeiteterKunde.Vorname = txtKundeVorname.Text;
@@ -685,6 +725,7 @@ namespace ContactManager
                 _bearbeiteterKunde.Status = rdbKundenContentActive.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
 
                 _kundenVerwaltung.Bearbeiten(_bearbeiteterKunde);
+                _kundenVerwaltung.MutationenProtokollieren(_bearbeiteterKunde, aenderungen);
                 _kundenVerwaltung.Speichern();
 
                 MessageBox.Show("Kunde aktualisiert.");
@@ -750,9 +791,21 @@ namespace ContactManager
             this.Close();
         }
 
+        /// <summary>
+        /// Event-Handler für den Verlauf-Button: öffnet die KundenVerwaltungForm
+        /// mit Notizen-Protokoll und Mutationshistorie des aktuell bearbeiteten Kunden.
+        /// Nur verfügbar, wenn der Kunde bereits gespeichert ist (Bearbeiten-Modus).
+        /// </summary>
         private void btnKundenVerwaltung_Click(object sender, EventArgs e)
         {
+            if (_bearbeiteterKunde == null)
+            {
+                MessageBox.Show("Bitte zuerst speichern - Verlauf ist erst danach verfügbar.");
+                return;
+            }
 
+            KundenVerwaltungForm verwaltungForm = new KundenVerwaltungForm(_kundenVerwaltung, _bearbeiteterKunde);
+            verwaltungForm.ShowDialog();
         }
     }
 }

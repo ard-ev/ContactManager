@@ -51,7 +51,8 @@ namespace ContactManager.Services
         /// wieder bei 0 anfangen würde und Nummern doppelt vergeben könnte
         /// </summary>
 
-        public int NaechsteKundenNummer(){
+        public int NaechsteKundenNummer()
+        {
             return Nummernvergabe.NaechsteNummer(
                 repository.Data.Kunden.Select(k => k.KundenNummer),
                 startPraefix: 1,
@@ -106,6 +107,51 @@ namespace ContactManager.Services
             if (!kunde.Kontakte.Any())
                 return 1;
             return kunde.Kontakte.Max(k => k.Id) + 1;
+        }
+
+        /// <summary>
+        /// Protokolliert eine oder mehrere Feldänderungen an einem Kunden in der
+        /// Mutationshistorie. Wird beim Speichern von KundenForm aufgerufen, nachdem
+        /// die Änderungen gegenüber dem Ausgangszustand ermittelt wurden.
+        /// Bestehende Einträge werden nie verändert, nur ergänzt.
+        /// </summary>
+        public void MutationenProtokollieren(Kunde kunde, IEnumerable<(string Feld, string AlterWert, string NeuerWert)> aenderungen)
+        {
+            int naechsteId = NaechsteMutationId(kunde);
+
+            foreach (var (feld, alterWert, neuerWert) in aenderungen)
+            {
+                kunde.Mutationen.Add(new KundenMutation
+                {
+                    Id = naechsteId++,
+                    Zeitpunkt = System.DateTime.Now,
+                    Feld = feld,
+                    AlterWert = alterWert,
+                    NeuerWert = neuerWert
+                });
+            }
+
+            repository.Save();
+        }
+
+        /// <summary>
+        /// Gibt die Mutationshistorie eines Kunden zurück, neueste Änderung zuerst.
+        /// </summary>
+        public IReadOnlyList<KundenMutation> Mutationshistorie(Kunde kunde)
+        {
+            return kunde.Mutationen
+                .OrderByDescending(m => m.Zeitpunkt)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Ermittelt die nächste freie Id innerhalb der Mutationen eines Kunden.
+        /// </summary>
+        private int NaechsteMutationId(Kunde kunde)
+        {
+            if (!kunde.Mutationen.Any())
+                return 1;
+            return kunde.Mutationen.Max(m => m.Id) + 1;
         }
 
         /// <summary>
