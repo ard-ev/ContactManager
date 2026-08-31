@@ -169,6 +169,7 @@ namespace ContactManager
             lblKundenRequiredMobil = new Label();
             lblKundenRequiredNachname = new Label();
             lblKundenRequiredVorname = new Label();
+            this.btnKundenVerwaltung = new Button();
             pnlKundenHeader.SuspendLayout();
             pnlKundenFooter.SuspendLayout();
             pnlKundenContent.SuspendLayout();
@@ -415,6 +416,7 @@ namespace ContactManager
             // 
             // pnlKundenFooter
             // 
+            pnlKundenFooter.Controls.Add(this.btnKundenVerwaltung);
             pnlKundenFooter.Controls.Add(btnKundenFooterSpeichern);
             pnlKundenFooter.Controls.Add(btnKundenFooterAbbrechen);
             pnlKundenFooter.Location = new Point(0, 581);
@@ -536,6 +538,16 @@ namespace ContactManager
             lblKundenRequiredVorname.Size = new Size(20, 25);
             lblKundenRequiredVorname.TabIndex = 29;
             lblKundenRequiredVorname.Text = "*";
+            // 
+            // btnKundenVerwaltung
+            // 
+            this.btnKundenVerwaltung.Location = new Point(23, 6);
+            this.btnKundenVerwaltung.Name = "btnKundenVerwaltung";
+            this.btnKundenVerwaltung.Size = new Size(112, 34);
+            this.btnKundenVerwaltung.TabIndex = 13;
+            this.btnKundenVerwaltung.Text = "History";
+            this.btnKundenVerwaltung.UseVisualStyleBackColor = true;
+            this.btnKundenVerwaltung.Click += this.btnKundenVerwaltung_Click;
             // 
             // KundenForm
             // 
@@ -738,6 +750,9 @@ namespace ContactManager
             this.Close();
         }
 
-        
+        private void btnKundenVerwaltung_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

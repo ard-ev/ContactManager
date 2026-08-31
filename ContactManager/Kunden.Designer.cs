@@ -61,5 +61,6 @@
         private Label lblKundenRequiredMail;
         private Label lblKundenRequiredStatus;
         private Label lblKundenPK;
+        private Button btnKundenVerwaltung;
     }
 }
