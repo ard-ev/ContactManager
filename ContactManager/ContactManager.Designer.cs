@@ -218,6 +218,7 @@
             btnCustomerEdit.TabIndex = 6;
             btnCustomerEdit.Text = "Bearbeiten";
             btnCustomerEdit.UseVisualStyleBackColor = true;
+            btnCustomerEdit.Click += btnCustomerEdit_Click;
             // 
             // btnCustomerAdd
             // 

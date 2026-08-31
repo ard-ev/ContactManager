@@ -129,8 +129,26 @@ namespace ContactManager
 
         private void dgvCustomers_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            AusgewaehltenKundenBearbeiten();
+        }
+
+        private void btnCustomerEdit_Click(object sender, EventArgs e)
+        {
+            AusgewaehltenKundenBearbeiten();
+        }
+
+        /// <summary>
+        /// Öffnet den ausgewählten Kunden im Bearbeiten-Modus. Wird sowohl vom
+        /// Doppelklick auf die Tabelle als auch vom "Bearbeiten"-Button aufgerufen,
+        /// damit die Logik nicht doppelt gepflegt werden muss.
+        /// </summary>
+        private void AusgewaehltenKundenBearbeiten()
+        {
             if (dgvCustomers.CurrentRow?.DataBoundItem is not Kunde ausgewaehlterKunde)
+            {
+                MessageBox.Show("Bitte wählen Sie zuerst einen Kunden in der Liste aus.");
                 return;
+            }
 
             KundenForm kundenForm = new KundenForm(_kundenVerwaltung, ausgewaehlterKunde);
             kundenForm.ShowDialog();
