@@ -14,6 +14,10 @@ namespace ContactManager
 
         // Die Kundenverwaltung arbeitet auf demselben Repository
         private readonly KundenVerwaltung _kundenVerwaltung;
+
+        // Verwaltung für die Mitarbeiter (arbeitet auf demselben Repository)
+        private readonly MitarbeiterVerwaltung _mitarbeiterVerwaltung;
+
         public ContactManager()
         {
             InitializeComponent();
@@ -21,10 +25,13 @@ namespace ContactManager
             //Daten beim Start von der Festplatte lesen
             _repository.Load();
 
-            //Verwaltung mit dem geladenen Repository verbinden
+            //Verwaltung mit dem geladenen Kunden Repository verbinden
             _kundenVerwaltung = new KundenVerwaltung(_repository);
             // Gespeicherte Kunden beim Start anzeigen
             KundenAnzeigen();
+
+            //Verwaltung mit dem geladenen Mitarbeiter Repository verbinden
+            _mitarbeiterVerwaltung = new MitarbeiterVerwaltung(_repository);
 
             // Enter im Suchfeld löst die Suche aus
             txtCustomerSearch.KeyDown += TxtCustomerSearch_KeyDown;
@@ -80,7 +87,8 @@ namespace ContactManager
         //Event für Maske öffnen (Mitarbeiter erstellen
         private void btnEmployeeAdd_Click(object sender, EventArgs e)
         {
-            MitarbeiterForm mitarbeiterForm = new MitarbeiterForm();
+            // Formular öffnen und ihm die gemeinsame Mitarbeiterverwaltung mitgeben
+            MitarbeiterForm mitarbeiterForm = new MitarbeiterForm(_mitarbeiterVerwaltung);
             mitarbeiterForm.ShowDialog();
         }
 

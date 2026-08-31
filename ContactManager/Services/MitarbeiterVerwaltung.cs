@@ -32,6 +32,15 @@ namespace ContactManager.Services
         }
 
         /// <summary>
+        /// Schreibt den aktuellen Stand auf die Festplatte.
+        /// Gibt die Aufgabe ans Repository weiter.
+        /// </summary>
+        public void Speichern()
+        {
+            repository.Save();
+        }
+
+        /// <summary>
         /// Ermittelt die nächste freie Mitarbeiternummer basierend auf der höchsten
         /// bereits vergebenen Nummer. Bewusst NICHT als zähler im Mitarbeiter-Objekt
         /// selbst gelöst, weil beim Laden aus der JSON-Datei sonst der Zähler

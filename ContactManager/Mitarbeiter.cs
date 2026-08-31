@@ -1,20 +1,19 @@
 ﻿using ContactManager.Models;
 using ContactManager.Services;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 
 namespace ContactManager
 {
     public partial class MitarbeiterForm : Form
     {
-        public MitarbeiterForm()
+        // Draht zur Mitarbeiterverwaltung, damit das Formular speichern kann
+        private readonly MitarbeiterVerwaltung _mitarbeiterVerwaltung;
+
+        public MitarbeiterForm(MitarbeiterVerwaltung mitarbeiterVerwaltung)
         {
             InitializeComponent();
+            _mitarbeiterVerwaltung = mitarbeiterVerwaltung;
+
             lblMitarbeiterAustritt.Visible = false;
             dtpMitarbeiterAustritt.Visible = false;
             txtMitarbeiterAHV.Text = "756.";
@@ -518,26 +517,60 @@ namespace ContactManager
 
             return System.Text.RegularExpressions.Regex.IsMatch(
                 phoneNumber,
-                @"^(0\d{9}$"
+                @"^(0\d{9}|\+41\d{9})$"
             );
         }
 
-        private void btnMitarbeiterFooterSpeichern_Click(object sender, EventArgs e)
+         private void btnMitarbeiterFooterSpeichern_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtMitarbeiterMobil.Text))
+            // Pflichtfelder minimal prüfen
+            if (string.IsNullOrWhiteSpace(txtMitarbeiterVorname.Text) ||
+                string.IsNullOrWhiteSpace(txtMitarbeiterNachname.Text))
+            {
+                MessageBox.Show("Bitte mindestens Vorname und Nachname ausfüllen.");
+                return;
+            }
 
-                // Validierung der Mobilnummer
-                if (!IsValidPhoneNumber(txtMitarbeiterMobil.Text))
-                {
-                    MessageBox.Show("Bitte geben Sie eine gültige Telefonnummer ein.");
-                    txtMitarbeiterMobil.Focus();
-                    return;
-                }
+            // Mobilnummer prüfen (nur wenn etwas eingegeben wurde)
+            if (!string.IsNullOrWhiteSpace(txtMitarbeiterMobil.Text) &&
+                !IsValidPhoneNumber(txtMitarbeiterMobil.Text))
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige Telefonnummer ein.");
+                txtMitarbeiterMobil.Focus();
+                return;
+            }
 
+            // Kaderstufe aus der ComboBox lesen (Text "0" bis "5"), sicher umwandeln
+            int kaderWert = int.TryParse(cmbMitarbeiterKadder.Text, out int kw) ? kw : 0;
 
+            // Mitarbeiter aus den Eingabefeldern zusammenbauen
+            Mitarbeiter mitarbeiter = new Mitarbeiter
+            {
+                Vorname = txtMitarbeiterVorname.Text,
+                Nachname = txtMitarbeiterNachname.Text,
+                Abteilung = cmbMitarbeiterAbteilung.Text,
+                Rolle = txtMitarbeiterRolle.Text,
+                Kaderstufe = (Enums.Kaderstufe)kaderWert,
+                AhvNummer = txtMitarbeiterAHV.Text,
+                Adresse = txtMitarbeiterAdresse.Text,
+                Plz = txtMitarbeiterPLZ.Text,
+                Wohnort = txtMitarbeiterOrt.Text,
+                Nationalität = cmbMitarbeiterNationalität.Text,
+                MobilNummer = txtMitarbeiterMobil.Text,
+                EinstellungsDatum = dtpMitarbeiterEintritt.Value,
+                KündigungsDatum = ckbMitarbeiterBefristet.Checked
+                    ? dtpMitarbeiterAustritt.Value
+                    : (DateTime?)null,
+                Pensum = numMitarbeiterPensum.Value,
+                Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
+            };
 
+            // An die Verwaltung übergeben und auf die Festplatte speichern
+            _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
+            _mitarbeiterVerwaltung.Speichern();
 
-
+            MessageBox.Show("Mitarbeiter erfolgreich gespeichert.");
+            this.Close();
         }
 
     }
