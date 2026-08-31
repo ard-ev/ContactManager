@@ -30,7 +30,7 @@ namespace ContactManager.Data
             _pfad = pfad ?? Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "ContactManager",
-                "contactmanager_json");
+                "contactmanager.json");
 
             Directory.CreateDirectory(Path.GetDirectoryName(_pfad)!);
 
