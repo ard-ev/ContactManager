@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using ContactManager.Data;
 using ContactManager.Models;
 
@@ -74,7 +75,7 @@ namespace ContactManager.Services
         /// automatisch den aktuellen Zeitpunkt und wird der Historie angehängt.
         /// Bestehende Einträge werden nie verändert, nur ergänzt.
         /// </summary>
-        public void NotizHinzufuegen(Kunde kunde, string notiz)
+        public void NotizHinzufuegen(Kunde kunde, string notiz, int mitarbeiterNummer)
         {
             if (string.IsNullOrWhiteSpace(notiz))
                 return;
@@ -83,7 +84,8 @@ namespace ContactManager.Services
             {
                 Id = NaechsteKontaktId(kunde),
                 KontaktDatum = System.DateTime.Now,
-                Notizen = notiz.Trim()
+                Notizen = notiz.Trim(),
+                MitarbeiterNummer = mitarbeiterNummer
             };
 
             kunde.Kontakte.Add(kontakt);
@@ -193,6 +195,27 @@ namespace ContactManager.Services
                 k.Geburtsdatum.ToString("dd.MM.yyyy").Contains(suchtext) ||
                 k.KundenNummer.ToString().Contains(suchtext)
             ).ToList();
+        }
+
+
+        /// <summary>
+        /// Protokolliert einen neuen Kontakt (z.B. Anruf, E-Mail) mit dem Kunden,
+        /// inklusive welcher Mitarbeiter den Kontakt hatte. Wird nie aus der
+        /// Historie entfernt, nur ergänzt.
+        /// </summary>
+        public void KontaktHinzufuegen(Kunde kunde, int mitarbeiterNummer, string notiz)
+        {
+            int naechsteId = kunde.Kontakte.Any() ? kunde.Kontakte.Max(k => k.Id) + 1 : 1;
+
+            kunde.Kontakte.Add(new Kundenkontakt
+            {
+                Id = naechsteId,
+                KontaktDatum = DateTime.Now,
+                Notizen = notiz,
+                MitarbeiterNummer = mitarbeiterNummer
+            });
+
+            Speichern();
         }
     }
 }

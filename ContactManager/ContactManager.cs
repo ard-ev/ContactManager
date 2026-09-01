@@ -111,7 +111,7 @@ namespace ContactManager
         private void btnCustomerAdd_Click_1(object sender, EventArgs e)
         {
             // Formular öffnen und ihm die gemeinsame Kundenverwaltung mitgeben
-            KundenForm kundenForm = new KundenForm(_kundenVerwaltung);
+            KundenForm kundenForm = new KundenForm(_kundenVerwaltung, _mitarbeiterVerwaltung);
             kundenForm.ShowDialog();
             KundenAnzeigen();
         }
@@ -192,7 +192,7 @@ namespace ContactManager
                 return;
             }
 
-            KundenForm kundenForm = new KundenForm(_kundenVerwaltung, ausgewaehlterKunde);
+            KundenForm kundenForm = new KundenForm(_kundenVerwaltung, _mitarbeiterVerwaltung, ausgewaehlterKunde);
             kundenForm.ShowDialog();
             KundenAnzeigen();
         }
@@ -220,6 +220,10 @@ namespace ContactManager
                 .SelectMany(k => k.Kontakte.Select(kontakt => new
                 {
                     Kunde = $"{k.Vorname} {k.Nachname}",
+                    Wer = _mitarbeiterVerwaltung.Alle
+                          .Where(m => m.MitarbeiterNummer == kontakt.MitarbeiterNummer)
+                          .Select(m => $"{m.Vorname} {m.Nachname}")
+                          .FirstOrDefault() ?? "Unbekannt",
                     Datum = kontakt.KontaktDatum,
                     Notiz = kontakt.Notizen
                 }))

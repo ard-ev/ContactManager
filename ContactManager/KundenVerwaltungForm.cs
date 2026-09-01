@@ -1,5 +1,6 @@
 ﻿using ContactManager.Models;
 using ContactManager.Services;
+using System.Linq;
 
 namespace ContactManager
 {
@@ -11,15 +12,24 @@ namespace ContactManager
     public partial class KundenVerwaltungForm : Form
     {
         private readonly KundenVerwaltung _kundenVerwaltung;
+        private readonly MitarbeiterVerwaltung _mitarbeiterVerwaltung;
         private readonly Kunde _kunde;
 
-        public KundenVerwaltungForm(KundenVerwaltung kundenVerwaltung, Kunde kunde)
+        public KundenVerwaltungForm(KundenVerwaltung kundenVerwaltung, MitarbeiterVerwaltung mitarbeiterVerwaltung, Kunde kunde)
         {
             InitializeComponent();
             _kundenVerwaltung = kundenVerwaltung;
+            _mitarbeiterVerwaltung = mitarbeiterVerwaltung;
             _kunde = kunde;
 
             lblKVHeaderSubtitle.Text = $"{_kunde.Vorname} {_kunde.Nachname} (Kundennummer: {_kunde.KundenNummer})";
+
+            // NEU: Mitarbeiter-Dropdown befüllen, bevor NotizenLaden() aufgerufen wird
+            cmbKVMitarbeiter.DataSource = _mitarbeiterVerwaltung.Alle
+                .Select(m => new { Anzeige = $"{m.Vorname} {m.Nachname}", Nummer = m.MitarbeiterNummer })
+                .ToList();
+            cmbKVMitarbeiter.DisplayMember = "Anzeige";
+            cmbKVMitarbeiter.ValueMember = "Nummer";
 
             NotizenLaden();
             MutationenLaden();
@@ -33,6 +43,10 @@ namespace ContactManager
                 .Select(k => new
                 {
                     Datum = k.KontaktDatum.ToString("dd.MM.yyyy HH:mm"),
+                    Mitarbeiter = _mitarbeiterVerwaltung.Alle
+                        .Where(m => m.MitarbeiterNummer == k.MitarbeiterNummer)
+                        .Select(m => $"{m.Vorname} {m.Nachname}")
+                        .FirstOrDefault() ?? "Unbekannt",
                     Notiz = k.Notizen
                 })
                 .ToList();
@@ -68,7 +82,14 @@ namespace ContactManager
                 return;
             }
 
-            _kundenVerwaltung.NotizHinzufuegen(_kunde, txtKVNeueNotiz.Text);
+            if (cmbKVMitarbeiter.SelectedValue == null)
+            {
+                MessageBox.Show("Bitte einen Mitarbeiter auswählen.");
+                return;
+            }
+
+            int mitarbeiterNummer = (int)cmbKVMitarbeiter.SelectedValue;
+            _kundenVerwaltung.NotizHinzufuegen(_kunde, txtKVNeueNotiz.Text, mitarbeiterNummer);
             txtKVNeueNotiz.Clear();
             NotizenLaden();
         }
@@ -94,6 +115,7 @@ namespace ContactManager
             dgvKVMutationen = new DataGridView();
             pnlKVFooter = new Panel();
             btnKVSchliessen = new Button();
+            this.cmbKVMitarbeiter = new ComboBox();
             pnlKVHeader.SuspendLayout();
             tabKVHistorie.SuspendLayout();
             tabKVNotizen.SuspendLayout();
@@ -143,6 +165,7 @@ namespace ContactManager
             // 
             // tabKVNotizen
             // 
+            tabKVNotizen.Controls.Add(this.cmbKVMitarbeiter);
             tabKVNotizen.Controls.Add(dgvKVNotizen);
             tabKVNotizen.Controls.Add(btnKVNotizHinzufuegen);
             tabKVNotizen.Controls.Add(txtKVNeueNotiz);
@@ -242,6 +265,14 @@ namespace ContactManager
             btnKVSchliessen.Text = "Schliessen";
             btnKVSchliessen.UseVisualStyleBackColor = true;
             btnKVSchliessen.Click += btnKVSchliessen_Click;
+            // 
+            // cmbKVMitarbeiter
+            // 
+            this.cmbKVMitarbeiter.FormattingEnabled = true;
+            this.cmbKVMitarbeiter.Location = new Point(614, 85);
+            this.cmbKVMitarbeiter.Name = "cmbKVMitarbeiter";
+            this.cmbKVMitarbeiter.Size = new Size(110, 33);
+            this.cmbKVMitarbeiter.TabIndex = 4;
             // 
             // KundenVerwaltungForm
             // 

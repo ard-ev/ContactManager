@@ -7,11 +7,12 @@ namespace ContactManager
     {
         // Draht zur Kundenverwaltung, damit das Formular den Kunden speichern kann
         private readonly KundenVerwaltung _kundenVerwaltung;
+        private readonly MitarbeiterVerwaltung _mitarbeiterVerwaltung; // Draht zur Mitarbeiterverwaltung, falls das Formular auch Mitarbeiterdaten benötigt
         private readonly Kunde? _bearbeiteterKunde; // null = neuer Kunde, sonst Bearbeiten-Modus
         private Kunde? _originalZustand; // Schnappschuss der Werte beim Öffnen, für die Änderungserkennung
 
         /// <summary>Konstruktor zum Anlegen eines neuen Kunden.</summary>
-        public KundenForm(KundenVerwaltung kundenVerwaltung) : this(kundenVerwaltung, null)
+        public KundenForm(KundenVerwaltung kundenVerwaltung, MitarbeiterVerwaltung mitarbeiterVerwaltung) : this(kundenVerwaltung, mitarbeiterVerwaltung, null)
         {
         }
 
@@ -19,10 +20,11 @@ namespace ContactManager
         /// Konstruktor zum Bearbeiten eines bestehenden Kunden. Ist kunde null,
         /// verhält sich das Formular wie beim Neuanlegen.
         /// </summary>
-        public KundenForm(KundenVerwaltung kundenVerwaltung, Kunde? kunde)
+        public KundenForm(KundenVerwaltung kundenVerwaltung, MitarbeiterVerwaltung mitarbeiterVerwaltung, Kunde? kunde)
         {
             InitializeComponent();
             _kundenVerwaltung = kundenVerwaltung;
+            _mitarbeiterVerwaltung = mitarbeiterVerwaltung;
             _bearbeiteterKunde = kunde;
             ComboBoxenBefuellen();
 
@@ -804,7 +806,7 @@ namespace ContactManager
                 return;
             }
 
-            KundenVerwaltungForm verwaltungForm = new KundenVerwaltungForm(_kundenVerwaltung, _bearbeiteterKunde);
+            KundenVerwaltungForm verwaltungForm = new KundenVerwaltungForm(_kundenVerwaltung, _mitarbeiterVerwaltung, _bearbeiteterKunde);
             verwaltungForm.ShowDialog();
         }
     }
