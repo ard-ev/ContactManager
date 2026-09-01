@@ -262,32 +262,5 @@ namespace ContactManager
 
             dgvRecentContacts.DataSource = kontakte;
         }
-
-        private bool _kundenSortAufsteigend = true;
-
-        private void dgvCustomers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            string spalte = dgvCustomers.Columns[e.ColumnIndex].Name;
-
-            IEnumerable<Kunde> sortiert = spalte switch
-            {
-                nameof(Kunde.Nachname) => _kundenSortAufsteigend
-                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Nachname)
-                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Nachname),
-                nameof(Kunde.Vorname) => _kundenSortAufsteigend
-                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Vorname)
-                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Vorname),
-                nameof(Kunde.Geburtsdatum) => _kundenSortAufsteigend
-                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Geburtsdatum)
-                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Geburtsdatum),
-                nameof(Kunde.Status) => _kundenSortAufsteigend
-                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Status)
-                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Status),
-                _ => _kundenVerwaltung.Alle // Andere Spalten: unsortiert lassen
-            };
-
-            dgvCustomers.DataSource = sortiert.ToList();
-            _kundenSortAufsteigend = !_kundenSortAufsteigend; // Nächster Klick auf dieselbe Spalte kehrt um
-        }
     }
 }
