@@ -28,8 +28,6 @@ namespace ContactManager
 
             //Verwaltung mit dem geladenen Kunden Repository verbinden
             _kundenVerwaltung = new KundenVerwaltung(_repository);
-            // Gespeicherte Kunden beim Start anzeigen
-            KundenAnzeigen();
 
             //Verwaltung mit dem geladenen Mitarbeiter Repository verbinden
             _mitarbeiterVerwaltung = new MitarbeiterVerwaltung(_repository);
@@ -40,8 +38,10 @@ namespace ContactManager
 
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
             SetActiveNAvigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
+            // Gespeicherte Kunden beim Start anzeigen
+            KundenAnzeigen();
+            // Gespeicherte Mitarbeiter beim Start anzeigen
             MitarbeiterAnzeigen();
-            DashboardAktualisieren();
         }
 
         /// <summary>
@@ -52,6 +52,15 @@ namespace ContactManager
             // Erst leeren, dann neu setzen, damit das Grid sicher aktualisiert
             dgvCustomers.DataSource = null;
             dgvCustomers.DataSource = _kundenVerwaltung.Alle.ToList();
+            DashboardAktualisieren(); //<- Vorher in jeder Zeile aufgerufen. Jetzt über Methode direkt mit drin.
+        }
+
+        /// <summary>Lädt alle gespeicherten Mitarbeiter ins Mitarbeiter-Grid.</summary>
+        private void MitarbeiterAnzeigen()
+        {
+            dgvEmployees.DataSource = null;
+            dgvEmployees.DataSource = _mitarbeiterVerwaltung.Alle.ToList();
+            DashboardAktualisieren();
         }
 
         // Methode zum Setzen des aktiven Navigationsbuttons
@@ -94,7 +103,6 @@ namespace ContactManager
             MitarbeiterForm mitarbeiterForm = new MitarbeiterForm(_mitarbeiterVerwaltung);
             mitarbeiterForm.ShowDialog();
             MitarbeiterAnzeigen();
-            DashboardAktualisieren();
         }
 
 
@@ -105,10 +113,6 @@ namespace ContactManager
             // Formular öffnen und ihm die gemeinsame Kundenverwaltung mitgeben
             KundenForm kundenForm = new KundenForm(_kundenVerwaltung);
             kundenForm.ShowDialog();
-            KundenAnzeigen();
-            DashboardAktualisieren();
-
-            // Nach dem Schliessen die Liste aktualisieren, damit neue Kunden erscheinen
             KundenAnzeigen();
         }
 
@@ -158,7 +162,6 @@ namespace ContactManager
             _kundenVerwaltung.Loeschen(ausgewaehlterKunde);
             _kundenVerwaltung.Speichern();
             KundenAnzeigen();
-            DashboardAktualisieren();
         }
 
         private void dgvEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -192,7 +195,6 @@ namespace ContactManager
             KundenForm kundenForm = new KundenForm(_kundenVerwaltung, ausgewaehlterKunde);
             kundenForm.ShowDialog();
             KundenAnzeigen();
-            DashboardAktualisieren();
         }
 
         private void DashboardAktualisieren()
@@ -226,13 +228,6 @@ namespace ContactManager
                 .ToList();
 
             dgvRecentContacts.DataSource = kontakte;
-        }
-
-        /// <summary>Lädt alle gespeicherten Mitarbeiter ins Mitarbeiter-Grid.</summary>
-        private void MitarbeiterAnzeigen()
-        {
-            dgvEmployees.DataSource = null;
-            dgvEmployees.DataSource = _mitarbeiterVerwaltung.Alle.ToList();
         }
     }
 }
