@@ -14,6 +14,8 @@ namespace ContactManager
             InitializeComponent();
             _mitarbeiterVerwaltung = mitarbeiterVerwaltung;
             var _ = dtpMitarbeiterAustritt.Handle; // Zugriff auf Handle erzwingen, um Darstellungs Probleme zu vermeiden
+            dtpMitarbeiterEintritt.MinDate = DateTime.Now;
+            dtpMitarbeiterAustritt.MinDate = DateTime.Now;
 
             lblMitarbeiterAustritt.Visible = false;
             dtpMitarbeiterAustritt.Visible = false;
@@ -172,7 +174,7 @@ namespace ContactManager
             rdbMitarbeiterInaktiv.Location = new Point(317, 460);
             rdbMitarbeiterInaktiv.Name = "rdbMitarbeiterInaktiv";
             rdbMitarbeiterInaktiv.Size = new Size(60, 19);
-            rdbMitarbeiterInaktiv.TabIndex = 33;
+            rdbMitarbeiterInaktiv.TabIndex = 13;
             rdbMitarbeiterInaktiv.TabStop = true;
             rdbMitarbeiterInaktiv.Text = "Inaktiv";
             rdbMitarbeiterInaktiv.UseVisualStyleBackColor = true;
@@ -183,7 +185,7 @@ namespace ContactManager
             rdbMitarbeiterAktiv.Location = new Point(247, 460);
             rdbMitarbeiterAktiv.Name = "rdbMitarbeiterAktiv";
             rdbMitarbeiterAktiv.Size = new Size(52, 19);
-            rdbMitarbeiterAktiv.TabIndex = 32;
+            rdbMitarbeiterAktiv.TabIndex = 12;
             rdbMitarbeiterAktiv.TabStop = true;
             rdbMitarbeiterAktiv.Text = "Aktiv";
             rdbMitarbeiterAktiv.UseVisualStyleBackColor = true;
@@ -200,10 +202,11 @@ namespace ContactManager
             // cmbMitarbeiterAbteilung
             // 
             cmbMitarbeiterAbteilung.FormattingEnabled = true;
+            cmbMitarbeiterAbteilung.Items.AddRange(new object[] { "Geschäftsleitung", "Verkauf & Marketing", "Finanzen & Buchhaltung", "IT & Support", "Personalwesen (HR)", "Produktion & Logistik" });
             cmbMitarbeiterAbteilung.Location = new Point(7, 159);
             cmbMitarbeiterAbteilung.Name = "cmbMitarbeiterAbteilung";
             cmbMitarbeiterAbteilung.Size = new Size(182, 23);
-            cmbMitarbeiterAbteilung.TabIndex = 30;
+            cmbMitarbeiterAbteilung.TabIndex = 2;
             // 
             // ckbMitarbeiterBefristet
             // 
@@ -211,20 +214,20 @@ namespace ContactManager
             ckbMitarbeiterBefristet.Location = new Point(247, 543);
             ckbMitarbeiterBefristet.Name = "ckbMitarbeiterBefristet";
             ckbMitarbeiterBefristet.Size = new Size(69, 19);
-            ckbMitarbeiterBefristet.TabIndex = 12;
+            ckbMitarbeiterBefristet.TabIndex = 16;
             ckbMitarbeiterBefristet.Text = "Befristet";
             ckbMitarbeiterBefristet.UseVisualStyleBackColor = true;
             ckbMitarbeiterBefristet.CheckedChanged += ckbMitarbeiterBefristet_CheckedChanged;
             // 
             // cmbMitarbeiterNationalität
             // 
-            cmbMitarbeiterNationalität.Font = new Font("Segoe UI Light", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            cmbMitarbeiterNationalität.Font = new Font("Segoe UI Light", 9F);
             cmbMitarbeiterNationalität.FormattingEnabled = true;
             cmbMitarbeiterNationalität.Items.AddRange(new object[] { "Afghanistan", "Ägypten", "Albanien", "Algerien", "Andorra", "Angola", "Antigua und Barbuda", "Äquatorialguinea", "Argentinien", "Armenien", "Aserbaidschan", "Äthiopien", "Australien", "Bahamas", "Bahrain", "Bangladesch", "Barbados", "Belarus", "Belgien", "Belize", "Benin", "Bhutan", "Bolivien", "Bosnien und Herzegowina", "Botswana", "Brasilien", "Brunei", "Bulgarien", "Burkina Faso", "Burundi", "Chile", "China", "Costa Rica", "Dänemark", "Deutschland", "Dominica", "Dominikanische Republik", "Dschibuti", "Ecuador", "El Salvador", "Elfenbeinküste", "Eritrea", "Estland", "Eswatini", "Fidschi", "Finnland", "Frankreich", "Gabun", "Gambia", "Georgien", "Ghana", "Grenada", "Griechenland", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Indien", "Indonesien", "Irak", "Iran", "Irland", "Island", "Israel", "Italien", "Jamaika", "Japan", "Jemen", "Jordanien", "Kambodscha", "Kamerun", "Kanada", "Kap Verde", "Kasachstan", "Katar", "Kenia", "Kirgisistan", "Kiribati", "Kolumbien", "Komoren", "Kongo, Demokratische Republik", "Kongo, Republik", "Kroatien", "Kuba", "Kuwait", "Laos", "Lesotho", "Lettland", "Libanon", "Liberia", "Libyen", "Liechtenstein", "Litauen", "Luxemburg", "Madagaskar", "Malawi", "Malaysia", "Malediven", "Mali", "Malta", "Marokko", "Marshallinseln", "Mauretanien", "Mauritius", "Mexiko", "Mikronesien", "Moldau", "Monaco", "Mongolei", "Montenegro", "Mosambik", "Myanmar", "Namibia", "Nauru", "Nepal", "Neuseeland", "Nicaragua", "Niederlande", "Niger", "Nigeria", "Nordkorea", "Nordmazedonien", "Norwegen", "Oman", "Österreich", "Pakistan", "Palästina", "Palau", "Panama", "Papua-Neuguinea", "Paraguay", "Peru", "Philippinen", "Polen", "Portugal", "Ruanda", "Rumänien", "Russland", "Salomonen", "Sambia", "Samoa", "San Marino", "São Tomé und Príncipe", "Saudi-Arabien", "Schweden", "Schweiz", "Senegal", "Serbien", "Seychellen", "Sierra Leone", "Simbabwe", "Singapur", "Slowakei", "Slowenien", "Somalia", "Spanien", "Sri Lanka", "St. Kitts und Nevis", "St. Lucia", "St. Vincent und die Grenadinen", "Südafrika", "Sudan", "Südkorea", "Südsudan", "Suriname", "Syrien", "Tadschikistan", "Tansania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad und Tobago", "Tschad", "Tschechien", "Tunesien", "Türkei", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "Ungarn", "Uruguay", "Usbekistan", "Vanuatu", "Vatikanstadt", "Venezuela", "Vereinigte Arabische Emirate", "Vereinigte Staaten", "Vereinigtes Königreich", "Vietnam", "Zentralafrikanische Republik", "Zypern" });
             cmbMitarbeiterNationalität.Location = new Point(247, 381);
             cmbMitarbeiterNationalität.Name = "cmbMitarbeiterNationalität";
             cmbMitarbeiterNationalität.Size = new Size(182, 23);
-            cmbMitarbeiterNationalität.TabIndex = 9;
+            cmbMitarbeiterNationalität.TabIndex = 10;
             cmbMitarbeiterNationalität.Text = "Nationalität";
             // 
             // txtMitarbeiterRolle
@@ -232,7 +235,7 @@ namespace ContactManager
             txtMitarbeiterRolle.Location = new Point(247, 159);
             txtMitarbeiterRolle.Name = "txtMitarbeiterRolle";
             txtMitarbeiterRolle.Size = new Size(182, 23);
-            txtMitarbeiterRolle.TabIndex = 3;
+            txtMitarbeiterRolle.TabIndex = 4;
             // 
             // txtMitarbeiterOrt
             // 
@@ -240,7 +243,7 @@ namespace ContactManager
             txtMitarbeiterOrt.Name = "txtMitarbeiterOrt";
             txtMitarbeiterOrt.PlaceholderText = "Wohnort";
             txtMitarbeiterOrt.Size = new Size(182, 23);
-            txtMitarbeiterOrt.TabIndex = 8;
+            txtMitarbeiterOrt.TabIndex = 9;
             // 
             // numMitarbeiterPensum
             // 
@@ -248,7 +251,7 @@ namespace ContactManager
             numMitarbeiterPensum.Location = new Point(7, 607);
             numMitarbeiterPensum.Name = "numMitarbeiterPensum";
             numMitarbeiterPensum.Size = new Size(182, 23);
-            numMitarbeiterPensum.TabIndex = 13;
+            numMitarbeiterPensum.TabIndex = 15;
             numMitarbeiterPensum.Value = new decimal(new int[] { 100, 0, 0, 0 });
             // 
             // lblMitarbeiterPensum
@@ -266,7 +269,7 @@ namespace ContactManager
             dtpMitarbeiterAustritt.Location = new Point(247, 607);
             dtpMitarbeiterAustritt.Name = "dtpMitarbeiterAustritt";
             dtpMitarbeiterAustritt.Size = new Size(182, 23);
-            dtpMitarbeiterAustritt.TabIndex = 14;
+            dtpMitarbeiterAustritt.TabIndex = 17;
             // 
             // dtpMitarbeiterEintritt
             // 
@@ -274,7 +277,7 @@ namespace ContactManager
             dtpMitarbeiterEintritt.Location = new Point(7, 543);
             dtpMitarbeiterEintritt.Name = "dtpMitarbeiterEintritt";
             dtpMitarbeiterEintritt.Size = new Size(178, 23);
-            dtpMitarbeiterEintritt.TabIndex = 11;
+            dtpMitarbeiterEintritt.TabIndex = 14;
             dtpMitarbeiterEintritt.Value = new DateTime(2026, 8, 30, 14, 9, 14, 0);
             // 
             // lblMitarbeiterAustritt
@@ -301,7 +304,7 @@ namespace ContactManager
             txtMitarbeiterMobil.Name = "txtMitarbeiterMobil";
             txtMitarbeiterMobil.PlaceholderText = "0791234567";
             txtMitarbeiterMobil.Size = new Size(178, 23);
-            txtMitarbeiterMobil.TabIndex = 10;
+            txtMitarbeiterMobil.TabIndex = 11;
             // 
             // lblMitarbeiterMobilnummer
             // 
@@ -336,7 +339,7 @@ namespace ContactManager
             txtMitarbeiterPLZ.Name = "txtMitarbeiterPLZ";
             txtMitarbeiterPLZ.PlaceholderText = "9001";
             txtMitarbeiterPLZ.Size = new Size(182, 23);
-            txtMitarbeiterPLZ.TabIndex = 7;
+            txtMitarbeiterPLZ.TabIndex = 8;
             // 
             // txtMitarbeiterAdresse
             // 
@@ -344,7 +347,7 @@ namespace ContactManager
             txtMitarbeiterAdresse.Name = "txtMitarbeiterAdresse";
             txtMitarbeiterAdresse.PlaceholderText = "Musterstrasse 1";
             txtMitarbeiterAdresse.Size = new Size(182, 23);
-            txtMitarbeiterAdresse.TabIndex = 6;
+            txtMitarbeiterAdresse.TabIndex = 7;
             // 
             // lblMitarbeiterPLZ
             // 
@@ -370,7 +373,7 @@ namespace ContactManager
             txtMitarbeiterAHV.Name = "txtMitarbeiterAHV";
             txtMitarbeiterAHV.PlaceholderText = "756.1234.1234.12";
             txtMitarbeiterAHV.Size = new Size(182, 23);
-            txtMitarbeiterAHV.TabIndex = 5;
+            txtMitarbeiterAHV.TabIndex = 6;
             // 
             // cmbMitarbeiterKadder
             // 
@@ -379,7 +382,7 @@ namespace ContactManager
             cmbMitarbeiterKadder.Location = new Point(7, 231);
             cmbMitarbeiterKadder.Name = "cmbMitarbeiterKadder";
             cmbMitarbeiterKadder.Size = new Size(182, 23);
-            cmbMitarbeiterKadder.TabIndex = 4;
+            cmbMitarbeiterKadder.TabIndex = 5;
             cmbMitarbeiterKadder.Text = "0";
             // 
             // lblMitarbeiterAHV
@@ -528,7 +531,7 @@ namespace ContactManager
             );
         }
 
-         private void btnMitarbeiterFooterSpeichern_Click(object sender, EventArgs e)
+        private void btnMitarbeiterFooterSpeichern_Click(object sender, EventArgs e)
         {
             // Pflichtfelder minimal prüfen
             if (string.IsNullOrWhiteSpace(txtMitarbeiterVorname.Text) ||
@@ -580,5 +583,6 @@ namespace ContactManager
             this.Close();
         }
 
+        
     }
 }
