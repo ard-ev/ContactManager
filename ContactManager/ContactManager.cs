@@ -2,6 +2,7 @@ using ContactManager.Data;
 using ContactManager.Services;
 using ContactManager.Models;
 using System.Linq;
+using System.Collections.Generic;
 
 
 
@@ -34,6 +35,7 @@ namespace ContactManager
 
             // Enter im Suchfeld löst die Suche aus
             txtCustomerSearch.KeyDown += TxtCustomerSearch_KeyDown;
+            dgvCustomers.ColumnHeaderMouseClick += dgvCustomers_ColumnHeaderMouseClick;
 
 
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
@@ -42,6 +44,33 @@ namespace ContactManager
             KundenAnzeigen();
             // Gespeicherte Mitarbeiter beim Start anzeigen
             MitarbeiterAnzeigen();
+        }
+
+        private bool _kundenSortAufsteigend = true;
+
+        private void dgvCustomers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string spalte = dgvCustomers.Columns[e.ColumnIndex].Name;
+
+            IEnumerable<Kunde> sortiert = spalte switch
+            {
+                nameof(Kunde.Nachname) => _kundenSortAufsteigend
+                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Nachname)
+                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Nachname),
+                nameof(Kunde.Vorname) => _kundenSortAufsteigend
+                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Vorname)
+                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Vorname),
+                nameof(Kunde.Geburtsdatum) => _kundenSortAufsteigend
+                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Geburtsdatum)
+                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Geburtsdatum),
+                nameof(Kunde.Status) => _kundenSortAufsteigend
+                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Status)
+                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Status),
+                _ => _kundenVerwaltung.Alle
+            };
+
+            dgvCustomers.DataSource = sortiert.ToList();
+            _kundenSortAufsteigend = !_kundenSortAufsteigend;
         }
 
         /// <summary>
@@ -232,6 +261,33 @@ namespace ContactManager
                 .ToList();
 
             dgvRecentContacts.DataSource = kontakte;
+        }
+
+        private bool _kundenSortAufsteigend = true;
+
+        private void dgvCustomers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string spalte = dgvCustomers.Columns[e.ColumnIndex].Name;
+
+            IEnumerable<Kunde> sortiert = spalte switch
+            {
+                nameof(Kunde.Nachname) => _kundenSortAufsteigend
+                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Nachname)
+                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Nachname),
+                nameof(Kunde.Vorname) => _kundenSortAufsteigend
+                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Vorname)
+                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Vorname),
+                nameof(Kunde.Geburtsdatum) => _kundenSortAufsteigend
+                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Geburtsdatum)
+                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Geburtsdatum),
+                nameof(Kunde.Status) => _kundenSortAufsteigend
+                    ? _kundenVerwaltung.Alle.OrderBy(k => k.Status)
+                    : _kundenVerwaltung.Alle.OrderByDescending(k => k.Status),
+                _ => _kundenVerwaltung.Alle // Andere Spalten: unsortiert lassen
+            };
+
+            dgvCustomers.DataSource = sortiert.ToList();
+            _kundenSortAufsteigend = !_kundenSortAufsteigend; // Nächster Klick auf dieselbe Spalte kehrt um
         }
     }
 }
