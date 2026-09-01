@@ -30,6 +30,18 @@ namespace ContactManager.Models
         public int? AktuellesLehrjahr { get; set; }
         public string BusinessAdresse { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Chronologische Liste aller Notizen zu diesem Mitarbeiter.
+        /// Wird nie überschrieben, nur ergänzt.
+        /// </summary>
+        public List<MitarbeiterKontakt> Kontakte { get; set; } = new();
+
+        /// <summary>
+        /// Chronologische Liste aller Änderungen an den Stammdaten dieses Mitarbeiters
+        /// (Mutationshistorie).
+        /// </summary>
+        public List<MitarbeiterMutation> Mutationen { get; set; } = new();
+
 
 
     }

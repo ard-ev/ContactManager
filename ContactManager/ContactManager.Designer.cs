@@ -216,7 +216,7 @@
             btnEmployeeEdit.TabIndex = 6;
             btnEmployeeEdit.Text = "Bearbeiten";
             btnEmployeeEdit.UseVisualStyleBackColor = true;
-            btnEmployeeEdit.Click += btnEmployeeAdd_Click;
+            btnEmployeeEdit.Click += btnEmployeeEdit_Click;
             // 
             // btnEmployeeAdd
             // 

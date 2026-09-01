@@ -61,6 +61,66 @@ namespace ContactManager.Services
             mitarbeiter.ZuletztGeaendert = DateTime.Now; // <- Neu hinzugefügt, um das Änderungsdatum beim Bearbeiten zu setzen
         }
 
+        /// <summary>
+        /// Protokolliert eine neue Notiz zu einem Mitarbeiter. Der Eintrag bekommt
+        /// automatisch den aktuellen Zeitpunkt und wird der Historie angehängt.
+        /// </summary>
+        public void NotizHinzufuegen(Mitarbeiter mitarbeiter, string notiz)
+        {
+            if (string.IsNullOrWhiteSpace(notiz))
+                return;
+
+            int naechsteId = mitarbeiter.Kontakte.Any() ? mitarbeiter.Kontakte.Max(k => k.Id) + 1 : 1;
+
+            mitarbeiter.Kontakte.Add(new MitarbeiterKontakt
+            {
+                Id = naechsteId,
+                KontaktDatum = DateTime.Now,
+                Notizen = notiz.Trim()
+            });
+
+            repository.Save();
+        }
+
+        /// <summary>Gibt die Notizhistorie eines Mitarbeiters zurück, neueste Notiz zuerst.</summary>
+        public IReadOnlyList<MitarbeiterKontakt> Notizhistorie(Mitarbeiter mitarbeiter)
+        {
+            return mitarbeiter.Kontakte
+                .OrderByDescending(k => k.KontaktDatum)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Protokolliert eine oder mehrere Feldänderungen an einem Mitarbeiter in der
+        /// Mutationshistorie.
+        /// </summary>
+        public void MutationenProtokollieren(Mitarbeiter mitarbeiter, IEnumerable<(string Feld, string AlterWert, string NeuerWert)> aenderungen)
+        {
+            int naechsteId = mitarbeiter.Mutationen.Any() ? mitarbeiter.Mutationen.Max(m => m.Id) + 1 : 1;
+
+            foreach (var (feld, alterWert, neuerWert) in aenderungen)
+            {
+                mitarbeiter.Mutationen.Add(new MitarbeiterMutation
+                {
+                    Id = naechsteId++,
+                    Zeitpunkt = DateTime.Now,
+                    Feld = feld,
+                    AlterWert = alterWert,
+                    NeuerWert = neuerWert
+                });
+            }
+
+            repository.Save();
+        }
+
+        /// <summary>Gibt die Mutationshistorie eines Mitarbeiters zurück, neueste Änderung zuerst.</summary>
+        public IReadOnlyList<MitarbeiterMutation> Mutationshistorie(Mitarbeiter mitarbeiter)
+        {
+            return mitarbeiter.Mutationen
+                .OrderByDescending(m => m.Zeitpunkt)
+                .ToList();
+        }
+
         public void Loeschen(Mitarbeiter mitarbeiter)
         {
             repository.Data.Mitarbeiter.Remove(mitarbeiter);

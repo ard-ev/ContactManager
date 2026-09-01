@@ -82,6 +82,7 @@ namespace ContactManager
             lblMitarbeiterHeaderSubtitle = new Label();
             lblMitarbeiterHeaderTitel = new Label();
             pnlMitarbeiterFooter = new Panel();
+            btnMitarbeiterVerwaltung = new Button();
             btnMitarbeiterFooterSpeichern = new Button();
             btnMitarbeiterCancel = new Button();
             pnlMitarbeiterContent = new Panel();
@@ -118,7 +119,6 @@ namespace ContactManager
             lblMitarbeiterNachname = new Label();
             lblMitarbeiterVorname = new Label();
             lblMitarbeiterPK = new Label();
-            this.btnMitarbeiterVerwaltung = new Button();
             panel1.SuspendLayout();
             pnlMitarbeiterFooter.SuspendLayout();
             pnlMitarbeiterContent.SuspendLayout();
@@ -155,13 +155,23 @@ namespace ContactManager
             // 
             // pnlMitarbeiterFooter
             // 
-            pnlMitarbeiterFooter.Controls.Add(this.btnMitarbeiterVerwaltung);
+            pnlMitarbeiterFooter.Controls.Add(btnMitarbeiterVerwaltung);
             pnlMitarbeiterFooter.Controls.Add(btnMitarbeiterFooterSpeichern);
             pnlMitarbeiterFooter.Controls.Add(btnMitarbeiterCancel);
             pnlMitarbeiterFooter.Location = new Point(2, 579);
             pnlMitarbeiterFooter.Name = "pnlMitarbeiterFooter";
             pnlMitarbeiterFooter.Size = new Size(598, 50);
             pnlMitarbeiterFooter.TabIndex = 1;
+            // 
+            // btnMitarbeiterVerwaltung
+            // 
+            btnMitarbeiterVerwaltung.Location = new Point(16, 6);
+            btnMitarbeiterVerwaltung.Name = "btnMitarbeiterVerwaltung";
+            btnMitarbeiterVerwaltung.Size = new Size(121, 34);
+            btnMitarbeiterVerwaltung.TabIndex = 2;
+            btnMitarbeiterVerwaltung.Text = "Logs";
+            btnMitarbeiterVerwaltung.UseVisualStyleBackColor = true;
+            btnMitarbeiterVerwaltung.Click += btnMitarbeiterVerwaltung_Click;
             // 
             // btnMitarbeiterFooterSpeichern
             // 
@@ -520,15 +530,6 @@ namespace ContactManager
             lblMitarbeiterPK.TabIndex = 0;
             lblMitarbeiterPK.Text = "Mitarbeiternummer:";
             // 
-            // btnMitarbeiterVerwaltung
-            // 
-            this.btnMitarbeiterVerwaltung.Location = new Point(16, 6);
-            this.btnMitarbeiterVerwaltung.Name = "btnMitarbeiterVerwaltung";
-            this.btnMitarbeiterVerwaltung.Size = new Size(121, 34);
-            this.btnMitarbeiterVerwaltung.TabIndex = 2;
-            this.btnMitarbeiterVerwaltung.Text = "Logs";
-            this.btnMitarbeiterVerwaltung.UseVisualStyleBackColor = true;
-            // 
             // MitarbeiterForm
             // 
             ClientSize = new Size(601, 631);
@@ -719,6 +720,16 @@ namespace ContactManager
             lblMitarbeiterPK.Text = "Mitarbeiternummer: " + _mitarbeiterVerwaltung.NaechsteMitarbeiterNummer();
         }
 
+        private void btnMitarbeiterVerwaltung_Click(object sender, EventArgs e)
+        {
+            if (_bearbeiteterMitarbeiter == null)
+            {
+                MessageBox.Show("Bitte zuerst speichern - Verlauf ist erst danach verfügbar.");
+                return;
+            }
 
+            MitarbeiterVerwaltungForm verwaltungForm = new MitarbeiterVerwaltungForm(_mitarbeiterVerwaltung, _bearbeiteterMitarbeiter);
+            verwaltungForm.ShowDialog();
+        }
     }
 }
