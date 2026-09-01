@@ -31,6 +31,7 @@ namespace ContactManager.Services
         public void Hinzufuegen(Kunde kunde)
         {
             kunde.KundenNummer = NaechsteKundenNummer();
+            kunde.ZuletztGeaendert = DateTime.Now;    // <- Neu hinzugefügt, um das Änderungsdatum beim Erstellen zu setzen
             repository.Data.Kunden.Add(kunde);
         }
 
@@ -161,6 +162,7 @@ namespace ContactManager.Services
         /// </summary>
         public void Bearbeiten(Kunde kunde)
         {
+            kunde.ZuletztGeaendert = DateTime.Now; // <- Neu hinzugefügt, um das Änderungsdatum beim Bearbeiten zu setzen
         }
 
         public void Loeschen(Kunde kunde)

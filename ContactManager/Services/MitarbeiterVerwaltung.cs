@@ -28,6 +28,7 @@ namespace ContactManager.Services
         public void Hinzufuegen(Mitarbeiter mitarbeiter)
         {
             mitarbeiter.MitarbeiterNummer = NaechsteMitarbeiterNummer();
+            mitarbeiter.ZuletztGeaendert = DateTime.Now;    // <- Neu hinzugefügt, um das Änderungsdatum beim Erstellen zu setzen
             repository.Data.Mitarbeiter.Add(mitarbeiter);
         }
 
@@ -57,8 +58,7 @@ namespace ContactManager.Services
 
         public void Bearbeiten(Mitarbeiter mitarbeiter)
         {
-            // Bewusst leer: Mitarbeiter ist ein Referenztyp, Änderungen an den
-            // Properties des Objekts wirken sich direkt auf das Objekt in der Liste aus.
+            mitarbeiter.ZuletztGeaendert = DateTime.Now; // <- Neu hinzugefügt, um das Änderungsdatum beim Bearbeiten zu setzen
         }
 
         public void Loeschen(Mitarbeiter mitarbeiter)

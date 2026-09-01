@@ -1,6 +1,7 @@
 using ContactManager.Data;
 using ContactManager.Services;
 using ContactManager.Models;
+using System.Linq;
 
 
 
@@ -39,6 +40,8 @@ namespace ContactManager
 
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
             SetActiveNAvigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
+            MitarbeiterAnzeigen();
+            DashboardAktualisieren();
         }
 
         /// <summary>
@@ -90,6 +93,8 @@ namespace ContactManager
             // Formular öffnen und ihm die gemeinsame Mitarbeiterverwaltung mitgeben
             MitarbeiterForm mitarbeiterForm = new MitarbeiterForm(_mitarbeiterVerwaltung);
             mitarbeiterForm.ShowDialog();
+            MitarbeiterAnzeigen();
+            DashboardAktualisieren();
         }
 
 
@@ -100,6 +105,8 @@ namespace ContactManager
             // Formular öffnen und ihm die gemeinsame Kundenverwaltung mitgeben
             KundenForm kundenForm = new KundenForm(_kundenVerwaltung);
             kundenForm.ShowDialog();
+            KundenAnzeigen();
+            DashboardAktualisieren();
 
             // Nach dem Schliessen die Liste aktualisieren, damit neue Kunden erscheinen
             KundenAnzeigen();
@@ -184,6 +191,47 @@ namespace ContactManager
             KundenForm kundenForm = new KundenForm(_kundenVerwaltung, ausgewaehlterKunde);
             kundenForm.ShowDialog();
             KundenAnzeigen();
+            DashboardAktualisieren();
+        }
+
+        private void DashboardAktualisieren()
+        {
+            lblCustomerCount.Text = _kundenVerwaltung.Alle.Count(k => k.Status == Enums.Status.Aktiv).ToString();
+            lblEmployeeCount.Text = _mitarbeiterVerwaltung.Alle.Count(m => m.Status == Enums.Status.Aktiv).ToString();
+            lblInactiveCount.Text = (
+                _kundenVerwaltung.Alle.Count(k => k.Status == Enums.Status.Inaktiv) +
+                _mitarbeiterVerwaltung.Alle.Count(m => m.Status == Enums.Status.Inaktiv)
+            ).ToString();
+
+            var mutationen = _kundenVerwaltung.Alle
+                .Select(k => new { Typ = "Kunde", Name = $"{k.Vorname} {k.Nachname}", Zeitpunkt = k.ZuletztGeaendert })
+                .Concat(_mitarbeiterVerwaltung.Alle
+                    .Select(m => new { Typ = "Mitarbeiter", Name = $"{m.Vorname} {m.Nachname}", Zeitpunkt = m.ZuletztGeaendert }))
+                .OrderByDescending(x => x.Zeitpunkt)
+                .Take(10)
+                .ToList();
+
+            dgvRecentMutations.DataSource = mutationen;
+
+            var kontakte = _kundenVerwaltung.Alle
+                .SelectMany(k => k.Kontakte.Select(kontakt => new
+                {
+                    Kunde = $"{k.Vorname} {k.Nachname}",
+                    Datum = kontakt.KontaktDatum,
+                    Notiz = kontakt.Notizen
+                }))
+                .OrderByDescending(x => x.Datum)
+                .Take(10)
+                .ToList();
+
+            dgvRecentContacts.DataSource = kontakte;
+        }
+
+        /// <summary>Lädt alle gespeicherten Mitarbeiter ins Mitarbeiter-Grid.</summary>
+        private void MitarbeiterAnzeigen()
+        {
+            dgvEmployees.DataSource = null;
+            dgvEmployees.DataSource = _mitarbeiterVerwaltung.Alle.ToList();
         }
     }
 }

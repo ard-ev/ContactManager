@@ -21,6 +21,12 @@ namespace ContactManager.Models
         public string Email { get; set; } = string.Empty;
 
         /// <summary>
+        /// Zeitpunkt der letzten Erfassung oder Änderung. Wird von den
+        /// Verwaltungsklassen automatisch gesetzt, nicht manuell im Formular.
+        /// </summary>
+        public DateTime ZuletztGeaendert { get; set; }
+
+        /// <summary>
         /// Aktiv/Inaktiv-Status. Wird für "Deaktivieren statt Löschen verwendet,
         /// damit historie und Referenzen erhalten bleiben.
         /// </summary>
