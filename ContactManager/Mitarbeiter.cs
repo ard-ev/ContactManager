@@ -8,18 +8,72 @@ namespace ContactManager
     {
         // Draht zur Mitarbeiterverwaltung, damit das Formular speichern kann
         private readonly MitarbeiterVerwaltung _mitarbeiterVerwaltung;
+        private readonly Mitarbeiter? _bearbeiteterMitarbeiter; // null = neuer Mitarbeiter, sonst Bearbeiten-Modus
 
+        /// <summary>Konstruktor zum Anlegen eines neuen Mitarbeiters.</summary>
         public MitarbeiterForm(MitarbeiterVerwaltung mitarbeiterVerwaltung)
+            : this(mitarbeiterVerwaltung, null)
+        {
+        }
+
+        /// <summary>
+        /// Konstruktor zum Bearbeiten eines bestehenden Mitarbeiters. Ist mitarbeiter null,
+        /// verhält sich das Formular wie beim Neuanlegen.
+        /// </summary>
+        public MitarbeiterForm(MitarbeiterVerwaltung mitarbeiterVerwaltung, Mitarbeiter? mitarbeiter)
         {
             InitializeComponent();
             _mitarbeiterVerwaltung = mitarbeiterVerwaltung;
-            var _ = dtpMitarbeiterAustritt.Handle; // Zugriff auf Handle erzwingen, um Darstellungs Probleme zu vermeiden
-            dtpMitarbeiterEintritt.MinDate = DateTime.Now;
-            dtpMitarbeiterAustritt.MinDate = DateTime.Now;
+            _bearbeiteterMitarbeiter = mitarbeiter;
 
-            lblMitarbeiterAustritt.Visible = false;
-            dtpMitarbeiterAustritt.Visible = false;
-            txtMitarbeiterAHV.Text = "756.";
+            var _ = dtpMitarbeiterAustritt.Handle; // Handle früh erzwingen
+
+            if (_bearbeiteterMitarbeiter != null)
+            {
+                FelderAusMitarbeiterVorbefuellen(_bearbeiteterMitarbeiter);
+            }
+            else
+            {
+                lblMitarbeiterAustritt.Visible = false;
+                dtpMitarbeiterAustritt.Visible = false;
+                txtMitarbeiterAHV.Text = "756.";
+                dtpMitarbeiterEintritt.MinDate = DateTime.Today; // nur beim Neuanlegen
+            }
+        }
+
+        /// <summary>Füllt die Eingabefelder mit den Werten eines bestehenden Mitarbeiters.</summary>
+        private void FelderAusMitarbeiterVorbefuellen(Mitarbeiter mitarbeiter)
+        {
+            lblMitarbeiterPK.Text = "Mitarbeiternummer: " + mitarbeiter.MitarbeiterNummer;
+            txtMitarbeiterVorname.Text = mitarbeiter.Vorname;
+            txtMitarbeiterNachname.Text = mitarbeiter.Nachname;
+            cmbMitarbeiterAbteilung.Text = mitarbeiter.Abteilung;
+            txtMitarbeiterRolle.Text = mitarbeiter.Rolle;
+            cmbMitarbeiterKadder.Text = ((int)mitarbeiter.Kaderstufe).ToString();
+            txtMitarbeiterAHV.Text = mitarbeiter.AhvNummer;
+            txtMitarbeiterAdresse.Text = mitarbeiter.Adresse;
+            txtMitarbeiterPLZ.Text = mitarbeiter.Plz;
+            txtMitarbeiterOrt.Text = mitarbeiter.Wohnort;
+            cmbMitarbeiterNationalität.Text = mitarbeiter.Nationalität;
+            txtMitarbeiterMobil.Text = mitarbeiter.MobilNummer;
+            numMitarbeiterPensum.Value = mitarbeiter.Pensum;
+            dtpMitarbeiterEintritt.Value = mitarbeiter.EinstellungsDatum;
+            rdbMitarbeiterAktiv.Checked = mitarbeiter.Status == Enums.Status.Aktiv;
+            rdbMitarbeiterInaktiv.Checked = mitarbeiter.Status == Enums.Status.Inaktiv;
+
+            if (mitarbeiter.KündigungsDatum.HasValue)
+            {
+                ckbMitarbeiterBefristet.Checked = true;
+                lblMitarbeiterAustritt.Visible = true;
+                dtpMitarbeiterAustritt.Visible = true;
+                dtpMitarbeiterAustritt.Value = mitarbeiter.KündigungsDatum.Value;
+            }
+            else
+            {
+                ckbMitarbeiterBefristet.Checked = false;
+                lblMitarbeiterAustritt.Visible = false;
+                dtpMitarbeiterAustritt.Visible = false;
+            }
         }
 
         private void InitializeComponent()
@@ -550,39 +604,77 @@ namespace ContactManager
                 return;
             }
 
+            // Arbeitsbeginn darf nicht in der Vergangenheit liegen - nur beim Neuanlegen relevant
+            if (_bearbeiteterMitarbeiter == null && dtpMitarbeiterEintritt.Value.Date < DateTime.Today)
+            {
+                MessageBox.Show("Der Arbeitsbeginn darf nicht in der Vergangenheit liegen.");
+                dtpMitarbeiterEintritt.Focus();
+                return;
+            }
+
             // Kaderstufe aus der ComboBox lesen (Text "0" bis "5"), sicher umwandeln
             int kaderWert = int.TryParse(cmbMitarbeiterKadder.Text, out int kw) ? kw : 0;
 
-            // Mitarbeiter aus den Eingabefeldern zusammenbauen
-            Mitarbeiter mitarbeiter = new Mitarbeiter
+            DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked
+                ? dtpMitarbeiterAustritt.Value
+                : (DateTime?)null;
+
+            if (_bearbeiteterMitarbeiter != null)
             {
-                Vorname = txtMitarbeiterVorname.Text,
-                Nachname = txtMitarbeiterNachname.Text,
-                Abteilung = cmbMitarbeiterAbteilung.Text,
-                Rolle = txtMitarbeiterRolle.Text,
-                Kaderstufe = (Enums.Kaderstufe)kaderWert,
-                AhvNummer = txtMitarbeiterAHV.Text,
-                Adresse = txtMitarbeiterAdresse.Text,
-                Plz = txtMitarbeiterPLZ.Text,
-                Wohnort = txtMitarbeiterOrt.Text,
-                Nationalität = cmbMitarbeiterNationalität.Text,
-                MobilNummer = txtMitarbeiterMobil.Text,
-                EinstellungsDatum = dtpMitarbeiterEintritt.Value,
-                KündigungsDatum = ckbMitarbeiterBefristet.Checked
-                    ? dtpMitarbeiterAustritt.Value
-                    : (DateTime?)null,
-                Pensum = numMitarbeiterPensum.Value,
-                Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
-            };
+                // Bearbeiten-Modus: bestehendes Objekt aktualisieren statt ein neues anzulegen
+                _bearbeiteterMitarbeiter.Vorname = txtMitarbeiterVorname.Text;
+                _bearbeiteterMitarbeiter.Nachname = txtMitarbeiterNachname.Text;
+                _bearbeiteterMitarbeiter.Abteilung = cmbMitarbeiterAbteilung.Text;
+                _bearbeiteterMitarbeiter.Rolle = txtMitarbeiterRolle.Text;
+                _bearbeiteterMitarbeiter.Kaderstufe = (Enums.Kaderstufe)kaderWert;
+                _bearbeiteterMitarbeiter.AhvNummer = txtMitarbeiterAHV.Text;
+                _bearbeiteterMitarbeiter.Adresse = txtMitarbeiterAdresse.Text;
+                _bearbeiteterMitarbeiter.Plz = txtMitarbeiterPLZ.Text;
+                _bearbeiteterMitarbeiter.Wohnort = txtMitarbeiterOrt.Text;
+                _bearbeiteterMitarbeiter.Nationalität = cmbMitarbeiterNationalität.Text;
+                _bearbeiteterMitarbeiter.MobilNummer = txtMitarbeiterMobil.Text;
+                _bearbeiteterMitarbeiter.EinstellungsDatum = dtpMitarbeiterEintritt.Value;
+                _bearbeiteterMitarbeiter.KündigungsDatum = austrittsDatum;
+                _bearbeiteterMitarbeiter.Pensum = numMitarbeiterPensum.Value;
+                _bearbeiteterMitarbeiter.Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
 
-            // An die Verwaltung übergeben und auf die Festplatte speichern
-            _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
-            _mitarbeiterVerwaltung.Speichern();
+                _mitarbeiterVerwaltung.Bearbeiten(_bearbeiteterMitarbeiter);
+                _mitarbeiterVerwaltung.Speichern();
 
-            MessageBox.Show("Mitarbeiter erfolgreich gespeichert.");
-            this.Close();
+                MessageBox.Show("Mitarbeiter aktualisiert.");
+                this.Close();
+            }
+            else
+            {
+                // Mitarbeiter aus den Eingabefeldern zusammenbauen
+                Mitarbeiter mitarbeiter = new Mitarbeiter
+                {
+                    Vorname = txtMitarbeiterVorname.Text,
+                    Nachname = txtMitarbeiterNachname.Text,
+                    Abteilung = cmbMitarbeiterAbteilung.Text,
+                    Rolle = txtMitarbeiterRolle.Text,
+                    Kaderstufe = (Enums.Kaderstufe)kaderWert,
+                    AhvNummer = txtMitarbeiterAHV.Text,
+                    Adresse = txtMitarbeiterAdresse.Text,
+                    Plz = txtMitarbeiterPLZ.Text,
+                    Wohnort = txtMitarbeiterOrt.Text,
+                    Nationalität = cmbMitarbeiterNationalität.Text,
+                    MobilNummer = txtMitarbeiterMobil.Text,
+                    EinstellungsDatum = dtpMitarbeiterEintritt.Value,
+                    KündigungsDatum = austrittsDatum,
+                    Pensum = numMitarbeiterPensum.Value,
+                    Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
+                };
+
+                // An die Verwaltung übergeben und auf die Festplatte speichern
+                _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
+                _mitarbeiterVerwaltung.Speichern();
+
+                MessageBox.Show("Mitarbeiter erfolgreich gespeichert.");
+                this.Close();
+            }
         }
 
-        
+
     }
 }

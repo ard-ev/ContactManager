@@ -226,6 +226,33 @@ namespace ContactManager
             KundenAnzeigen();
         }
 
+        private void dgvEmployees_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            AusgewaehltenMitarbeiterBearbeiten();
+        }
+
+        private void btnEmployeeEdit_Click(object sender, EventArgs e)
+        {
+            AusgewaehltenMitarbeiterBearbeiten();
+        }
+
+        /// <summary>
+        /// Öffnet den ausgewählten Mitarbeiter im Bearbeiten-Modus. Wird sowohl vom
+        /// Doppelklick auf die Tabelle als auch vom "Bearbeiten"-Button aufgerufen.
+        /// </summary>
+        private void AusgewaehltenMitarbeiterBearbeiten()
+        {
+            if (dgvEmployees.CurrentRow?.DataBoundItem is not Mitarbeiter ausgewaehlterMitarbeiter)
+            {
+                MessageBox.Show("Bitte wählen Sie zuerst einen Mitarbeiter in der Liste aus.");
+                return;
+            }
+
+            MitarbeiterForm mitarbeiterForm = new MitarbeiterForm(_mitarbeiterVerwaltung, ausgewaehlterMitarbeiter);
+            mitarbeiterForm.ShowDialog();
+            MitarbeiterAnzeigen();
+        }
+
         private void DashboardAktualisieren()
         {
             lblCustomerCount.Text = _kundenVerwaltung.Alle.Count(k => k.Status == Enums.Status.Aktiv).ToString();
@@ -261,6 +288,28 @@ namespace ContactManager
                 .ToList();
 
             dgvRecentContacts.DataSource = kontakte;
+        }
+
+        private void btnEmployeeDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvEmployees.CurrentRow?.DataBoundItem is not Mitarbeiter ausgewaehlterMitarbeiter)
+            {
+                MessageBox.Show("Bitte wählen Sie zuerst einen Mitarbeiter in der Liste aus.");
+                return;
+            }
+
+            var ergebnis = MessageBox.Show(
+                $"Soll {ausgewaehlterMitarbeiter.Vorname} {ausgewaehlterMitarbeiter.Nachname} wirklich gelöscht werden?",
+                "Mitarbeiter löschen",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (ergebnis != DialogResult.Yes)
+                return;
+
+            _mitarbeiterVerwaltung.Loeschen(ausgewaehlterMitarbeiter);
+            _mitarbeiterVerwaltung.Speichern();
+            MitarbeiterAnzeigen();
         }
     }
 }

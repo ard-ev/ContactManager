@@ -35,16 +35,6 @@
             btnCustomer = new Button();
             btnDashboard = new Button();
             pnlContent = new Panel();
-            pnlCustomers = new Panel();
-            dgvCustomers = new DataGridView();
-            btnCustomerDel = new Button();
-            btnCustomerEdit = new Button();
-            btnCustomerAdd = new Button();
-            btnCustomerSearch = new Button();
-            txtCustomerSearch = new TextBox();
-            lblCustomerSearch = new Label();
-            label2 = new Label();
-            lblCustomersTitle = new Label();
             pnlEmployee = new Panel();
             dgvEmployees = new DataGridView();
             btnEmployeeDelete = new Button();
@@ -55,6 +45,16 @@
             lblEmployeeSearch = new Label();
             lblEmployeeSubtitle = new Label();
             lblEmployeeTitle = new Label();
+            pnlCustomers = new Panel();
+            dgvCustomers = new DataGridView();
+            btnCustomerDel = new Button();
+            btnCustomerEdit = new Button();
+            btnCustomerAdd = new Button();
+            btnCustomerSearch = new Button();
+            txtCustomerSearch = new TextBox();
+            lblCustomerSearch = new Label();
+            label2 = new Label();
+            lblCustomersTitle = new Label();
             pnlDashboard = new Panel();
             lblRecentCustomers = new Label();
             dgvRecentMutations = new DataGridView();
@@ -72,10 +72,10 @@
             lblDashboardTitle = new Label();
             pnlHeader.SuspendLayout();
             pnlContent.SuspendLayout();
-            pnlCustomers.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             pnlEmployee.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEmployees).BeginInit();
+            pnlCustomers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomers).BeginInit();
             pnlDashboard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecentMutations).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvRecentContacts).BeginInit();
@@ -160,6 +160,121 @@
             pnlContent.Name = "pnlContent";
             pnlContent.Size = new Size(1099, 641);
             pnlContent.TabIndex = 1;
+            // 
+            // pnlEmployee
+            // 
+            pnlEmployee.Controls.Add(dgvEmployees);
+            pnlEmployee.Controls.Add(btnEmployeeDelete);
+            pnlEmployee.Controls.Add(btnEmployeeEdit);
+            pnlEmployee.Controls.Add(btnEmployeeAdd);
+            pnlEmployee.Controls.Add(btnEmployeeSearch);
+            pnlEmployee.Controls.Add(txtEmployeSearch);
+            pnlEmployee.Controls.Add(lblEmployeeSearch);
+            pnlEmployee.Controls.Add(lblEmployeeSubtitle);
+            pnlEmployee.Controls.Add(lblEmployeeTitle);
+            pnlEmployee.Location = new Point(0, 0);
+            pnlEmployee.Margin = new Padding(3, 2, 3, 2);
+            pnlEmployee.Name = "pnlEmployee";
+            pnlEmployee.Size = new Size(1099, 577);
+            pnlEmployee.TabIndex = 1;
+            // 
+            // dgvEmployees
+            // 
+            dgvEmployees.AllowUserToAddRows = false;
+            dgvEmployees.AllowUserToDeleteRows = false;
+            dgvEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvEmployees.Location = new Point(45, 107);
+            dgvEmployees.Margin = new Padding(3, 2, 3, 2);
+            dgvEmployees.MultiSelect = false;
+            dgvEmployees.Name = "dgvEmployees";
+            dgvEmployees.ReadOnly = true;
+            dgvEmployees.RowHeadersWidth = 62;
+            dgvEmployees.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvEmployees.Size = new Size(1000, 462);
+            dgvEmployees.TabIndex = 8;
+            dgvEmployees.CellContentClick += dgvEmployees_CellContentClick;
+            dgvEmployees.CellDoubleClick += dgvEmployees_CellDoubleClick;
+            // 
+            // btnEmployeeDelete
+            // 
+            btnEmployeeDelete.Location = new Point(934, 66);
+            btnEmployeeDelete.Margin = new Padding(3, 2, 3, 2);
+            btnEmployeeDelete.Name = "btnEmployeeDelete";
+            btnEmployeeDelete.Size = new Size(111, 23);
+            btnEmployeeDelete.TabIndex = 7;
+            btnEmployeeDelete.Text = "Löschen";
+            btnEmployeeDelete.UseVisualStyleBackColor = true;
+            btnEmployeeDelete.Click += btnEmployeeDelete_Click;
+            // 
+            // btnEmployeeEdit
+            // 
+            btnEmployeeEdit.Location = new Point(817, 66);
+            btnEmployeeEdit.Margin = new Padding(3, 2, 3, 2);
+            btnEmployeeEdit.Name = "btnEmployeeEdit";
+            btnEmployeeEdit.Size = new Size(111, 23);
+            btnEmployeeEdit.TabIndex = 6;
+            btnEmployeeEdit.Text = "Bearbeiten";
+            btnEmployeeEdit.UseVisualStyleBackColor = true;
+            btnEmployeeEdit.Click += btnEmployeeAdd_Click;
+            // 
+            // btnEmployeeAdd
+            // 
+            btnEmployeeAdd.Location = new Point(700, 65);
+            btnEmployeeAdd.Margin = new Padding(3, 2, 3, 2);
+            btnEmployeeAdd.Name = "btnEmployeeAdd";
+            btnEmployeeAdd.Size = new Size(111, 23);
+            btnEmployeeAdd.TabIndex = 5;
+            btnEmployeeAdd.Text = "Neuer Mitarbeiter";
+            btnEmployeeAdd.UseVisualStyleBackColor = true;
+            btnEmployeeAdd.Click += btnEmployeeAdd_Click;
+            // 
+            // btnEmployeeSearch
+            // 
+            btnEmployeeSearch.Location = new Point(357, 66);
+            btnEmployeeSearch.Margin = new Padding(3, 2, 3, 2);
+            btnEmployeeSearch.Name = "btnEmployeeSearch";
+            btnEmployeeSearch.Size = new Size(60, 23);
+            btnEmployeeSearch.TabIndex = 4;
+            btnEmployeeSearch.Text = "Suchen";
+            btnEmployeeSearch.UseVisualStyleBackColor = true;
+            // 
+            // txtEmployeSearch
+            // 
+            txtEmployeSearch.Location = new Point(166, 66);
+            txtEmployeSearch.Margin = new Padding(3, 2, 3, 2);
+            txtEmployeSearch.Name = "txtEmployeSearch";
+            txtEmployeSearch.Size = new Size(181, 23);
+            txtEmployeSearch.TabIndex = 3;
+            // 
+            // lblEmployeeSearch
+            // 
+            lblEmployeeSearch.AutoSize = true;
+            lblEmployeeSearch.Location = new Point(47, 70);
+            lblEmployeeSearch.Name = "lblEmployeeSearch";
+            lblEmployeeSearch.Size = new Size(109, 15);
+            lblEmployeeSearch.TabIndex = 2;
+            lblEmployeeSearch.Text = "Mitarbeiter suchen:";
+            // 
+            // lblEmployeeSubtitle
+            // 
+            lblEmployeeSubtitle.AutoSize = true;
+            lblEmployeeSubtitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblEmployeeSubtitle.Location = new Point(183, 27);
+            lblEmployeeSubtitle.Name = "lblEmployeeSubtitle";
+            lblEmployeeSubtitle.Size = new Size(225, 17);
+            lblEmployeeSubtitle.TabIndex = 1;
+            lblEmployeeSubtitle.Text = "Mitarbeiter verwalten und bearbeiten";
+            // 
+            // lblEmployeeTitle
+            // 
+            lblEmployeeTitle.AutoSize = true;
+            lblEmployeeTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblEmployeeTitle.Location = new Point(12, 11);
+            lblEmployeeTitle.Name = "lblEmployeeTitle";
+            lblEmployeeTitle.Size = new Size(165, 37);
+            lblEmployeeTitle.TabIndex = 0;
+            lblEmployeeTitle.Text = "Mitarbeiter";
             // 
             // pnlCustomers
             // 
@@ -267,118 +382,6 @@
             lblCustomersTitle.Size = new Size(115, 37);
             lblCustomersTitle.TabIndex = 0;
             lblCustomersTitle.Text = "Kunden";
-            // 
-            // pnlEmployee
-            // 
-            pnlEmployee.Controls.Add(dgvEmployees);
-            pnlEmployee.Controls.Add(btnEmployeeDelete);
-            pnlEmployee.Controls.Add(btnEmployeeEdit);
-            pnlEmployee.Controls.Add(btnEmployeeAdd);
-            pnlEmployee.Controls.Add(btnEmployeeSearch);
-            pnlEmployee.Controls.Add(txtEmployeSearch);
-            pnlEmployee.Controls.Add(lblEmployeeSearch);
-            pnlEmployee.Controls.Add(lblEmployeeSubtitle);
-            pnlEmployee.Controls.Add(lblEmployeeTitle);
-            pnlEmployee.Location = new Point(0, 0);
-            pnlEmployee.Margin = new Padding(3, 2, 3, 2);
-            pnlEmployee.Name = "pnlEmployee";
-            pnlEmployee.Size = new Size(1099, 577);
-            pnlEmployee.TabIndex = 1;
-            // 
-            // dgvEmployees
-            // 
-            dgvEmployees.AllowUserToAddRows = false;
-            dgvEmployees.AllowUserToDeleteRows = false;
-            dgvEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvEmployees.Location = new Point(45, 107);
-            dgvEmployees.Margin = new Padding(3, 2, 3, 2);
-            dgvEmployees.MultiSelect = false;
-            dgvEmployees.Name = "dgvEmployees";
-            dgvEmployees.ReadOnly = true;
-            dgvEmployees.RowHeadersWidth = 62;
-            dgvEmployees.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvEmployees.Size = new Size(1000, 462);
-            dgvEmployees.TabIndex = 8;
-            dgvEmployees.CellContentClick += dgvEmployees_CellContentClick;
-            // 
-            // btnEmployeeDelete
-            // 
-            btnEmployeeDelete.Location = new Point(934, 66);
-            btnEmployeeDelete.Margin = new Padding(3, 2, 3, 2);
-            btnEmployeeDelete.Name = "btnEmployeeDelete";
-            btnEmployeeDelete.Size = new Size(111, 23);
-            btnEmployeeDelete.TabIndex = 7;
-            btnEmployeeDelete.Text = "Löschen";
-            btnEmployeeDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnEmployeeEdit
-            // 
-            btnEmployeeEdit.Location = new Point(817, 66);
-            btnEmployeeEdit.Margin = new Padding(3, 2, 3, 2);
-            btnEmployeeEdit.Name = "btnEmployeeEdit";
-            btnEmployeeEdit.Size = new Size(111, 23);
-            btnEmployeeEdit.TabIndex = 6;
-            btnEmployeeEdit.Text = "Bearbeiten";
-            btnEmployeeEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnEmployeeAdd
-            // 
-            btnEmployeeAdd.Location = new Point(700, 65);
-            btnEmployeeAdd.Margin = new Padding(3, 2, 3, 2);
-            btnEmployeeAdd.Name = "btnEmployeeAdd";
-            btnEmployeeAdd.Size = new Size(111, 23);
-            btnEmployeeAdd.TabIndex = 5;
-            btnEmployeeAdd.Text = "Neuer Mitarbeiter";
-            btnEmployeeAdd.UseVisualStyleBackColor = true;
-            btnEmployeeAdd.Click += btnEmployeeAdd_Click;
-            // 
-            // btnEmployeeSearch
-            // 
-            btnEmployeeSearch.Location = new Point(357, 66);
-            btnEmployeeSearch.Margin = new Padding(3, 2, 3, 2);
-            btnEmployeeSearch.Name = "btnEmployeeSearch";
-            btnEmployeeSearch.Size = new Size(60, 23);
-            btnEmployeeSearch.TabIndex = 4;
-            btnEmployeeSearch.Text = "Suchen";
-            btnEmployeeSearch.UseVisualStyleBackColor = true;
-            // 
-            // txtEmployeSearch
-            // 
-            txtEmployeSearch.Location = new Point(166, 66);
-            txtEmployeSearch.Margin = new Padding(3, 2, 3, 2);
-            txtEmployeSearch.Name = "txtEmployeSearch";
-            txtEmployeSearch.Size = new Size(181, 23);
-            txtEmployeSearch.TabIndex = 3;
-            // 
-            // lblEmployeeSearch
-            // 
-            lblEmployeeSearch.AutoSize = true;
-            lblEmployeeSearch.Location = new Point(47, 70);
-            lblEmployeeSearch.Name = "lblEmployeeSearch";
-            lblEmployeeSearch.Size = new Size(109, 15);
-            lblEmployeeSearch.TabIndex = 2;
-            lblEmployeeSearch.Text = "Mitarbeiter suchen:";
-            // 
-            // lblEmployeeSubtitle
-            // 
-            lblEmployeeSubtitle.AutoSize = true;
-            lblEmployeeSubtitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblEmployeeSubtitle.Location = new Point(183, 27);
-            lblEmployeeSubtitle.Name = "lblEmployeeSubtitle";
-            lblEmployeeSubtitle.Size = new Size(225, 17);
-            lblEmployeeSubtitle.TabIndex = 1;
-            lblEmployeeSubtitle.Text = "Mitarbeiter verwalten und bearbeiten";
-            // 
-            // lblEmployeeTitle
-            // 
-            lblEmployeeTitle.AutoSize = true;
-            lblEmployeeTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblEmployeeTitle.Location = new Point(12, 11);
-            lblEmployeeTitle.Name = "lblEmployeeTitle";
-            lblEmployeeTitle.Size = new Size(165, 37);
-            lblEmployeeTitle.TabIndex = 0;
-            lblEmployeeTitle.Text = "Mitarbeiter";
             // 
             // pnlDashboard
             // 
@@ -554,12 +557,12 @@
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
             pnlContent.ResumeLayout(false);
-            pnlCustomers.ResumeLayout(false);
-            pnlCustomers.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             pnlEmployee.ResumeLayout(false);
             pnlEmployee.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvEmployees).EndInit();
+            pnlCustomers.ResumeLayout(false);
+            pnlCustomers.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomers).EndInit();
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecentMutations).EndInit();
