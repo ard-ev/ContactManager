@@ -468,7 +468,7 @@ namespace ContactManager
             btnKundenVerwaltung.Name = "btnKundenVerwaltung";
             btnKundenVerwaltung.Size = new Size(112, 34);
             btnKundenVerwaltung.TabIndex = 13;
-            btnKundenVerwaltung.Text = "Verlauf";
+            btnKundenVerwaltung.Text = "Logs";
             btnKundenVerwaltung.UseVisualStyleBackColor = true;
             btnKundenVerwaltung.Click += btnKundenVerwaltung_Click;
             // 

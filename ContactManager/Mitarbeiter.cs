@@ -118,6 +118,7 @@ namespace ContactManager
             lblMitarbeiterNachname = new Label();
             lblMitarbeiterVorname = new Label();
             lblMitarbeiterPK = new Label();
+            this.btnMitarbeiterVerwaltung = new Button();
             panel1.SuspendLayout();
             pnlMitarbeiterFooter.SuspendLayout();
             pnlMitarbeiterContent.SuspendLayout();
@@ -154,6 +155,7 @@ namespace ContactManager
             // 
             // pnlMitarbeiterFooter
             // 
+            pnlMitarbeiterFooter.Controls.Add(this.btnMitarbeiterVerwaltung);
             pnlMitarbeiterFooter.Controls.Add(btnMitarbeiterFooterSpeichern);
             pnlMitarbeiterFooter.Controls.Add(btnMitarbeiterCancel);
             pnlMitarbeiterFooter.Location = new Point(2, 579);
@@ -518,6 +520,15 @@ namespace ContactManager
             lblMitarbeiterPK.TabIndex = 0;
             lblMitarbeiterPK.Text = "Mitarbeiternummer:";
             // 
+            // btnMitarbeiterVerwaltung
+            // 
+            this.btnMitarbeiterVerwaltung.Location = new Point(16, 6);
+            this.btnMitarbeiterVerwaltung.Name = "btnMitarbeiterVerwaltung";
+            this.btnMitarbeiterVerwaltung.Size = new Size(121, 34);
+            this.btnMitarbeiterVerwaltung.TabIndex = 2;
+            this.btnMitarbeiterVerwaltung.Text = "Logs";
+            this.btnMitarbeiterVerwaltung.UseVisualStyleBackColor = true;
+            // 
             // MitarbeiterForm
             // 
             ClientSize = new Size(601, 631);
@@ -671,8 +682,41 @@ namespace ContactManager
                 _mitarbeiterVerwaltung.Speichern();
 
                 MessageBox.Show("Mitarbeiter erfolgreich gespeichert.");
-                this.Close();
+                FelderZuruecksetzenMitarbeiter();
             }
+        }
+
+        /// <summary>
+        /// Setzt alle Eingabefelder auf den Ausgangszustand zurück,
+        /// damit direkt der nächste Mitarbeiter erfasst werden kann.
+        /// </summary>
+        private void FelderZuruecksetzenMitarbeiter()
+        {
+            txtMitarbeiterVorname.Clear();
+            txtMitarbeiterNachname.Clear();
+            cmbMitarbeiterAbteilung.SelectedIndex = -1;
+            txtMitarbeiterRolle.Clear();
+            cmbMitarbeiterKadder.Text = "0";
+            txtMitarbeiterAHV.Text = "756.";
+            txtMitarbeiterAdresse.Clear();
+            txtMitarbeiterPLZ.Clear();
+            txtMitarbeiterOrt.Clear();
+            cmbMitarbeiterNationalität.SelectedIndex = -1;
+            cmbMitarbeiterNationalität.Text = "Nationalität";
+            txtMitarbeiterMobil.Clear();
+            numMitarbeiterPensum.Value = 100;
+            dtpMitarbeiterEintritt.Value = DateTime.Today;
+            rdbMitarbeiterAktiv.Checked = false;
+            rdbMitarbeiterInaktiv.Checked = false;
+
+            ckbMitarbeiterBefristet.Checked = false;
+            lblMitarbeiterAustritt.Visible = false;
+            dtpMitarbeiterAustritt.Visible = false;
+
+            txtMitarbeiterVorname.Focus();
+
+            // Label mit der Nummer für den NÄCHSTEN Mitarbeiter aktualisieren
+            lblMitarbeiterPK.Text = "Mitarbeiternummer: " + _mitarbeiterVerwaltung.NaechsteMitarbeiterNummer();
         }
 
 

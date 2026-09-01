@@ -64,5 +64,6 @@
         private Label lblMitarbeiterStatus;
         private RadioButton rdbMitarbeiterInaktiv;
         private RadioButton rdbMitarbeiterAktiv;
+        private Button btnMitarbeiterVerwaltung;
     }
 }
