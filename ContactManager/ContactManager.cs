@@ -158,6 +158,7 @@ namespace ContactManager
             _kundenVerwaltung.Loeschen(ausgewaehlterKunde);
             _kundenVerwaltung.Speichern();
             KundenAnzeigen();
+            DashboardAktualisieren();
         }
 
         private void dgvEmployees_CellContentClick(object sender, DataGridViewCellEventArgs e)
