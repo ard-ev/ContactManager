@@ -23,10 +23,7 @@
         private Panel pnlKundenHeader;
         private Label lblKundenHeaderTitle;
         private Label lblKundenContentTitle1;
-        private Label label3;
         private Label lblKundeHeaderSubtitle;
-        private Label label4;
-        private Label label5;
         private Label lblKundenContentGeburtsdatum;
         private Label lblKundenContentGeschlecht;
         private Label lblKundenContentTitleKD;
