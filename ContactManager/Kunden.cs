@@ -590,6 +590,7 @@ namespace ContactManager
             // KundenForm
             // 
             ClientSize = new Size(601, 632);
+            AutoScaleMode = AutoScaleMode.None;
             Controls.Add(pnlKundenContent);
             Controls.Add(pnlKundenFooter);
             Controls.Add(pnlKundenHeader);
