@@ -37,7 +37,7 @@ namespace ContactManager
             txtCustomerSearch.KeyDown += TxtCustomerSearch_KeyDown;
             dgvCustomers.ColumnHeaderMouseClick += dgvCustomers_ColumnHeaderMouseClick;
             dgvEmployees.ColumnHeaderMouseClick += dgvEmployees_ColumnHeaderMouseClick;
-
+            txtEmployeSearch.KeyDown += TxtEmployeeSearch_KeyDown;
 
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
             SetActiveNAvigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
@@ -136,8 +136,22 @@ namespace ContactManager
         }
         private void btnEmployeeSearch_Click(object sender, EventArgs e)
         {
+            MitarbeiterSuchen();
+        }
+
+        private void MitarbeiterSuchen()
+        {
             dgvEmployees.DataSource = null;
             dgvEmployees.DataSource = _mitarbeiterVerwaltung.Suchen(txtEmployeSearch.Text);
+        }
+
+        private void TxtEmployeeSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                MitarbeiterSuchen();
+                e.SuppressKeyPress = true;
+            }
         }
 
         //Event für Maske öffnen (Kunde erstellen)

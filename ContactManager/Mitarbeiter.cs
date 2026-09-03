@@ -661,63 +661,61 @@ namespace ContactManager
                     return;
                 }
 
+                // Änderungen ermitteln, BEVOR die neuen Werte übernommen werden
+                var aenderungen = AenderungenErmitteln();
+
                 // Bearbeiten-Modus: bestehendes Objekt aktualisieren statt ein neues anzulegen
                 _bearbeiteterMitarbeiter.Vorname = txtMitarbeiterVorname.Text;
+                _bearbeiteterMitarbeiter.Nachname = txtMitarbeiterNachname.Text;
+                _bearbeiteterMitarbeiter.Abteilung = cmbMitarbeiterAbteilung.Text;
+                _bearbeiteterMitarbeiter.Rolle = txtMitarbeiterRolle.Text;
+                _bearbeiteterMitarbeiter.Kaderstufe = (Enums.Kaderstufe)kaderWert;
+                _bearbeiteterMitarbeiter.AhvNummer = txtMitarbeiterAHV.Text;
+                _bearbeiteterMitarbeiter.Adresse = txtMitarbeiterAdresse.Text;
+                _bearbeiteterMitarbeiter.Plz = txtMitarbeiterPLZ.Text;
+                _bearbeiteterMitarbeiter.Wohnort = txtMitarbeiterOrt.Text;
+                _bearbeiteterMitarbeiter.Nationalität = cmbMitarbeiterNationalität.Text;
+                _bearbeiteterMitarbeiter.MobilNummer = txtMitarbeiterMobil.Text;
+                _bearbeiteterMitarbeiter.EinstellungsDatum = dtpMitarbeiterEintritt.Value;
+                _bearbeiteterMitarbeiter.KündigungsDatum = austrittsDatum;
+                _bearbeiteterMitarbeiter.Pensum = numMitarbeiterPensum.Value;
+                _bearbeiteterMitarbeiter.Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
 
-                if (_bearbeiteterMitarbeiter != null)
+                _mitarbeiterVerwaltung.Bearbeiten(_bearbeiteterMitarbeiter);
+                _mitarbeiterVerwaltung.MutationenProtokollieren(_bearbeiteterMitarbeiter, aenderungen);
+                _mitarbeiterVerwaltung.Speichern();
+
+                MessageBox.Show("Mitarbeiter aktualisiert.");
+                this.Close();
+            }
+            else
+            {
+                // Mitarbeiter aus den Eingabefeldern zusammenbauen
+                Mitarbeiter mitarbeiter = new Mitarbeiter
                 {
-                    // Bearbeiten-Modus: bestehendes Objekt aktualisieren statt ein neues anzulegen
-                    _bearbeiteterMitarbeiter.Vorname = txtMitarbeiterVorname.Text;
-                    _bearbeiteterMitarbeiter.Nachname = txtMitarbeiterNachname.Text;
-                    _bearbeiteterMitarbeiter.Abteilung = cmbMitarbeiterAbteilung.Text;
-                    _bearbeiteterMitarbeiter.Rolle = txtMitarbeiterRolle.Text;
-                    _bearbeiteterMitarbeiter.Kaderstufe = (Enums.Kaderstufe)kaderWert;
-                    _bearbeiteterMitarbeiter.AhvNummer = txtMitarbeiterAHV.Text;
-                    _bearbeiteterMitarbeiter.Adresse = txtMitarbeiterAdresse.Text;
-                    _bearbeiteterMitarbeiter.Plz = txtMitarbeiterPLZ.Text;
-                    _bearbeiteterMitarbeiter.Wohnort = txtMitarbeiterOrt.Text;
-                    _bearbeiteterMitarbeiter.Nationalität = cmbMitarbeiterNationalität.Text;
-                    _bearbeiteterMitarbeiter.MobilNummer = txtMitarbeiterMobil.Text;
-                    _bearbeiteterMitarbeiter.EinstellungsDatum = dtpMitarbeiterEintritt.Value;
-                    _bearbeiteterMitarbeiter.KündigungsDatum = austrittsDatum;
-                    _bearbeiteterMitarbeiter.Pensum = numMitarbeiterPensum.Value;
-                    _bearbeiteterMitarbeiter.Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
+                    Vorname = txtMitarbeiterVorname.Text,
+                    Nachname = txtMitarbeiterNachname.Text,
+                    Abteilung = cmbMitarbeiterAbteilung.Text,
+                    Rolle = txtMitarbeiterRolle.Text,
+                    Kaderstufe = (Enums.Kaderstufe)kaderWert,
+                    AhvNummer = txtMitarbeiterAHV.Text,
+                    Adresse = txtMitarbeiterAdresse.Text,
+                    Plz = txtMitarbeiterPLZ.Text,
+                    Wohnort = txtMitarbeiterOrt.Text,
+                    Nationalität = cmbMitarbeiterNationalität.Text,
+                    MobilNummer = txtMitarbeiterMobil.Text,
+                    EinstellungsDatum = dtpMitarbeiterEintritt.Value,
+                    KündigungsDatum = austrittsDatum,
+                    Pensum = numMitarbeiterPensum.Value,
+                    Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
+                };
 
-                    _mitarbeiterVerwaltung.Bearbeiten(_bearbeiteterMitarbeiter);
-                    _mitarbeiterVerwaltung.Speichern();
+                // An die Verwaltung übergeben und auf die Festplatte speichern
+                _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
+                _mitarbeiterVerwaltung.Speichern();
 
-                    MessageBox.Show("Mitarbeiter aktualisiert.");
-                    this.Close();
-                }
-                else
-                {
-                    // Mitarbeiter aus den Eingabefeldern zusammenbauen
-                    Mitarbeiter mitarbeiter = new Mitarbeiter
-                    {
-                        Vorname = txtMitarbeiterVorname.Text,
-                        Nachname = txtMitarbeiterNachname.Text,
-                        Abteilung = cmbMitarbeiterAbteilung.Text,
-                        Rolle = txtMitarbeiterRolle.Text,
-                        Kaderstufe = (Enums.Kaderstufe)kaderWert,
-                        AhvNummer = txtMitarbeiterAHV.Text,
-                        Adresse = txtMitarbeiterAdresse.Text,
-                        Plz = txtMitarbeiterPLZ.Text,
-                        Wohnort = txtMitarbeiterOrt.Text,
-                        Nationalität = cmbMitarbeiterNationalität.Text,
-                        MobilNummer = txtMitarbeiterMobil.Text,
-                        EinstellungsDatum = dtpMitarbeiterEintritt.Value,
-                        KündigungsDatum = austrittsDatum,
-                        Pensum = numMitarbeiterPensum.Value,
-                        Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
-                    };
-
-                    // An die Verwaltung übergeben und auf die Festplatte speichern
-                    _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
-                    _mitarbeiterVerwaltung.Speichern();
-
-                    MessageBox.Show("Mitarbeiter erfolgreich gespeichert.");
-                    FelderZuruecksetzenMitarbeiter();
-                }
+                MessageBox.Show("Mitarbeiter erfolgreich gespeichert.");
+                FelderZuruecksetzenMitarbeiter();
             }
         }
 
@@ -765,6 +763,42 @@ namespace ContactManager
             MitarbeiterVerwaltungForm verwaltungForm = new MitarbeiterVerwaltungForm(_mitarbeiterVerwaltung, _bearbeiteterMitarbeiter);
             verwaltungForm.ShowDialog();
         }
+
+        private List<(string Feld, string AlterWert, string NeuerWert)> AenderungenErmitteln()
+        {
+            var aenderungen = new List<(string Feld, string AlterWert, string NeuerWert)>();
+
+            if (_originalZustand == null)
+                return aenderungen;
+
+            void Vergleichen(string feld, string alterWert, string neuerWert)
+            {
+                if (alterWert != neuerWert)
+                    aenderungen.Add((feld, alterWert, neuerWert));
+            }
+
+            int kaderWert = int.TryParse(cmbMitarbeiterKadder.Text, out int kw) ? kw : 0;
+            DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked ? dtpMitarbeiterAustritt.Value : (DateTime?)null;
+            var neuerStatus = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
+
+            Vergleichen("Vorname", _originalZustand.Vorname, txtMitarbeiterVorname.Text);
+            Vergleichen("Nachname", _originalZustand.Nachname, txtMitarbeiterNachname.Text);
+            Vergleichen("Abteilung", _originalZustand.Abteilung, cmbMitarbeiterAbteilung.Text);
+            Vergleichen("Rolle", _originalZustand.Rolle, txtMitarbeiterRolle.Text);
+            Vergleichen("Kaderstufe", _originalZustand.Kaderstufe.ToString(), ((Enums.Kaderstufe)kaderWert).ToString());
+            Vergleichen("AHV-Nummer", _originalZustand.AhvNummer, txtMitarbeiterAHV.Text);
+            Vergleichen("Adresse", _originalZustand.Adresse, txtMitarbeiterAdresse.Text);
+            Vergleichen("PLZ", _originalZustand.Plz, txtMitarbeiterPLZ.Text);
+            Vergleichen("Wohnort", _originalZustand.Wohnort, txtMitarbeiterOrt.Text);
+            Vergleichen("Nationalität", _originalZustand.Nationalität, cmbMitarbeiterNationalität.Text);
+            Vergleichen("Mobil", _originalZustand.MobilNummer, txtMitarbeiterMobil.Text);
+            Vergleichen("Eintrittsdatum", _originalZustand.EinstellungsDatum.ToString("dd.MM.yyyy"), dtpMitarbeiterEintritt.Value.ToString("dd.MM.yyyy"));
+            Vergleichen("Austrittsdatum", _originalZustand.KündigungsDatum?.ToString("dd.MM.yyyy") ?? "-", austrittsDatum?.ToString("dd.MM.yyyy") ?? "-");
+            Vergleichen("Pensum", _originalZustand.Pensum.ToString(), numMitarbeiterPensum.Value.ToString());
+            Vergleichen("Status", _originalZustand.Status.ToString(), neuerStatus.ToString());
+
+            return aenderungen;
+        }   
 
         private bool HatSichEtwasGeaendert()
         {
