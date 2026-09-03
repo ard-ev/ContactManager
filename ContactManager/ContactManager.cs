@@ -364,9 +364,9 @@ namespace ContactManager
 
         }
 
-        private async void txtEmployeSearch_TextChangedAsync(object sender, EventArgs e)
+        private async void txtEmployeeSearch_TextChangedAsync(object sender, EventArgs e)
         {
-            if (txtEmployeSearch.Text.Trim().ToLower() == "supermario")
+            if (txtEmployeeSearch.Text.Trim().ToLower() == "supermario")
             {
                 await TriggerCursorEasterEgg();
                 return;
