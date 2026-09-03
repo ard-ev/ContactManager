@@ -26,6 +26,7 @@ namespace ContactManager
             InitializeComponent();
             _mitarbeiterVerwaltung = mitarbeiterVerwaltung;
             _bearbeiteterMitarbeiter = mitarbeiter;
+            cmbMitarbeiterKadder.DataSource = Enum.GetValues(typeof(Enums.Kaderstufe));
 
             var _ = dtpMitarbeiterAustritt.Handle; // Handle früh erzwingen
 
@@ -50,7 +51,7 @@ namespace ContactManager
             txtMitarbeiterNachname.Text = mitarbeiter.Nachname;
             cmbMitarbeiterAbteilung.Text = mitarbeiter.Abteilung;
             txtMitarbeiterRolle.Text = mitarbeiter.Rolle;
-            cmbMitarbeiterKadder.Text = ((int)mitarbeiter.Kaderstufe).ToString();
+            cmbMitarbeiterKadder.SelectedItem = mitarbeiter.Kaderstufe;
             txtMitarbeiterAHV.Text = mitarbeiter.AhvNummer;
             txtMitarbeiterAdresse.Text = mitarbeiter.Adresse;
             txtMitarbeiterPLZ.Text = mitarbeiter.Plz;
@@ -465,12 +466,10 @@ namespace ContactManager
             // cmbMitarbeiterKadder
             // 
             cmbMitarbeiterKadder.FormattingEnabled = true;
-            cmbMitarbeiterKadder.Items.AddRange(new object[] { "0", "1", "2", "3", "4", "5" });
             cmbMitarbeiterKadder.Location = new Point(7, 231);
             cmbMitarbeiterKadder.Name = "cmbMitarbeiterKadder";
             cmbMitarbeiterKadder.Size = new Size(182, 33);
             cmbMitarbeiterKadder.TabIndex = 5;
-            cmbMitarbeiterKadder.Text = "0";
             // 
             // lblMitarbeiterAHV
             // 
@@ -649,7 +648,7 @@ namespace ContactManager
             }
 
             // Kaderstufe aus der ComboBox lesen (Text "0" bis "5"), sicher umwandeln
-            int kaderWert = int.TryParse(cmbMitarbeiterKadder.Text, out int kw) ? kw : 0;
+            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedItem;
 
             DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked
                 ? dtpMitarbeiterAustritt.Value
@@ -672,7 +671,7 @@ namespace ContactManager
                 _bearbeiteterMitarbeiter.Nachname = txtMitarbeiterNachname.Text;
                 _bearbeiteterMitarbeiter.Abteilung = cmbMitarbeiterAbteilung.Text;
                 _bearbeiteterMitarbeiter.Rolle = txtMitarbeiterRolle.Text;
-                _bearbeiteterMitarbeiter.Kaderstufe = (Enums.Kaderstufe)kaderWert;
+                _bearbeiteterMitarbeiter.Kaderstufe = kaderWert;
                 _bearbeiteterMitarbeiter.AhvNummer = txtMitarbeiterAHV.Text;
                 _bearbeiteterMitarbeiter.Adresse = txtMitarbeiterAdresse.Text;
                 _bearbeiteterMitarbeiter.Plz = txtMitarbeiterPLZ.Text;
@@ -700,7 +699,7 @@ namespace ContactManager
                     Nachname = txtMitarbeiterNachname.Text,
                     Abteilung = cmbMitarbeiterAbteilung.Text,
                     Rolle = txtMitarbeiterRolle.Text,
-                    Kaderstufe = (Enums.Kaderstufe)kaderWert,
+                    Kaderstufe = kaderWert,
                     AhvNummer = txtMitarbeiterAHV.Text,
                     Adresse = txtMitarbeiterAdresse.Text,
                     Plz = txtMitarbeiterPLZ.Text,
@@ -732,7 +731,7 @@ namespace ContactManager
             txtMitarbeiterNachname.Clear();
             cmbMitarbeiterAbteilung.SelectedIndex = -1;
             txtMitarbeiterRolle.Clear();
-            cmbMitarbeiterKadder.Text = "0";
+            cmbMitarbeiterKadder.SelectedItem = Enums.Kaderstufe.Keine;
             txtMitarbeiterAHV.Text = "756.";
             txtMitarbeiterAdresse.Clear();
             txtMitarbeiterPLZ.Clear();
@@ -780,7 +779,7 @@ namespace ContactManager
                     aenderungen.Add((feld, alterWert, neuerWert));
             }
 
-            int kaderWert = int.TryParse(cmbMitarbeiterKadder.Text, out int kw) ? kw : 0;
+            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedItem;
             DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked ? dtpMitarbeiterAustritt.Value : (DateTime?)null;
             var neuerStatus = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
 
@@ -788,7 +787,7 @@ namespace ContactManager
             Vergleichen("Nachname", _originalZustand.Nachname, txtMitarbeiterNachname.Text);
             Vergleichen("Abteilung", _originalZustand.Abteilung, cmbMitarbeiterAbteilung.Text);
             Vergleichen("Rolle", _originalZustand.Rolle, txtMitarbeiterRolle.Text);
-            Vergleichen("Kaderstufe", _originalZustand.Kaderstufe.ToString(), ((Enums.Kaderstufe)kaderWert).ToString());
+            Vergleichen("Kaderstufe", _originalZustand.Kaderstufe.ToString(), kaderWert.ToString());
             Vergleichen("AHV-Nummer", _originalZustand.AhvNummer, txtMitarbeiterAHV.Text);
             Vergleichen("Adresse", _originalZustand.Adresse, txtMitarbeiterAdresse.Text);
             Vergleichen("PLZ", _originalZustand.Plz, txtMitarbeiterPLZ.Text);
@@ -808,7 +807,7 @@ namespace ContactManager
             if (_originalZustand == null)
                 return true;
 
-            int kaderWert = int.TryParse(cmbMitarbeiterKadder.Text, out int kw) ? kw : 0;
+            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedItem;
             DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked ? dtpMitarbeiterAustritt.Value : (DateTime?)null;
 
             return
@@ -816,7 +815,7 @@ namespace ContactManager
                 _originalZustand.Nachname != txtMitarbeiterNachname.Text ||
                 _originalZustand.Abteilung != cmbMitarbeiterAbteilung.Text ||
                 _originalZustand.Rolle != txtMitarbeiterRolle.Text ||
-                _originalZustand.Kaderstufe != (Enums.Kaderstufe)kaderWert ||
+                _originalZustand.Kaderstufe != kaderWert ||
                 _originalZustand.AhvNummer != txtMitarbeiterAHV.Text ||
                 _originalZustand.Adresse != txtMitarbeiterAdresse.Text ||
                 _originalZustand.Plz != txtMitarbeiterPLZ.Text ||
