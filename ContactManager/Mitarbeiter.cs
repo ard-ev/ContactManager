@@ -26,7 +26,18 @@ namespace ContactManager
             InitializeComponent();
             _mitarbeiterVerwaltung = mitarbeiterVerwaltung;
             _bearbeiteterMitarbeiter = mitarbeiter;
-            cmbMitarbeiterKadder.DataSource = Enum.GetValues(typeof(Enums.Kaderstufe));
+            var kaderstufeOptionen = new[]
+{
+    new { Text = "Keine", Wert = Enums.Kaderstufe.Keine },
+    new { Text = "Stufe 1", Wert = Enums.Kaderstufe.Stufe1 },
+    new { Text = "Stufe 2", Wert = Enums.Kaderstufe.Stufe2 },
+    new { Text = "Stufe 3", Wert = Enums.Kaderstufe.Stufe3 },
+    new { Text = "Stufe 4", Wert = Enums.Kaderstufe.Stufe4 },
+    new { Text = "Stufe 5", Wert = Enums.Kaderstufe.Stufe5 }
+};
+            cmbMitarbeiterKadder.DataSource = kaderstufeOptionen;
+            cmbMitarbeiterKadder.DisplayMember = "Text";
+            cmbMitarbeiterKadder.ValueMember = "Wert";
 
             var _ = dtpMitarbeiterAustritt.Handle; // Handle früh erzwingen
 
@@ -51,7 +62,7 @@ namespace ContactManager
             txtMitarbeiterNachname.Text = mitarbeiter.Nachname;
             cmbMitarbeiterAbteilung.Text = mitarbeiter.Abteilung;
             txtMitarbeiterRolle.Text = mitarbeiter.Rolle;
-            cmbMitarbeiterKadder.SelectedItem = mitarbeiter.Kaderstufe;
+            cmbMitarbeiterKadder.SelectedValue = mitarbeiter.Kaderstufe;
             txtMitarbeiterAHV.Text = mitarbeiter.AhvNummer;
             txtMitarbeiterAdresse.Text = mitarbeiter.Adresse;
             txtMitarbeiterPLZ.Text = mitarbeiter.Plz;
@@ -648,7 +659,7 @@ namespace ContactManager
             }
 
             // Kaderstufe aus der ComboBox lesen (Text "0" bis "5"), sicher umwandeln
-            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedItem;
+            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedValue;
 
             DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked
                 ? dtpMitarbeiterAustritt.Value
@@ -731,7 +742,7 @@ namespace ContactManager
             txtMitarbeiterNachname.Clear();
             cmbMitarbeiterAbteilung.SelectedIndex = -1;
             txtMitarbeiterRolle.Clear();
-            cmbMitarbeiterKadder.SelectedItem = Enums.Kaderstufe.Keine;
+            cmbMitarbeiterKadder.SelectedValue = Enums.Kaderstufe.Keine;
             txtMitarbeiterAHV.Text = "756.";
             txtMitarbeiterAdresse.Clear();
             txtMitarbeiterPLZ.Clear();
@@ -779,7 +790,7 @@ namespace ContactManager
                     aenderungen.Add((feld, alterWert, neuerWert));
             }
 
-            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedItem;
+            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedValue;
             DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked ? dtpMitarbeiterAustritt.Value : (DateTime?)null;
             var neuerStatus = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
 
@@ -807,7 +818,7 @@ namespace ContactManager
             if (_originalZustand == null)
                 return true;
 
-            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedItem;
+            var kaderWert = (Enums.Kaderstufe)cmbMitarbeiterKadder.SelectedValue;
             DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked ? dtpMitarbeiterAustritt.Value : (DateTime?)null;
 
             return
