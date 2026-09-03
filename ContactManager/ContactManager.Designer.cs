@@ -41,7 +41,7 @@
             btnEmployeeEdit = new Button();
             btnEmployeeAdd = new Button();
             btnEmployeeSearch = new Button();
-            txtEmployeSearch = new TextBox();
+            txtEmployeeSearch = new TextBox();
             lblEmployeeSearch = new Label();
             lblEmployeeSubtitle = new Label();
             lblEmployeeTitle = new Label();
@@ -170,7 +170,7 @@
             pnlEmployee.Controls.Add(btnEmployeeEdit);
             pnlEmployee.Controls.Add(btnEmployeeAdd);
             pnlEmployee.Controls.Add(btnEmployeeSearch);
-            pnlEmployee.Controls.Add(txtEmployeSearch);
+            pnlEmployee.Controls.Add(txtEmployeeSearch);
             pnlEmployee.Controls.Add(lblEmployeeSearch);
             pnlEmployee.Controls.Add(lblEmployeeSubtitle);
             pnlEmployee.Controls.Add(lblEmployeeTitle);
@@ -244,13 +244,13 @@
             btnEmployeeSearch.UseVisualStyleBackColor = true;
             btnEmployeeSearch.Click += btnEmployeeSearch_Click;
             // 
-            // txtEmployeSearch
+            // txtEmployeeSearch
             // 
-            txtEmployeSearch.Location = new Point(237, 110);
-            txtEmployeSearch.Margin = new Padding(4, 3, 4, 3);
-            txtEmployeSearch.Name = "txtEmployeSearch";
-            txtEmployeSearch.Size = new Size(257, 31);
-            txtEmployeSearch.TabIndex = 3;
+            txtEmployeeSearch.Location = new Point(237, 110);
+            txtEmployeeSearch.Margin = new Padding(4, 3, 4, 3);
+            txtEmployeeSearch.Name = "txtEmployeeSearch";
+            txtEmployeeSearch.Size = new Size(257, 31);
+            txtEmployeeSearch.TabIndex = 3;
             // 
             // lblEmployeeSearch
             // 
@@ -350,7 +350,7 @@
             btnCustomerAdd.TabIndex = 5;
             btnCustomerAdd.Text = "Neuer Kunde";
             btnCustomerAdd.UseVisualStyleBackColor = true;
-            btnCustomerAdd.Click += btnCustomerAdd_Click_1;
+            btnCustomerAdd.Click += btnCustomerAdd_Click;
             // 
             // btnCustomerSearch
             // 
@@ -623,7 +623,7 @@
         private Label lblPrg;
         private Panel pnlContent;
         private Panel pnlEmployee;
-        private TextBox txtEmployeSearch;
+        private TextBox txtEmployeeSearch;
         private Label lblEmployeeSearch;
         private Label lblEmployeeSubtitle;
         private Label lblEmployeeTitle;

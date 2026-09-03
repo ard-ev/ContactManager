@@ -37,10 +37,10 @@ namespace ContactManager
             txtCustomerSearch.KeyDown += TxtCustomerSearch_KeyDown;
             dgvCustomers.ColumnHeaderMouseClick += dgvCustomers_ColumnHeaderMouseClick;
             dgvEmployees.ColumnHeaderMouseClick += dgvEmployees_ColumnHeaderMouseClick;
-            txtEmployeSearch.KeyDown += TxtEmployeeSearch_KeyDown;
+            txtEmployeeSearch.KeyDown += TxtEmployeeSearch_KeyDown;
 
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
-            SetActiveNAvigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
+            SetActiveNavigationButton(btnDashboard);  // Setzt den Dashboard-Button als aktiv, wenn die Anwendung gestartet wird
             // Gespeicherte Kunden beim Start anzeigen
             KundenAnzeigen();
             // Gespeicherte Mitarbeiter beim Start anzeigen
@@ -94,7 +94,7 @@ namespace ContactManager
         }
 
         // Methode zum Setzen des aktiven Navigationsbuttons
-        private void SetActiveNAvigationButton(Button activeButton)
+        private void SetActiveNavigationButton(Button activeButton)
         {
             btnDashboard.BackColor = Color.White;
             btnCustomer.BackColor = Color.White;
@@ -106,7 +106,7 @@ namespace ContactManager
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             pnlDashboard.BringToFront();
-            SetActiveNAvigationButton(btnDashboard);
+            SetActiveNavigationButton(btnDashboard);
         }
 
 
@@ -114,7 +114,7 @@ namespace ContactManager
         private void btnCustomer_Click(object sender, EventArgs e)
         {
             pnlCustomers.BringToFront();
-            SetActiveNAvigationButton(btnCustomer);
+            SetActiveNavigationButton(btnCustomer);
         }
 
 
@@ -122,7 +122,7 @@ namespace ContactManager
         private void btnEmployee_Click(object sender, EventArgs e)
         {
             pnlEmployee.BringToFront();
-            SetActiveNAvigationButton(btnEmployee);
+            SetActiveNavigationButton(btnEmployee);
         }
 
 
@@ -142,7 +142,7 @@ namespace ContactManager
         private void MitarbeiterSuchen()
         {
             dgvEmployees.DataSource = null;
-            dgvEmployees.DataSource = _mitarbeiterVerwaltung.Suchen(txtEmployeSearch.Text);
+            dgvEmployees.DataSource = _mitarbeiterVerwaltung.Suchen(txtEmployeeSearch.Text);
         }
 
         private void TxtEmployeeSearch_KeyDown(object sender, KeyEventArgs e)
@@ -156,7 +156,7 @@ namespace ContactManager
 
         //Event für Maske öffnen (Kunde erstellen)
 
-        private void btnCustomerAdd_Click_1(object sender, EventArgs e)
+        private void btnCustomerAdd_Click(object sender, EventArgs e)
         {
             // Formular öffnen und ihm die gemeinsame Kundenverwaltung mitgeben
             KundenForm kundenForm = new KundenForm(_kundenVerwaltung, _mitarbeiterVerwaltung);
