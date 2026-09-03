@@ -3,6 +3,7 @@ using ContactManager.Services;
 using ContactManager.Models;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 
@@ -361,6 +362,64 @@ namespace ContactManager
         private void pnlEmployee_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private async void txtEmployeSearch_TextChangedAsync(object sender, EventArgs e)
+        {
+            if (txtEmployeSearch.Text.Trim().ToLower() == "supermario")
+            {
+                await TriggerCursorEasterEgg();
+                return;
+            }
+        }
+
+        private async Task TriggerCursorEasterEgg()
+        {
+            Cursor marioCursor = NativeCursorLoader.LoadAniCursor(
+        System.IO.Path.Combine(Application.StartupPath, "Data", "Mario64.cur"));
+
+            this.Cursor = marioCursor;
+
+            // Sorgt dafür, dass der Cursor auch bei Mausbewegung bestehen bleibt
+            var enforceTimer = new System.Windows.Forms.Timer { Interval = 100 };
+            enforceTimer.Tick += (s, e) => { this.Cursor = marioCursor; };
+            enforceTimer.Start();
+
+            await Task.Delay(60000); // 1 Minute
+
+            enforceTimer.Stop();
+            this.Cursor = Cursors.Default;
+        }
+
+        private void SetCursorRecursive(Control parent, Cursor cursor)
+        {
+            parent.Cursor = cursor;
+            foreach (Control child in parent.Controls)
+                SetCursorRecursive(child, cursor);
+        }
+
+        public static class NativeCursorLoader
+        {
+            [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto)]
+            private static extern IntPtr LoadCursorFromFile(string fileName);
+
+            public static Cursor LoadAniCursor(string path)
+            {
+                IntPtr handle = LoadCursorFromFile(path);
+                if (handle == IntPtr.Zero)
+                    throw new Exception("Cursor konnte nicht geladen werden: " + path);
+
+                return new Cursor(handle);
+            }
+        }
+
+        private async void txtCustomerSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCustomerSearch.Text.Trim().ToLower() == "supermario")
+            {
+                await TriggerCursorEasterEgg();
+                return;
+            }
         }
     }
 }
