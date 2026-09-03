@@ -665,58 +665,59 @@ namespace ContactManager
                 _bearbeiteterMitarbeiter.Vorname = txtMitarbeiterVorname.Text;
 
                 if (_bearbeiteterMitarbeiter != null)
-            {
-                // Bearbeiten-Modus: bestehendes Objekt aktualisieren statt ein neues anzulegen
-                _bearbeiteterMitarbeiter.Vorname = txtMitarbeiterVorname.Text;
-                _bearbeiteterMitarbeiter.Nachname = txtMitarbeiterNachname.Text;
-                _bearbeiteterMitarbeiter.Abteilung = cmbMitarbeiterAbteilung.Text;
-                _bearbeiteterMitarbeiter.Rolle = txtMitarbeiterRolle.Text;
-                _bearbeiteterMitarbeiter.Kaderstufe = (Enums.Kaderstufe)kaderWert;
-                _bearbeiteterMitarbeiter.AhvNummer = txtMitarbeiterAHV.Text;
-                _bearbeiteterMitarbeiter.Adresse = txtMitarbeiterAdresse.Text;
-                _bearbeiteterMitarbeiter.Plz = txtMitarbeiterPLZ.Text;
-                _bearbeiteterMitarbeiter.Wohnort = txtMitarbeiterOrt.Text;
-                _bearbeiteterMitarbeiter.Nationalität = cmbMitarbeiterNationalität.Text;
-                _bearbeiteterMitarbeiter.MobilNummer = txtMitarbeiterMobil.Text;
-                _bearbeiteterMitarbeiter.EinstellungsDatum = dtpMitarbeiterEintritt.Value;
-                _bearbeiteterMitarbeiter.KündigungsDatum = austrittsDatum;
-                _bearbeiteterMitarbeiter.Pensum = numMitarbeiterPensum.Value;
-                _bearbeiteterMitarbeiter.Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
-
-                _mitarbeiterVerwaltung.Bearbeiten(_bearbeiteterMitarbeiter);
-                _mitarbeiterVerwaltung.Speichern();
-
-                MessageBox.Show("Mitarbeiter aktualisiert.");
-                this.Close();
-            }
-            else
-            {
-                // Mitarbeiter aus den Eingabefeldern zusammenbauen
-                Mitarbeiter mitarbeiter = new Mitarbeiter
                 {
-                    Vorname = txtMitarbeiterVorname.Text,
-                    Nachname = txtMitarbeiterNachname.Text,
-                    Abteilung = cmbMitarbeiterAbteilung.Text,
-                    Rolle = txtMitarbeiterRolle.Text,
-                    Kaderstufe = (Enums.Kaderstufe)kaderWert,
-                    AhvNummer = txtMitarbeiterAHV.Text,
-                    Adresse = txtMitarbeiterAdresse.Text,
-                    Plz = txtMitarbeiterPLZ.Text,
-                    Wohnort = txtMitarbeiterOrt.Text,
-                    Nationalität = cmbMitarbeiterNationalität.Text,
-                    MobilNummer = txtMitarbeiterMobil.Text,
-                    EinstellungsDatum = dtpMitarbeiterEintritt.Value,
-                    KündigungsDatum = austrittsDatum,
-                    Pensum = numMitarbeiterPensum.Value,
-                    Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
-                };
+                    // Bearbeiten-Modus: bestehendes Objekt aktualisieren statt ein neues anzulegen
+                    _bearbeiteterMitarbeiter.Vorname = txtMitarbeiterVorname.Text;
+                    _bearbeiteterMitarbeiter.Nachname = txtMitarbeiterNachname.Text;
+                    _bearbeiteterMitarbeiter.Abteilung = cmbMitarbeiterAbteilung.Text;
+                    _bearbeiteterMitarbeiter.Rolle = txtMitarbeiterRolle.Text;
+                    _bearbeiteterMitarbeiter.Kaderstufe = (Enums.Kaderstufe)kaderWert;
+                    _bearbeiteterMitarbeiter.AhvNummer = txtMitarbeiterAHV.Text;
+                    _bearbeiteterMitarbeiter.Adresse = txtMitarbeiterAdresse.Text;
+                    _bearbeiteterMitarbeiter.Plz = txtMitarbeiterPLZ.Text;
+                    _bearbeiteterMitarbeiter.Wohnort = txtMitarbeiterOrt.Text;
+                    _bearbeiteterMitarbeiter.Nationalität = cmbMitarbeiterNationalität.Text;
+                    _bearbeiteterMitarbeiter.MobilNummer = txtMitarbeiterMobil.Text;
+                    _bearbeiteterMitarbeiter.EinstellungsDatum = dtpMitarbeiterEintritt.Value;
+                    _bearbeiteterMitarbeiter.KündigungsDatum = austrittsDatum;
+                    _bearbeiteterMitarbeiter.Pensum = numMitarbeiterPensum.Value;
+                    _bearbeiteterMitarbeiter.Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv;
 
-                // An die Verwaltung übergeben und auf die Festplatte speichern
-                _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
-                _mitarbeiterVerwaltung.Speichern();
+                    _mitarbeiterVerwaltung.Bearbeiten(_bearbeiteterMitarbeiter);
+                    _mitarbeiterVerwaltung.Speichern();
 
-                MessageBox.Show("Mitarbeiter erfolgreich gespeichert.");
-                FelderZuruecksetzenMitarbeiter();
+                    MessageBox.Show("Mitarbeiter aktualisiert.");
+                    this.Close();
+                }
+                else
+                {
+                    // Mitarbeiter aus den Eingabefeldern zusammenbauen
+                    Mitarbeiter mitarbeiter = new Mitarbeiter
+                    {
+                        Vorname = txtMitarbeiterVorname.Text,
+                        Nachname = txtMitarbeiterNachname.Text,
+                        Abteilung = cmbMitarbeiterAbteilung.Text,
+                        Rolle = txtMitarbeiterRolle.Text,
+                        Kaderstufe = (Enums.Kaderstufe)kaderWert,
+                        AhvNummer = txtMitarbeiterAHV.Text,
+                        Adresse = txtMitarbeiterAdresse.Text,
+                        Plz = txtMitarbeiterPLZ.Text,
+                        Wohnort = txtMitarbeiterOrt.Text,
+                        Nationalität = cmbMitarbeiterNationalität.Text,
+                        MobilNummer = txtMitarbeiterMobil.Text,
+                        EinstellungsDatum = dtpMitarbeiterEintritt.Value,
+                        KündigungsDatum = austrittsDatum,
+                        Pensum = numMitarbeiterPensum.Value,
+                        Status = rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv
+                    };
+
+                    // An die Verwaltung übergeben und auf die Festplatte speichern
+                    _mitarbeiterVerwaltung.Hinzufuegen(mitarbeiter);
+                    _mitarbeiterVerwaltung.Speichern();
+
+                    MessageBox.Show("Mitarbeiter erfolgreich gespeichert.");
+                    FelderZuruecksetzenMitarbeiter();
+                }
             }
         }
 
