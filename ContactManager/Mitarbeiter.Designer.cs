@@ -65,5 +65,8 @@
         private RadioButton rdbMitarbeiterInaktiv;
         private RadioButton rdbMitarbeiterAktiv;
         private Button btnMitarbeiterVerwaltung;
+        private ComboBox cmbMitarbeiterLehrjahr;
+        private CheckBox ckbMitarbeiterAusbildung;
+        private Label lblMitarbeiterLehrjahr;
     }
 }
