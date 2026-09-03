@@ -36,6 +36,7 @@ namespace ContactManager
             // Enter im Suchfeld löst die Suche aus
             txtCustomerSearch.KeyDown += TxtCustomerSearch_KeyDown;
             dgvCustomers.ColumnHeaderMouseClick += dgvCustomers_ColumnHeaderMouseClick;
+            dgvEmployees.ColumnHeaderMouseClick += dgvEmployees_ColumnHeaderMouseClick;
 
 
             pnlDashboard.BringToFront();  //Bringt das Dashboard Panel in den Vordergrund, wenn die Anwendung gestartet wird
@@ -133,7 +134,11 @@ namespace ContactManager
             mitarbeiterForm.ShowDialog();
             MitarbeiterAnzeigen();
         }
-
+        private void btnEmployeeSearch_Click(object sender, EventArgs e)
+        {
+            dgvEmployees.DataSource = null;
+            dgvEmployees.DataSource = _mitarbeiterVerwaltung.Suchen(txtEmployeSearch.Text);
+        }
 
         //Event für Maske öffnen (Kunde erstellen)
 
@@ -251,6 +256,33 @@ namespace ContactManager
             MitarbeiterForm mitarbeiterForm = new MitarbeiterForm(_mitarbeiterVerwaltung, ausgewaehlterMitarbeiter);
             mitarbeiterForm.ShowDialog();
             MitarbeiterAnzeigen();
+        }
+
+        private bool _mitarbeiterSortAufsteigend = true;
+
+        private void dgvEmployees_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string spalte = dgvEmployees.Columns[e.ColumnIndex].Name;
+
+            IEnumerable<Mitarbeiter> sortiert = spalte switch
+            {
+                nameof(Mitarbeiter.Nachname) => _mitarbeiterSortAufsteigend
+                    ? _mitarbeiterVerwaltung.Alle.OrderBy(m => m.Nachname)
+                    : _mitarbeiterVerwaltung.Alle.OrderByDescending(m => m.Nachname),
+                nameof(Mitarbeiter.Vorname) => _mitarbeiterSortAufsteigend
+                    ? _mitarbeiterVerwaltung.Alle.OrderBy(m => m.Vorname)
+                    : _mitarbeiterVerwaltung.Alle.OrderByDescending(m => m.Vorname),
+                nameof(Mitarbeiter.Abteilung) => _mitarbeiterSortAufsteigend
+                    ? _mitarbeiterVerwaltung.Alle.OrderBy(m => m.Abteilung)
+                    : _mitarbeiterVerwaltung.Alle.OrderByDescending(m => m.Abteilung),
+                nameof(Mitarbeiter.Status) => _mitarbeiterSortAufsteigend
+                    ? _mitarbeiterVerwaltung.Alle.OrderBy(m => m.Status)
+                    : _mitarbeiterVerwaltung.Alle.OrderByDescending(m => m.Status),
+                _ => _mitarbeiterVerwaltung.Alle
+            };
+
+            dgvEmployees.DataSource = sortiert.ToList();
+            _mitarbeiterSortAufsteigend = !_mitarbeiterSortAufsteigend;
         }
 
         private void DashboardAktualisieren()

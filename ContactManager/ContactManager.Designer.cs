@@ -238,6 +238,7 @@
             btnEmployeeSearch.TabIndex = 4;
             btnEmployeeSearch.Text = "Suchen";
             btnEmployeeSearch.UseVisualStyleBackColor = true;
+            btnEmployeeSearch.Click += btnEmployeeSearch_Click;
             // 
             // txtEmployeSearch
             // 

@@ -8,6 +8,7 @@ namespace ContactManager
     {
         // Draht zur Mitarbeiterverwaltung, damit das Formular speichern kann
         private readonly MitarbeiterVerwaltung _mitarbeiterVerwaltung;
+        private Mitarbeiter? _originalZustand;
         private readonly Mitarbeiter? _bearbeiteterMitarbeiter; // null = neuer Mitarbeiter, sonst Bearbeiten-Modus
 
         /// <summary>Konstruktor zum Anlegen eines neuen Mitarbeiters.</summary>
@@ -74,6 +75,26 @@ namespace ContactManager
                 lblMitarbeiterAustritt.Visible = false;
                 dtpMitarbeiterAustritt.Visible = false;
             }
+
+            // Schnappschuss der Ausgangswerte für die Änderungserkennung
+            _originalZustand = new Mitarbeiter
+            {
+                Vorname = mitarbeiter.Vorname,
+                Nachname = mitarbeiter.Nachname,
+                Abteilung = mitarbeiter.Abteilung,
+                Rolle = mitarbeiter.Rolle,
+                Kaderstufe = mitarbeiter.Kaderstufe,
+                AhvNummer = mitarbeiter.AhvNummer,
+                Adresse = mitarbeiter.Adresse,
+                Plz = mitarbeiter.Plz,
+                Wohnort = mitarbeiter.Wohnort,
+                Nationalität = mitarbeiter.Nationalität,
+                MobilNummer = mitarbeiter.MobilNummer,
+                EinstellungsDatum = mitarbeiter.EinstellungsDatum,
+                KündigungsDatum = mitarbeiter.KündigungsDatum,
+                Pensum = mitarbeiter.Pensum,
+                Status = mitarbeiter.Status
+            };
         }
 
         private void InitializeComponent()
@@ -633,6 +654,18 @@ namespace ContactManager
 
             if (_bearbeiteterMitarbeiter != null)
             {
+                if (!HatSichEtwasGeaendert())
+                {
+                    MessageBox.Show("Es wurden keine Änderungen vorgenommen.");
+                    this.Close();
+                    return;
+                }
+
+                // Bearbeiten-Modus: bestehendes Objekt aktualisieren statt ein neues anzulegen
+                _bearbeiteterMitarbeiter.Vorname = txtMitarbeiterVorname.Text;
+
+                if (_bearbeiteterMitarbeiter != null)
+            {
                 // Bearbeiten-Modus: bestehendes Objekt aktualisieren statt ein neues anzulegen
                 _bearbeiteterMitarbeiter.Vorname = txtMitarbeiterVorname.Text;
                 _bearbeiteterMitarbeiter.Nachname = txtMitarbeiterNachname.Text;
@@ -730,6 +763,32 @@ namespace ContactManager
 
             MitarbeiterVerwaltungForm verwaltungForm = new MitarbeiterVerwaltungForm(_mitarbeiterVerwaltung, _bearbeiteterMitarbeiter);
             verwaltungForm.ShowDialog();
+        }
+
+        private bool HatSichEtwasGeaendert()
+        {
+            if (_originalZustand == null)
+                return true;
+
+            int kaderWert = int.TryParse(cmbMitarbeiterKadder.Text, out int kw) ? kw : 0;
+            DateTime? austrittsDatum = ckbMitarbeiterBefristet.Checked ? dtpMitarbeiterAustritt.Value : (DateTime?)null;
+
+            return
+                _originalZustand.Vorname != txtMitarbeiterVorname.Text ||
+                _originalZustand.Nachname != txtMitarbeiterNachname.Text ||
+                _originalZustand.Abteilung != cmbMitarbeiterAbteilung.Text ||
+                _originalZustand.Rolle != txtMitarbeiterRolle.Text ||
+                _originalZustand.Kaderstufe != (Enums.Kaderstufe)kaderWert ||
+                _originalZustand.AhvNummer != txtMitarbeiterAHV.Text ||
+                _originalZustand.Adresse != txtMitarbeiterAdresse.Text ||
+                _originalZustand.Plz != txtMitarbeiterPLZ.Text ||
+                _originalZustand.Wohnort != txtMitarbeiterOrt.Text ||
+                _originalZustand.Nationalität != cmbMitarbeiterNationalität.Text ||
+                _originalZustand.MobilNummer != txtMitarbeiterMobil.Text ||
+                _originalZustand.EinstellungsDatum != dtpMitarbeiterEintritt.Value ||
+                _originalZustand.KündigungsDatum != austrittsDatum ||
+                _originalZustand.Pensum != numMitarbeiterPensum.Value ||
+                _originalZustand.Status != (rdbMitarbeiterAktiv.Checked ? Enums.Status.Aktiv : Enums.Status.Inaktiv);
         }
     }
 }
