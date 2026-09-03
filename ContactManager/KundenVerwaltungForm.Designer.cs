@@ -33,6 +33,6 @@
         private DataGridView dgvKVMutationen;
         private Panel pnlKVFooter;
         private Button btnKVSchliessen;
-        private ComboBox cmbKVMitarbeiter;
+        private ComboBox cmbKVMitarbeiterAuswahl;
     }
 }

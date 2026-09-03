@@ -25,11 +25,11 @@ namespace ContactManager
             lblKVHeaderSubtitle.Text = $"{_kunde.Vorname} {_kunde.Nachname} (Kundennummer: {_kunde.KundenNummer})";
 
             // NEU: Mitarbeiter-Dropdown befüllen, bevor NotizenLaden() aufgerufen wird
-            cmbKVMitarbeiter.DataSource = _mitarbeiterVerwaltung.Alle
+            cmbKVMitarbeiterAuswahl.DataSource = _mitarbeiterVerwaltung.Alle
                 .Select(m => new { Anzeige = $"{m.Vorname} {m.Nachname}", Nummer = m.MitarbeiterNummer })
                 .ToList();
-            cmbKVMitarbeiter.DisplayMember = "Anzeige";
-            cmbKVMitarbeiter.ValueMember = "Nummer";
+            cmbKVMitarbeiterAuswahl.DisplayMember = "Anzeige";
+            cmbKVMitarbeiterAuswahl.ValueMember = "Nummer";
 
             NotizenLaden();
             MutationenLaden();
@@ -82,13 +82,13 @@ namespace ContactManager
                 return;
             }
 
-            if (cmbKVMitarbeiter.SelectedValue == null)
+            if (cmbKVMitarbeiterAuswahl.SelectedValue == null)
             {
                 MessageBox.Show("Bitte einen Mitarbeiter auswählen.");
                 return;
             }
 
-            int mitarbeiterNummer = (int)cmbKVMitarbeiter.SelectedValue;
+            int mitarbeiterNummer = (int)cmbKVMitarbeiterAuswahl.SelectedValue;
             _kundenVerwaltung.NotizHinzufuegen(_kunde, txtKVNeueNotiz.Text, mitarbeiterNummer);
             txtKVNeueNotiz.Clear();
             NotizenLaden();
@@ -107,6 +107,7 @@ namespace ContactManager
             lblKVHeaderTitle = new Label();
             tabKVHistorie = new TabControl();
             tabKVNotizen = new TabPage();
+            this.cmbKVMitarbeiterAuswahl = new ComboBox();
             dgvKVNotizen = new DataGridView();
             btnKVNotizHinzufuegen = new Button();
             txtKVNeueNotiz = new TextBox();
@@ -115,7 +116,6 @@ namespace ContactManager
             dgvKVMutationen = new DataGridView();
             pnlKVFooter = new Panel();
             btnKVSchliessen = new Button();
-            this.cmbKVMitarbeiter = new ComboBox();
             pnlKVHeader.SuspendLayout();
             tabKVHistorie.SuspendLayout();
             tabKVNotizen.SuspendLayout();
@@ -139,7 +139,7 @@ namespace ContactManager
             lblKVHeaderSubtitle.AutoSize = true;
             lblKVHeaderSubtitle.Location = new Point(11, 36);
             lblKVHeaderSubtitle.Name = "lblKVHeaderSubtitle";
-            lblKVHeaderSubtitle.Size = new Size(62, 25);
+            lblKVHeaderSubtitle.Size = new Size(41, 15);
             lblKVHeaderSubtitle.TabIndex = 1;
             lblKVHeaderSubtitle.Text = "Kunde";
             // 
@@ -149,7 +149,7 @@ namespace ContactManager
             lblKVHeaderTitle.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblKVHeaderTitle.Location = new Point(11, 8);
             lblKVHeaderTitle.Name = "lblKVHeaderTitle";
-            lblKVHeaderTitle.Size = new Size(374, 28);
+            lblKVHeaderTitle.Size = new Size(242, 17);
             lblKVHeaderTitle.TabIndex = 0;
             lblKVHeaderTitle.Text = "Kundenverwaltung - Notizen & Historie";
             // 
@@ -165,18 +165,26 @@ namespace ContactManager
             // 
             // tabKVNotizen
             // 
-            tabKVNotizen.Controls.Add(this.cmbKVMitarbeiter);
+            tabKVNotizen.Controls.Add(this.cmbKVMitarbeiterAuswahl);
             tabKVNotizen.Controls.Add(dgvKVNotizen);
             tabKVNotizen.Controls.Add(btnKVNotizHinzufuegen);
             tabKVNotizen.Controls.Add(txtKVNeueNotiz);
             tabKVNotizen.Controls.Add(lblKVNeueNotiz);
-            tabKVNotizen.Location = new Point(4, 34);
+            tabKVNotizen.Location = new Point(4, 24);
             tabKVNotizen.Name = "tabKVNotizen";
             tabKVNotizen.Padding = new Padding(15);
-            tabKVNotizen.Size = new Size(742, 443);
+            tabKVNotizen.Size = new Size(742, 453);
             tabKVNotizen.TabIndex = 0;
             tabKVNotizen.Text = "Notizen";
             tabKVNotizen.UseVisualStyleBackColor = true;
+            // 
+            // cmbKVMitarbeiterAuswahl
+            // 
+            this.cmbKVMitarbeiterAuswahl.FormattingEnabled = true;
+            this.cmbKVMitarbeiterAuswahl.Location = new Point(614, 85);
+            this.cmbKVMitarbeiterAuswahl.Name = "cmbKVMitarbeiterAuswahl";
+            this.cmbKVMitarbeiterAuswahl.Size = new Size(110, 23);
+            this.cmbKVMitarbeiterAuswahl.TabIndex = 4;
             // 
             // dgvKVNotizen
             // 
@@ -218,17 +226,17 @@ namespace ContactManager
             lblKVNeueNotiz.AutoSize = true;
             lblKVNeueNotiz.Location = new Point(18, 15);
             lblKVNeueNotiz.Name = "lblKVNeueNotiz";
-            lblKVNeueNotiz.Size = new Size(104, 25);
+            lblKVNeueNotiz.Size = new Size(69, 15);
             lblKVNeueNotiz.TabIndex = 0;
             lblKVNeueNotiz.Text = "Neue Notiz:";
             // 
             // tabKVMutationen
             // 
             tabKVMutationen.Controls.Add(dgvKVMutationen);
-            tabKVMutationen.Location = new Point(4, 34);
+            tabKVMutationen.Location = new Point(4, 24);
             tabKVMutationen.Name = "tabKVMutationen";
             tabKVMutationen.Padding = new Padding(15);
-            tabKVMutationen.Size = new Size(742, 443);
+            tabKVMutationen.Size = new Size(742, 453);
             tabKVMutationen.TabIndex = 1;
             tabKVMutationen.Text = "Mutationshistorie";
             tabKVMutationen.UseVisualStyleBackColor = true;
@@ -265,14 +273,6 @@ namespace ContactManager
             btnKVSchliessen.Text = "Schliessen";
             btnKVSchliessen.UseVisualStyleBackColor = true;
             btnKVSchliessen.Click += btnKVSchliessen_Click;
-            // 
-            // cmbKVMitarbeiter
-            // 
-            this.cmbKVMitarbeiter.FormattingEnabled = true;
-            this.cmbKVMitarbeiter.Location = new Point(614, 85);
-            this.cmbKVMitarbeiter.Name = "cmbKVMitarbeiter";
-            this.cmbKVMitarbeiter.Size = new Size(110, 33);
-            this.cmbKVMitarbeiter.TabIndex = 4;
             // 
             // KundenVerwaltungForm
             // 
