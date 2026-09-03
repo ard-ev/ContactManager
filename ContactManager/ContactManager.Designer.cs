@@ -187,6 +187,7 @@
             // 
             // dgvEmployees
             // 
+            dgvEmployees.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;  
             dgvEmployees.AllowUserToAddRows = false;
             dgvEmployees.AllowUserToDeleteRows = false;
             dgvEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -306,7 +307,8 @@
             pnlCustomers.TabIndex = 3;
             // 
             // dgvCustomers
-            // 
+            //
+            dgvCustomers.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;  
             dgvCustomers.AllowUserToAddRows = false;
             dgvCustomers.AllowUserToDeleteRows = false;
             dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -588,7 +590,7 @@
             ClientSize = new Size(1570, 1062);
             Controls.Add(pnlHeader);
             Controls.Add(pnlContent);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.Sizable;
             Margin = new Padding(4, 3, 4, 3);
             Name = "ContactManager";
             Text = "Contact Manager";
