@@ -357,5 +357,10 @@ namespace ContactManager
             _mitarbeiterVerwaltung.Speichern();
             MitarbeiterAnzeigen();
         }
+
+        private void pnlEmployee_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
