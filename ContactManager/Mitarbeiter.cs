@@ -554,6 +554,8 @@ namespace ContactManager
             // MitarbeiterForm
             // 
             ClientSize = new Size(601, 631);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Controls.Add(panel1);
             Controls.Add(pnlMitarbeiterContent);
             Controls.Add(pnlMitarbeiterFooter);

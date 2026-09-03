@@ -198,6 +198,7 @@
             Controls.Add(pnlMVFooter);
             Controls.Add(pnlMVHeader);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "MitarbeiterVerwaltungForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Mitarbeiterverwaltung";

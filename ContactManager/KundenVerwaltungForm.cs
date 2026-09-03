@@ -281,6 +281,7 @@ namespace ContactManager
             Controls.Add(pnlKVFooter);
             Controls.Add(pnlKVHeader);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "KundenVerwaltungForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Kundenverwaltung";

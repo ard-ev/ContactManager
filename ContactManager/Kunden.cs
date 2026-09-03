@@ -594,6 +594,7 @@ namespace ContactManager
             Controls.Add(pnlKundenFooter);
             Controls.Add(pnlKundenHeader);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Name = "KundenForm";
             Text = "Kunden";
             pnlKundenHeader.ResumeLayout(false);

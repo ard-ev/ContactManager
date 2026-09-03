@@ -92,7 +92,6 @@
             pnlHeader.Controls.Add(btnEmployee);
             pnlHeader.Controls.Add(btnCustomer);
             pnlHeader.Controls.Add(btnDashboard);
-            pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Margin = new Padding(4, 5, 4, 5);
             pnlHeader.Name = "pnlHeader";
@@ -154,8 +153,7 @@
             btnDashboard.Click += btnDashboard_Click;
             // 
             // pnlContent
-            // 
-            pnlContent.Dock = DockStyle.Fill;
+            //
             pnlContent.Controls.Add(pnlEmployee);
             pnlContent.Controls.Add(pnlCustomers);
             pnlContent.Controls.Add(pnlDashboard);
@@ -166,8 +164,7 @@
             pnlContent.TabIndex = 1;
             // 
             // pnlEmployee
-            // 
-            pnlEmployee.Dock = DockStyle.Fill;
+            //
             pnlEmployee.Controls.Add(dgvEmployees);
             pnlEmployee.Controls.Add(btnEmployeeDelete);
             pnlEmployee.Controls.Add(btnEmployeeEdit);
@@ -177,7 +174,6 @@
             pnlEmployee.Controls.Add(lblEmployeeSearch);
             pnlEmployee.Controls.Add(lblEmployeeSubtitle);
             pnlEmployee.Controls.Add(lblEmployeeTitle);
-            pnlEmployee.Dock = DockStyle.Fill;
             pnlEmployee.Location = new Point(0, 0);
             pnlEmployee.Margin = new Padding(4, 3, 4, 3);
             pnlEmployee.Name = "pnlEmployee";
@@ -290,7 +286,6 @@
             // 
             // pnlCustomers
             // 
-            pnlCustomers.Dock = DockStyle.Fill;
             pnlCustomers.Controls.Add(dgvCustomers);
             pnlCustomers.Controls.Add(btnCustomerDel);
             pnlCustomers.Controls.Add(btnCustomerEdit);
@@ -409,7 +404,6 @@
             // 
             // pnlDashboard
             // 
-            pnlDashboard.Dock = DockStyle.Fill;
             pnlDashboard.Controls.Add(lblRecentCustomers);
             pnlDashboard.Controls.Add(dgvRecentMutations);
             pnlDashboard.Controls.Add(dgvRecentContacts);
@@ -437,6 +431,7 @@
             // 
             // dgvRecentMutations
             // 
+            dgvRecentMutations.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvRecentMutations.AllowUserToAddRows = false;
             dgvRecentMutations.AllowUserToDeleteRows = false;
             dgvRecentMutations.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -451,6 +446,7 @@
             // 
             // dgvRecentContacts
             // 
+            dgvRecentContacts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvRecentContacts.AllowUserToAddRows = false;
             dgvRecentContacts.AllowUserToDeleteRows = false;
             dgvRecentContacts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -590,7 +586,8 @@
             ClientSize = new Size(1570, 1062);
             Controls.Add(pnlHeader);
             Controls.Add(pnlContent);
-            FormBorderStyle = FormBorderStyle.Sizable;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
             Margin = new Padding(4, 3, 4, 3);
             Name = "ContactManager";
             Text = "Contact Manager";
