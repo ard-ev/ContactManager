@@ -292,7 +292,6 @@
             // 
             dgvEmployees.AllowUserToAddRows = false;
             dgvEmployees.AllowUserToDeleteRows = false;
-            dgvEmployees.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvEmployees.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvEmployees.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEmployees.Location = new Point(45, 107);
@@ -353,10 +352,10 @@
             // 
             // txtEmployeeSearch
             // 
-            txtEmployeeSearch.Location = new Point(237, 110);
+            txtEmployeeSearch.Location = new Point(166, 66);
             txtEmployeeSearch.Margin = new Padding(4, 3, 4, 3);
             txtEmployeeSearch.Name = "txtEmployeeSearch";
-            txtEmployeeSearch.Size = new Size(257, 23);
+            txtEmployeeSearch.Size = new Size(181, 23);
             txtEmployeeSearch.TabIndex = 3;
             // 
             // lblEmployeeSearch

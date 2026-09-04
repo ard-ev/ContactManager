@@ -63,6 +63,11 @@ namespace ContactManager
             cmbMitarbeiterAbteilung.Text = mitarbeiter.Abteilung;
             txtMitarbeiterRolle.Text = mitarbeiter.Rolle;
             cmbMitarbeiterKadder.SelectedValue = mitarbeiter.Kaderstufe;
+            ckbMitarbeiterAusbildung.Checked = mitarbeiter.Lehrjahre > 0;
+            lblMitarbeiterLehrjahr.Visible = mitarbeiter.Lehrjahre > 0;
+            cmbMitarbeiterLehrjahr.Visible = mitarbeiter.Lehrjahre > 0;
+            if (mitarbeiter.AktuellesLehrjahr.HasValue)
+                cmbMitarbeiterLehrjahr.SelectedIndex = mitarbeiter.AktuellesLehrjahr.Value - 1;
             txtMitarbeiterAHV.Text = mitarbeiter.AhvNummer;
             txtMitarbeiterAdresse.Text = mitarbeiter.Adresse;
             txtMitarbeiterPLZ.Text = mitarbeiter.Plz;
@@ -720,6 +725,8 @@ namespace ContactManager
                 _bearbeiteterMitarbeiter.Abteilung = cmbMitarbeiterAbteilung.Text;
                 _bearbeiteterMitarbeiter.Rolle = txtMitarbeiterRolle.Text;
                 _bearbeiteterMitarbeiter.Kaderstufe = kaderWert;
+                _bearbeiteterMitarbeiter.Lehrjahre = ckbMitarbeiterAusbildung.Checked ? cmbMitarbeiterLehrjahr.SelectedIndex + 1 : 0;
+                _bearbeiteterMitarbeiter.AktuellesLehrjahr = ckbMitarbeiterAusbildung.Checked ? cmbMitarbeiterLehrjahr.SelectedIndex + 1 : (int?)null;
                 _bearbeiteterMitarbeiter.AhvNummer = txtMitarbeiterAHV.Text;
                 _bearbeiteterMitarbeiter.Adresse = txtMitarbeiterAdresse.Text;
                 _bearbeiteterMitarbeiter.Plz = txtMitarbeiterPLZ.Text;
@@ -748,6 +755,8 @@ namespace ContactManager
                     Abteilung = cmbMitarbeiterAbteilung.Text,
                     Rolle = txtMitarbeiterRolle.Text,
                     Kaderstufe = kaderWert,
+                    Lehrjahre = ckbMitarbeiterAusbildung.Checked ? cmbMitarbeiterLehrjahr.SelectedIndex + 1 : 0,
+                    AktuellesLehrjahr = ckbMitarbeiterAusbildung.Checked ? cmbMitarbeiterLehrjahr.SelectedIndex + 1 : (int?)null,
                     AhvNummer = txtMitarbeiterAHV.Text,
                     Adresse = txtMitarbeiterAdresse.Text,
                     Plz = txtMitarbeiterPLZ.Text,
@@ -780,6 +789,7 @@ namespace ContactManager
             cmbMitarbeiterAbteilung.SelectedIndex = -1;
             txtMitarbeiterRolle.Clear();
             cmbMitarbeiterKadder.SelectedValue = Enums.Kaderstufe.Keine;
+            ckbMitarbeiterAusbildung.Checked = false;
             txtMitarbeiterAHV.Text = "756.";
             txtMitarbeiterAdresse.Clear();
             txtMitarbeiterPLZ.Clear();
@@ -836,6 +846,7 @@ namespace ContactManager
             Vergleichen("Abteilung", _originalZustand.Abteilung, cmbMitarbeiterAbteilung.Text);
             Vergleichen("Rolle", _originalZustand.Rolle, txtMitarbeiterRolle.Text);
             Vergleichen("Kaderstufe", _originalZustand.Kaderstufe.ToString(), kaderWert.ToString());
+            Vergleichen("Lehrjahre", _originalZustand.Lehrjahre.ToString(), (ckbMitarbeiterAusbildung.Checked ? cmbMitarbeiterLehrjahr.SelectedIndex + 1 : 0).ToString());
             Vergleichen("AHV-Nummer", _originalZustand.AhvNummer, txtMitarbeiterAHV.Text);
             Vergleichen("Adresse", _originalZustand.Adresse, txtMitarbeiterAdresse.Text);
             Vergleichen("PLZ", _originalZustand.Plz, txtMitarbeiterPLZ.Text);
@@ -864,6 +875,7 @@ namespace ContactManager
                 _originalZustand.Abteilung != cmbMitarbeiterAbteilung.Text ||
                 _originalZustand.Rolle != txtMitarbeiterRolle.Text ||
                 _originalZustand.Kaderstufe != kaderWert ||
+                _originalZustand.Lehrjahre != (ckbMitarbeiterAusbildung.Checked ? cmbMitarbeiterLehrjahr.SelectedIndex + 1 : 0) ||
                 _originalZustand.AhvNummer != txtMitarbeiterAHV.Text ||
                 _originalZustand.Adresse != txtMitarbeiterAdresse.Text ||
                 _originalZustand.Plz != txtMitarbeiterPLZ.Text ||
